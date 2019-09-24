@@ -70,7 +70,7 @@
                     <tbody>
                         {{-- {{-- @foreach($leads as $row) --}}
                         <tr>
-                            <td><a href="#">id</a></td>
+                            <td><a href="{{ route('agentLead') }}">id</a></td>
                             <td>'fName'</td>
                             <td>'lName'</td>
                             <td>'phone1'</td>

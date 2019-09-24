@@ -18,9 +18,9 @@
             <div class="sidebar-sticky">
               <ul class="nav flex-column">
                 <li class="nav-item">
-                  <a class="nav-link active" href="#">
-                    <span data-feather="{{ route('dashboard') }}"></span>
-                    Dashboard <span class="sr-only">(current)</span>
+                  <a class="nav-link active" href="{{ route('dashboard') }}">
+                    <span data-feather="grid"></span>
+                    Dashboard
                   </a>
                 </li>
                 <li class="nav-item">

@@ -32,11 +32,11 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 mx-auto">
                     <label for="dob">Date of Birth</label>
                     <input class="form-control" type="date" name="dob" id="dob">
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-sm-4 mx-auto">
                     <label for="lang">Preferred Language</label>
                     <select name="lang" id="lang" class="form-control">
                         <option value="1">English</option>
@@ -44,6 +44,10 @@
                         <option value="3">Creole</option>
                         <option value="4">Portuguese</option>
                     </select>
+                </div>
+                <div class="form-group col-sm-4 mx-auto">
+                    <label for="careID">Medicare ID#</label>
+                    <input class="form-control" type="text" name="careID" id="careID">
                 </div>
             </div>
             <div class="form-group">
@@ -136,63 +140,76 @@
                 </div>
             </div>
 
-            <hr>
+        <hr>
 
             <div class="row">
                 <div class="col-6">
-                    <div class="form-row">
+                    <div class="for-row">
                         <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="agreeOrDisagree" id="agree" value="1" checked>
-                                <label class="form-check-label" for="agree">
-                                    Agree
-                                </label>
-                            </div>
-                            <div>
-                                <p>I spoke to the patient and expressly asked if I have their permission to provide their name and phone number to an agent that will call them to discuss benefit options and patient confirmed.</p>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="agreeOrDisagree" id="disagree" value="2">
-                                <label class="form-check-label" for="disagree">
-                                    Do NOT Agree
-                                </label>
-                            </div>
-                            <div>
-                                <p>Patient opted out of receiving a call regarding health plan options.</p>
-                            </div>
+                            <label for="healthPlan">Health Plan</label>
+                            <select name="healthPlan" id="healthPlan" class="form-control">
+                                <option value="1">Simply</option>
+                                <option value="2">CarePlus</option>
+                                <option value="3">Medica</option>
+                                <option value="4">PCP</option>
+                            </select>
                         </div>
                     </div>
                 </div>
                 <div class="col-6">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="planType">Plan Type</label>
-                            <select name="planType" class="custom-select">
-                                <option value="0" default>Other - Not Humana</option>
-                                <option value="1">Humana Commercial HMO/PPO</option>
-                                <option value="2">Humana Medicare HMO/PPO</option>
-                                <option value="3">Humana Medicaid</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pcpName">PCP Name</label>
-                            <select name="pcpName" class="custom-select">
-                                <option value="null">SELECT...</option>
-                                <option value="0"><!-- select * from providers 'list options from providers table' --></option>
-                            </select>
-                        </div>
+                    <div class="form-group mx-auto">
+                        <label for="startDate">Start Date</label>
+                        <input class="form-control" type="date" name="startDate" id="startDate">
                     </div>
                 </div>
             </div>
-            <div class="form-group">
+            <div class="row">
+                <div class="col">
+                    <label for="pcp">Primary Care Provider</label>
+                    <select name="pcp" id="pcp" class="form-control">
+                        <option selected>Choose...</option>
+                        <option value="1">ANNA MARIA ASUNCION, MD</option>
+                        <option value="2">VIVIAN BIRNBAUM, MD</option>
+                        <option value="3">SABRINA CURRY , ARNP</option>
+                        <option value="4">DORIS DANKO, MD</option>
+                        <option value="5">NATASSJA GANGERI, DO</option>
+                        <option value="6">ELISA GEORGE, MD</option>
+                        <option value="7">ROBERT GOLDSZER, MD</option>
+                        <option value="8">ANDREW HARRIS, DO</option>
+                        <option value="9">LARISSA HERNANDEZ, MD</option>
+                        <option value="10">GRACE IMSON, MD</option>
+                        <option value="11">ELIZABETH KURY-PEREZ, MD</option>
+                        <option value="12">JOSE LAMPREABE, MD</option>
+                        <option value="13">JANELLA LEON, DO</option>
+                        <option value="14">CORNEL LUPU, MD</option>
+                        <option value="15">CLIFFORD MEDINA, MD</option>
+                        <option value="16">GEORGI MILLER, MD</option>
+                        <option value="17">CRYSTAL REGO, DO</option>
+                        <option value="18">JAY REINBERG, MD</option>
+                        <option value="19">SYLVANA SAINTICHE, ARNP</option>
+                        <option value="20">CRAIG SILVER, MD</option>
+                        <option value="21">ANDRE TAMAYO-CHELALA, DO</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group mt-4">
                 <label for="notes">Notes</label>
                 <textarea name="notes" class="form-control" id="notes" rows="3"></textarea>
             </div>
-            <hr>
-            <button type="reset" class="btn btn-danger float-right m-1">Decline</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
-            <button type="submit" class="btn btn-success float-right m-1">Add</button> <!-- must correspond with corrent selection above -->
+        <hr>
+            <div class="row">
+                <div class="col-6"></div>
+                <div class="col-6">
+                    <label for="uploadDocs">Upload Files</label>
+                    <input type="file" name="uploadDocs" class="form-control-file" id="uploadDocs">
+                </div>
+            </div>
+        <hr>
+            <div class="btn-group d-flex" role="group">
+                <button type="reset" class="btn btn-lg btn-danger m-1">Dismiss</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
+                <button type="submit" class="btn btn-lg btn-success m-1">Add</button> <!-- must correspond with corrent selection above -->
+            </div>
+
         </form>
     </div>
 

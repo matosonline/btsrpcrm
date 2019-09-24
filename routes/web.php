@@ -25,6 +25,12 @@ Route::post('/newLead', 'LeadController@store')->name('lead.store');
 
 Route::get('/leads', 'LeadController@index')->name('leads.index');
 
+
+Route::get('/agentLead', function () {
+    return view('leads.agentLead');
+})->name('agentLead');
+
+
 Route::get('/newCenter', function () {
     return view('centers.newCenter');
 })->name('newCenter');

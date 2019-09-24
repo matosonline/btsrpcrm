@@ -25,6 +25,7 @@ class CreateLeadsTable extends Migration
             $table->string('email');
             $table->string('phone1');
             $table->date('dob');
+            $table->integer('lang');
             $table->boolean('agreeOrDisagree');
             $table->integer('planType')->nullable();
             $table->string('pcpName')->nullable();

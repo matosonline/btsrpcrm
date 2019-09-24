@@ -32,9 +32,18 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group">
+                <div class="form-group col-sm-4">
                     <label for="dob">Date of Birth</label>
                     <input class="form-control" type="date" name="dob" id="dob">
+                </div>
+                <div class="form-group col-sm-4">
+                    <label for="lang">Preferred Language</label>
+                    <select name="lang" id="lang" class="form-control">
+                        <option value="1">English</option>
+                        <option value="2">Spanish</option>
+                        <option value="3">Creole</option>
+                        <option value="4">Portuguese</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">

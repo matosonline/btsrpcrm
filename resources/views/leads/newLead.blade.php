@@ -178,9 +178,30 @@
                         </div>
                         <div class="form-group">
                             <label for="pcpName">PCP Name</label>
-                            <select name="pcpName" class="custom-select">
-                                <option value="null">SELECT...</option>
-                                <option value="0"><!-- select * from providers 'list options from providers table' --></option>
+                            <select name="pcpName" id="pcpName" class="form-control">
+                                <option value="0">Choose...</option>
+                                <option value="1">ANNA MARIA ASUNCION, MD</option>
+                                <option value="2">VIVIAN BIRNBAUM, MD</option>
+                                <option value="3">SABRINA CURRY , ARNP</option>
+                                <option value="4">DORIS DANKO, MD</option>
+                                <option value="5">NATASSJA GANGERI, DO</option>
+                                <option value="6">ELISA GEORGE, MD</option>
+                                <option value="7">ROBERT GOLDSZER, MD</option>
+                                <option value="8">ANDREW HARRIS, DO</option>
+                                <option value="9">LARISSA HERNANDEZ, MD</option>
+                                <option value="10">GRACE IMSON, MD</option>
+                                <option value="11">ELIZABETH KURY-PEREZ, MD</option>
+                                <option value="12">JOSE LAMPREABE, MD</option>
+                                <option value="13">JANELLA LEON, DO</option>
+                                <option value="14">CORNEL LUPU, MD</option>
+                                <option value="15">CLIFFORD MEDINA, MD</option>
+                                <option value="16">GEORGI MILLER, MD</option>
+                                <option value="17">CRYSTAL REGO, DO</option>
+                                <option value="18">JAY REINBERG, MD</option>
+                                <option value="19">SYLVANA SAINTICHE, ARNP</option>
+                                <option value="20">CRAIG SILVER, MD</option>
+                                <option value="21">ANDRE TAMAYO-CHELALA, DO</option>
+                                <option value="22">Other..See Notes...</option>
                             </select>
                         </div>
                     </div>

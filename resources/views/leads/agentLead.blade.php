@@ -148,6 +148,7 @@
                         <div class="form-group">
                             <label for="healthPlan">Health Plan</label>
                             <select name="healthPlan" id="healthPlan" class="form-control">
+                                <option value="0">Choose...</option>
                                 <option value="1">Simply</option>
                                 <option value="2">CarePlus</option>
                                 <option value="3">Medica</option>
@@ -198,7 +199,15 @@
             </div>
         <hr>
             <div class="row">
-                <div class="col-6"></div>
+                <div class="col-6">
+                    <label for="lStatus">Lead Status</label>
+                    <select name="lStatus" id="lStatus" class="form-control">
+                        <option value="0">New</option>
+                        <option value="1">Pending</option>
+                        <option value="2">Closed <span class="test-success text-italic">Success</span></option>
+                        <option value="3">Lost <span class="test-danger text-italic">Failure</span></option>
+                    </select>
+                </div>
                 <div class="col-6">
                     <label for="uploadDocs">Upload Files</label>
                     <input type="file" name="uploadDocs" class="form-control-file" id="uploadDocs">

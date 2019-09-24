@@ -57,6 +57,7 @@
                     <label for="spec">Primary Specialty</label>
                     <input class="form-control" type="text" name="spec" id="spec">
                 </div>
+
                 <div class="form-group col-md-6">
                     <label for="lang">Spoken Languages <span class="text-nuted text-italic">(ctl+click Select Multiple)</span> </label>
                     <select multiple name="lang" id="lang" class="form-control">

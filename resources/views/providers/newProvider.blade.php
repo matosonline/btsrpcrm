@@ -58,6 +58,13 @@
                     <input class="form-control" type="text" name="spec" id="spec">
                 </div>
                 <div class="form-group col-md-6">
+                    <label for="lang">Spoken Languages <span class="text-nuted text-italic">(ctl+click Select Multiple)</span> </label>
+                    <select multiple name="lang" id="lang" class="form-control">
+                        <option value="1" selected>English</option>
+                        <option value="2">Spanish</option>
+                        <option value="3">Creole</option>
+                        <option value="4">Portuguese</option>
+                    </select>
                 </div>
             </div>
             <div class="form-group">

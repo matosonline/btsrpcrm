@@ -42,7 +42,7 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link" href="#">
+                  <a class="nav-link text-muted disabled" href="#">
                     <span data-feather="clipboard"></span>
                     Health Plans
                   </a>
@@ -79,7 +79,7 @@
               <hr>
               <a class="nav-link" href="#">
                     <span data-feather="settings"></span>
-                    admin
+                    Admin
                   </a>
             </div>
           </nav>

@@ -7,42 +7,45 @@
 
             <!-- Leaderboard -->
             <div class="row mb-5">
-                <div class="col-sm-3 mx-auto">
+                <div class="col-sm-2 mx-auto">
                     <div class="card">
                         <div class="card-header">
-                            header
+                            Total Leads
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">title</h5>
-                            <p class="card-text text-muted">subtext.</p>
+                            <h1 class="card-title text-center">##</h1>
+                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 mx-auto">
+
+                <div class="col-sm-2 mx-auto">
                     <div class="card">
                         <div class="card-header">
-                            header
+                            New Leads
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">title</h5>
-                            <p class="card-text text-muted">subtext.</p>
+                            <h1 class="card-title text-center">##</h1>
+                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-3 mx-auto">
+
+                <div class="col-sm-2 mx-auto">
                     <div class="card">
                         <div class="card-header">
-                            header
+                            Total Opted Out
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">title</h5>
-                            <p class="card-text text-muted">subtext.</p>
+                            <h1 class="card-title text-center">##</h1>
+                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
                 </div>
+
             </div>
 
             <hr>

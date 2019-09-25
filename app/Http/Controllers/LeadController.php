@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Doctors;
+use App\DoctorsAgent;
 use App\Lead;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use phpseclib\System\SSH\Agent;
 
 class LeadController extends Controller
 {
@@ -12,11 +18,18 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
     public function index()
     {
-        $leads = lead::all()->toArray();
+        if(Auth::user()->hasRole('agent-user')){
+            $leads = Lead::where('agent',Auth::user()->id)->get()->toArray();
+        }else{
+            $leads = Lead::all()->toArray();
+        }
         return view('leads.index', compact('leads', 'dashboard'));
-
     }
 
     /**
@@ -26,7 +39,8 @@ class LeadController extends Controller
      */
     public function create()
     {
-        return view('leads\newLead');
+        $doctors = Doctors::get();
+        return view('leads\newLead', compact('doctors'));
     }
 
     /**
@@ -42,7 +56,17 @@ class LeadController extends Controller
         // dd($request->all());
         $data = $request->all();
 
-        Lead::create($data);
+        $last_id  = Lead::create($data);
+
+        $lead_details = Lead::find($last_id->id);
+
+        if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
+            $lead_details->lStatus = 1;
+            $lead_details->save();
+        } else if ($lead_details->agreeOrDisagree == 2) {
+            $lead_details->lStatus = 4;
+            $lead_details->save();
+        }
 
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
@@ -91,5 +115,11 @@ class LeadController extends Controller
     public function destroy(Lead $lead)
     {
         //
+    }
+    public function get_agents(Request $request)
+    {
+        $agents = DoctorsAgent::where('doctor_id', $request->doctor_id)->pluck('agent_id');
+        $agent_details = User::whereIn('id', $agents)->get();
+        echo view('leads.doctor_agent', compact('agent_details'))->render();
     }
 }

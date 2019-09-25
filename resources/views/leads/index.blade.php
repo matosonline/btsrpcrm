@@ -6,13 +6,15 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                 <h5>Leads</h5>
                 <div class="btn-toolbar mb-2 mb-md-0">
+                   @if(Auth::user()->hasRole('msmc-manager'))
                     <div class="btn-group mr-2">
-                    <a href="{{ route('lead.view') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
+                    <a href="{{ url('/newLead') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
                     </div>
+                    @endif
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped" id="lead">
                     <thead>
                         <tr>
                             <th>Lead</th>
@@ -27,7 +29,7 @@
                         <tr>
                             <td>{{ $row['id'] }}</td>
                             <td>{{ $row['fName'] }}</td>
-                            <td>{{ $row['fName'] }}</td>
+                            <td>{{ $row['lName'] }}</td>
                             <td>{{ $row['phone1'] }}</td>
                             <td>{{ $row['dob'] }}</td>
                         </tr>
@@ -36,4 +38,16 @@
                 </table>
             </div>
 
+@endsection
+@section('pagescript')
+<script>
+    $('#main_header').html("Leads");
+</script>
+
+<script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
+<script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
+<script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{url('/js/lead.js')}}"></script>
 @endsection

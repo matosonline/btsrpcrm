@@ -8,5 +8,7 @@
             @include('layout.partials.header')
             @yield('content')
             @include('layout.partials.footer-scripts')
+            @yield('pagecss')
+            @yield('pagescript')
         </body>
     </html>

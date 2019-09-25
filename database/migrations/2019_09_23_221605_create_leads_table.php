@@ -30,7 +30,6 @@ class CreateLeadsTable extends Migration
             $table->integer('planType')->nullable();
             $table->string('pcpName')->nullable();
             $table->longText('notes')->nullable();
-            $table->integer('lang');
             $table->string('careID')->nullable();
             $table->integer('healthPlan');
             $table->date('startDate')->nullable();

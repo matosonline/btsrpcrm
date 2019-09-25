@@ -19,7 +19,7 @@
 
     <div class="card col-8 mx-auto p-3">
 
-        <form action="{{ route('lead.store') }}" method="POST">
+        <form action="{{ route('lead.store') }}" method="POST" id="lead_form" name="lead_form">
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-sm-4">
                     <label for="dob">Date of Birth</label>
-                    <input class="form-control" type="date" name="dob" id="dob">
+                    <input class="form-control" type="text" name="dob" id="dob">
                 </div>
                 <div class="form-group col-sm-4">
                     <label for="lang">Preferred Language</label>
@@ -62,7 +62,7 @@
                 <div class="form-group col-md-4">
                     <label for="inputState">State</label>
                     <select name="inputState" id="inputState" class="form-control">
-                        <option selected>Choose...</option>
+                        <option selected value="">Choose...</option>
                         <option value="1">AL</option>
                         <option value="2">AK</option>
                         <option value="3">AZ</option>
@@ -179,31 +179,19 @@
                         <div class="form-group">
                             <label for="pcpName">PCP Name</label>
                             <select name="pcpName" id="pcpName" class="form-control">
-                                <option value="0">Choose...</option>
-                                <option value="1">ANNA MARIA ASUNCION, MD</option>
-                                <option value="2">VIVIAN BIRNBAUM, MD</option>
-                                <option value="3">SABRINA CURRY , ARNP</option>
-                                <option value="4">DORIS DANKO, MD</option>
-                                <option value="5">NATASSJA GANGERI, DO</option>
-                                <option value="6">ELISA GEORGE, MD</option>
-                                <option value="7">ROBERT GOLDSZER, MD</option>
-                                <option value="8">ANDREW HARRIS, DO</option>
-                                <option value="9">LARISSA HERNANDEZ, MD</option>
-                                <option value="10">GRACE IMSON, MD</option>
-                                <option value="11">ELIZABETH KURY-PEREZ, MD</option>
-                                <option value="12">JOSE LAMPREABE, MD</option>
-                                <option value="13">JANELLA LEON, DO</option>
-                                <option value="14">CORNEL LUPU, MD</option>
-                                <option value="15">CLIFFORD MEDINA, MD</option>
-                                <option value="16">GEORGI MILLER, MD</option>
-                                <option value="17">CRYSTAL REGO, DO</option>
-                                <option value="18">JAY REINBERG, MD</option>
-                                <option value="19">SYLVANA SAINTICHE, ARNP</option>
-                                <option value="20">CRAIG SILVER, MD</option>
-                                <option value="21">ANDRE TAMAYO-CHELALA, DO</option>
-                                <option value="22">Other..See Notes...</option>
+                                <option value="">Choose...</option>
+                                @foreach($doctors as $doc)
+                                <option value="{{$doc->id}}">{{$doc->first_name." ".$doc->last_name}}, {{$doc->type}}</option>
+                                @endforeach
+                                <option value="{{count($doctors) + 1}}">Other..See Notes...</option>
                             </select>
                         </div>
+                        <div class="form-group">
+                                <label for="pcpName">Agent</label>
+                                <select name="agent" id="agent" class="form-control">
+                                    <option value="">Choose...</option>
+                                </select>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -220,5 +208,19 @@
     </div>
 
 @endsection
+@section('pagecss')
+<link rel="stylesheet" href="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
+@endsection
+@section('pagescript')
+<script>
+    $('#main_header').html('Add Lead');
+</script>
 
+<script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
+<script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
+<script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{url('/js/lead.js')}}"></script>
+@endsection
 <b></b>

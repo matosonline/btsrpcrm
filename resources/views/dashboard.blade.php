@@ -53,11 +53,13 @@
             <!-- Table -->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                 <h5>My Leads</h5>
+                @if(!Auth::user()->hasRole('agent-user')){
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
-                    <a href="{{ route('lead.view') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
+                    <a href="{{ url('/newLead') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
                     </div>
                 </div>
+                @endif
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -71,15 +73,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {{-- {{-- @foreach($leads as $row) --}}
-                        <tr>
-                            <td><a href="{{ route('agentLead') }}">id</a></td>
-                            <td>'fName'</td>
-                            <td>'lName'</td>
-                            <td>'phone1'</td>
-                            <td>'dob'</td>
-                        </tr>
-                        {{-- @endforeach --}}
+                        @foreach($leads as $row)
+                            
+                            <tr>
+                                    <td>{{ $row['id'] }}</td>
+                                    <td>{{ $row['fName'] }}</td>
+                                    <td>{{ $row['lName'] }}</td>
+                                    <td>{{ $row['phone1'] }}</td>
+                                    <td>{{ $row['dob'] }}</td>
+                            </tr>
+                        
+                        @endforeach
                     </tbody>
                 </table>
             </div>

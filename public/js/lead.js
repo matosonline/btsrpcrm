@@ -145,10 +145,14 @@ $(function () {
                 required: true,
             },
             healthPlan:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             startDate:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputZip:{
                 required: true,
@@ -157,7 +161,9 @@ $(function () {
                 required: true,
             },
             pcpName:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
         },
         messages: {

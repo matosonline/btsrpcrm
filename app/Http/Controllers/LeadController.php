@@ -27,7 +27,7 @@ class LeadController extends Controller
     {
         if(Auth::user()->hasRole('agent-user')){
             $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-            $leads = Lead::whereIn('pcpName',$doctors)->get()->toArray();
+            $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->get()->toArray();
         }else{
             $leads = Lead::all()->toArray();
         }

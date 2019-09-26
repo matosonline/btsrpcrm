@@ -31,7 +31,7 @@ class LeadController extends Controller
         }else{
             $leads = Lead::all()->toArray();
         }
-        return view('leads.index', compact('leads', 'dashboard'));
+        return view('leads.index', compact('leads'));
     }
 
     /**
@@ -61,17 +61,24 @@ class LeadController extends Controller
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
-        $last_id  = Lead::create($data);
+        if(array_key_exists('id',$data)){
+            unset($data['_token']);
+            unset($data['agent_id']);
+            Lead::where('id',$data['id'])->update($data);
+        }else{
+            $last_id  = Lead::create($data);
 
-        $lead_details = Lead::find($last_id->id);
-
-        if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
-            $lead_details->lStatus = 1;
-            $lead_details->save();
-        } else if ($lead_details->agreeOrDisagree == 2) {
-            $lead_details->lStatus = 4;
-            $lead_details->save();
+            $lead_details = Lead::find($last_id->id);
+    
+            if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
+                $lead_details->lStatus = 1;
+                $lead_details->save();
+            } else if ($lead_details->agreeOrDisagree == 2) {
+                $lead_details->lStatus = 4;
+                $lead_details->save();
+            }
         }
+       
 
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
@@ -96,7 +103,7 @@ class LeadController extends Controller
      */
     public function edit(Request $request)
     {
-        $lead_details = Lead::find($request->id);
+        $lead_details = Lead::find($request->lead_id);
         $doctors = Doctors::get();
         $agents = RoleUser::where('role_id',2)->pluck('user_id');
         $agent_details = User::whereIn('id',$agents)->get();

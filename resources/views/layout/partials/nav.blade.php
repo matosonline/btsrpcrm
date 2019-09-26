@@ -24,7 +24,7 @@
         <ul class="nav flex-column">
           <li class="nav-item">
             <a class="nav-link active" href="{{url('/dashboard')}}">
-              <span data-feather="{{ route('dashboard') }}"></span>
+              <span data-feather="grid"></span>
               Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>

@@ -53,7 +53,7 @@
             <!-- Table -->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                 <h5>My Leads</h5>
-                @if(!Auth::user()->hasRole('agent-user')){
+                @if(!Auth::user()->hasRole('agent-user'))
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
                     <a href="{{ url('/newLead') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
@@ -74,7 +74,7 @@
                     </thead>
                     <tbody>
                         @foreach($leads as $row)
-                            
+
                             <tr>
                                     <td>{{ $row['id'] }}</td>
                                     <td>{{ $row['fName'] }}</td>
@@ -82,7 +82,7 @@
                                     <td>{{ $row['phone1'] }}</td>
                                     <td>{{ $row['dob'] }}</td>
                             </tr>
-                        
+
                         @endforeach
                     </tbody>
                 </table>

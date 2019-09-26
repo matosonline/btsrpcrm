@@ -61,17 +61,24 @@ class LeadController extends Controller
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
-        $last_id  = Lead::create($data);
+        if(array_key_exists('id',$data)){
+            unset($data['_token']);
+            unset($data['agent_id']);
+            Lead::where('id',$data['id'])->update($data);
+        }else{
+            $last_id  = Lead::create($data);
 
-        $lead_details = Lead::find($last_id->id);
-
-        if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
-            $lead_details->lStatus = 1;
-            $lead_details->save();
-        } else if ($lead_details->agreeOrDisagree == 2) {
-            $lead_details->lStatus = 4;
-            $lead_details->save();
+            $lead_details = Lead::find($last_id->id);
+    
+            if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
+                $lead_details->lStatus = 1;
+                $lead_details->save();
+            } else if ($lead_details->agreeOrDisagree == 2) {
+                $lead_details->lStatus = 4;
+                $lead_details->save();
+            }
         }
+       
 
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');

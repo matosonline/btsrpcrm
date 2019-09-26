@@ -1,5 +1,8 @@
 $(function () {
-   
+   if($('#id').val() != ''){
+       $('#pcpName').trigger('change');
+       $('#agent').val($('#agent_id').val());
+   }
     "use strict";
     /*$('#lead').DataTable({
         responsive: true,
@@ -220,6 +223,9 @@ $('#pcpName').on("change",function(){
         },
         success: function (result) {
             $('#agent').html(result);
+            if($('#id').val() != ''){
+                $('#agent').val($('#agent_id').val());
+            }
         }
     });
 })

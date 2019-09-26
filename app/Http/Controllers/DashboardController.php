@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Lead;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\DoctorsAgent;
 
 
 class DashboardController extends Controller
@@ -21,7 +22,8 @@ class DashboardController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('agent-user')){
-            $leads = Lead::where('agent',Auth::user()->id)->get()->toArray();
+            $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
+            $leads = Lead::whereIn('pcpName',$doctors)->get()->toArray();
         }else{
             $leads = Lead::all()->toArray();
         }

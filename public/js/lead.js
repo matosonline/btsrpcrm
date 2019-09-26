@@ -106,6 +106,98 @@ $(function () {
         },
 
     });
+    $('#lead_edit_form').validate({ // initialize the plugin
+        rules: {
+           
+            fName: {
+                required: true,
+
+            },
+            lName: {
+                required: true,
+
+            },
+            email: {
+                required: true,
+                valid_email: true,
+
+            },
+            dob: {
+                required: true,
+
+            },
+            careID:{
+                 required: true,
+            },
+            lang: {
+                required: true,
+            },
+            inputAddress:{
+                required: true,
+            },
+            inputCity:{
+                required: true,
+            },
+            inputState:{
+                required: true,
+            },
+            healthPlan:{
+                required: true,
+            },
+            startDate:{
+                required: true,
+            },
+            inputZip:{
+                required: true,
+            },
+            phone1:{
+                required: true,
+            },
+            pcpName:{
+                required: true,
+            },
+        },
+        messages: {
+            fName: "Please enter your firstname",
+            lName: "Please enter your lastname",
+            email: {
+                required: "Please enter your email",
+                valid_email: "Please enter a valid email address",
+            },
+            dob: {
+                required: "Please select Date of Birth",
+                
+            },
+            
+            lang : "Please select Language",
+            careID:"Please enter medicare id",
+            inputAddress:{
+                required: "Please enter address",
+            },
+            inputCity:{
+                required: "Please enter city",
+            },
+            inputState:{
+                required: "Please select state",
+            },
+            inputZip:{
+                required: "Please enter zipcode",
+            },
+            healthPlan:{
+                required: "Please select helthplan",
+            },
+            startDate:{
+                required: "Please select start date",
+            },
+            phone1:{
+                required: "Please enter Phone Number",
+            },
+            pcpName:{
+                required: "Please select pcpName",
+            },
+        },
+
+    });
     $("#phone1,#inputZip").on("keypress keyup blur", function (e) {
         var regex = new RegExp(/^(\?\+?[0-9]\?)?[0-9_\-+ ]*$/);
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);

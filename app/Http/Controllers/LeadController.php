@@ -31,7 +31,7 @@ class LeadController extends Controller
         }else{
             $leads = Lead::all()->toArray();
         }
-        return view('leads.index', compact('leads', 'dashboard'));
+        return view('leads.index', compact('leads'));
     }
 
     /**
@@ -96,7 +96,7 @@ class LeadController extends Controller
      */
     public function edit(Request $request)
     {
-        $lead_details = Lead::find($request->id);
+        $lead_details = Lead::find($request->lead_id);
         $doctors = Doctors::get();
         $agents = RoleUser::where('role_id',2)->pluck('user_id');
         $agent_details = User::whereIn('id',$agents)->get();

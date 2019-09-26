@@ -20,6 +20,7 @@
                             <th>Last Name</th>
                             <th>Phone</th>
                             <th>DOB</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -30,6 +31,8 @@
                             <td>{{ $row['lName'] }}</td>
                             <td>{{ $row['phone1'] }}</td>
                             <td>{{ $row['dob'] }}</td>
+                            <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
+                                        title="Edit"><i class="fa fas fa-edit"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>

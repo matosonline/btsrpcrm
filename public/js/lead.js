@@ -129,9 +129,9 @@ $(function () {
                 required: true,
 
             },
-            careID:{
-                 required: true,
-            },
+//            careID:{
+//                 required: true,
+//            },
             lang: {
                 required: true,
             },
@@ -173,7 +173,7 @@ $(function () {
             },
             
             lang : "Please select Language",
-            careID:"Please enter medicare id",
+//            careID:"Please enter medicare id",
             inputAddress:{
                 required: "Please enter address",
             },

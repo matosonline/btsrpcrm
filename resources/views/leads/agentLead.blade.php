@@ -23,6 +23,16 @@
             @csrf
             <div class="form-row">
                 <div class="form-group col-md-6">
+                    <label for="agentChoose">Agent</label>
+                    <select name="agentChoose" id="agentChoose" class="form-control">
+                        <option value="0">Unassigned</option>
+                        <option value="1">name</option><!-- should be selected from user table where role is agentUser -->
+                    </select>
+                </div>
+            </div>
+        <hr>
+            <div class="form-row">
+                <div class="form-group col-md-6">
                     <label for="fName">First Name</label>
                     <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name">
                 </div>

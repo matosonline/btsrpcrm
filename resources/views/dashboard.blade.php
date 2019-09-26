@@ -74,7 +74,7 @@
                     </thead>
                     <tbody>
                         @foreach($leads as $row)
-                            
+
                             <tr>
                                     <td>{{ $row['id'] }}</td>
                                     <td>{{ $row['fName'] }}</td>
@@ -84,7 +84,7 @@
                                     <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
                                         title="Edit"><i class="fa fas fa-edit"></i></a></td>
                             </tr>
-                        
+
                         @endforeach
                     </tbody>
                 </table>

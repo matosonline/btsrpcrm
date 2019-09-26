@@ -108,11 +108,11 @@ class LeadController extends Controller
         $doctors = Doctors::get();
         $agents = RoleUser::where('role_id',2)->pluck('user_id');
         $agent_details = User::whereIn('id',$agents)->get();
-       if(!Auth::user()->hasRole('agent-user')){
-        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
-       }else{
+//       if(!Auth::user()->hasRole('agent-user')){
+//        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
+//       }else{
         return view('leads.agentLead', compact('lead_details', 'doctors','agent_details'));
-       }
+//       }
     }
 
     /**
@@ -139,7 +139,11 @@ class LeadController extends Controller
     }
     public function get_agents(Request $request)
     {
-        $agents = DoctorsAgent::where('doctor_id', $request->doctor_id)->pluck('agent_id');
+        if($request->doctor_id == '' || $request->doctor_id == 0){
+            $agents = RoleUser::where('role_id',2)->pluck('user_id');
+        }else{
+            $agents = DoctorsAgent::where('doctor_id', $request->doctor_id)->pluck('agent_id');
+        }
         $agent_details = User::whereIn('id', $agents)->get();
         echo view('leads.doctor_agent', compact('agent_details'))->render();
     }

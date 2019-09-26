@@ -32,7 +32,15 @@
                             <td>{{ $row['lName'] }}</td>
                             <td>{{ $row['phone1'] }}</td>
                             <td>{{ $row['dob'] }}</td>
-                            <td>'lead status'</td>
+                            @if($row['lStatus'] == 1 )
+                                <td>New</td>
+                            @elseif($row['lStatus'] == 2)
+                                <td>Pending</td>
+                            @elseif($row['lStatus'] == 3)
+                                <td>Closed Success</td>
+                            @elseif($row['lStatus'] == 4)
+                                <td>Lost Failure</td>
+                            @endif
                             <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
                                         title="Edit"><i class="fa fas fa-edit"></i></a></td>
                         </tr>

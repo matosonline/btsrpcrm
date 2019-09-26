@@ -56,6 +56,7 @@ class UserController extends Controller
                 'first_name' => 'required',
                 'last_name' => 'required',
                 'email' => 'required|email:rfc,dns',
+                'password' => 'required',
                 'role'=>'required'
             ]);
             $user = User::find($request->user_id);

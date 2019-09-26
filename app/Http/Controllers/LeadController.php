@@ -57,7 +57,7 @@ class LeadController extends Controller
      
         // dd($request->all());
         $data = $request->all();
-        if(!array_key_exists('agent',$data) || $request->agent == '' || $request->pcpName == 0){
+        if(!array_key_exists('agent',$data) || $request->agent == '' ){
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }

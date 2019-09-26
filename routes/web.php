@@ -51,6 +51,7 @@ Route::get('/user/edit/{id}','UserController@edit_user')->name('edit_user');
 Route::post('/user/store_user_details','UserController@store_user_details')->name('store_user_details');
 Route::delete('/user/delete','UserController@delete_user')->name('delete_user');
 Route::get('/get_agent','LeadController@get_agents')->name('edit_user');
+Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
 
 
 

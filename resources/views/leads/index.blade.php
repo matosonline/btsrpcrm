@@ -6,11 +6,9 @@
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                 <h5>Leads</h5>
                 <div class="btn-toolbar mb-2 mb-md-0">
-                   @if(Auth::user()->hasRole('msmc-manager'))
                     <div class="btn-group mr-2">
                     <a href="{{ url('/newLead') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
                     </div>
-                    @endif
                 </div>
             </div>
             <div class="table-responsive">

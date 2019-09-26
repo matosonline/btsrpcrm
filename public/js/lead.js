@@ -1,4 +1,5 @@
 $(function () {
+   
     "use strict";
     /*$('#lead').DataTable({
         responsive: true,
@@ -23,6 +24,7 @@ $(function () {
     }, 'Please enter a valid email address.');
     $('#lead_form').validate({ // initialize the plugin
         rules: {
+           
             fName: {
                 required: true,
 
@@ -32,34 +34,34 @@ $(function () {
 
             },
             email: {
-                required: true,
+                required: '#agree:checked',
                 valid_email: true
 
             },
             dob: {
-                required: true,
+                required: '#agree:checked',
 
             },
             lang: {
-                required: true,
+                required: '#agree:checked',
             },
             inputAddress:{
-                required: true,
+                required: '#agree:checked',
             },
             inputCity:{
-                required: true,
+                required: '#agree:checked',
             },
             inputState:{
-                required: true,
+                required: '#agree:checked',
             },
             inputZip:{
-                required: true,
+                required: '#agree:checked',
             },
             phone1:{
-                required: true,
+                required: '#agree:checked',
             },
             pcpName:{
-                required: true,
+                required: '#agree:checked',
             },
            /* agent:{
                 required: true

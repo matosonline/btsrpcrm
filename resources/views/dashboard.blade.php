@@ -53,13 +53,12 @@
             <!-- Table -->
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                 <h5>My Leads</h5>
-                @if(!Auth::user()->hasRole('agent-user')){
                 <div class="btn-toolbar mb-2 mb-md-0">
                     <div class="btn-group mr-2">
                     <a href="{{ url('/newLead') }}"><button type="button" class="btn btn-sm btn-outline-success">New Lead</button></a>
                     </div>
                 </div>
-                @endif
+                
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -70,6 +69,7 @@
                             <th>Last Name</th>
                             <th>Phone</th>
                             <th>DOB</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -81,6 +81,8 @@
                                     <td>{{ $row['lName'] }}</td>
                                     <td>{{ $row['phone1'] }}</td>
                                     <td>{{ $row['dob'] }}</td>
+                                    <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
+                                        title="Edit"><i class="fa fas fa-edit"></i></a></td>
                             </tr>
                         
                         @endforeach

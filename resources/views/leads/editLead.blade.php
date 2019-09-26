@@ -21,6 +21,7 @@
 
         <form action="{{ route('lead.store') }}" method="POST" id="lead_form" name="lead_form">
             @csrf
+            <input type="hidden" name="lead_id" id="lead_id" value="{{$lead_details->id}}">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="fName">First Name</label>

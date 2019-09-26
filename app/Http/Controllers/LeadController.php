@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Doctors;
 use App\DoctorsAgent;
 use App\Lead;
+use App\RoleUser;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -25,7 +26,8 @@ class LeadController extends Controller
     public function index()
     {
         if(Auth::user()->hasRole('agent-user')){
-            $leads = Lead::where('agent',Auth::user()->id)->get()->toArray();
+            $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
+            $leads = Lead::whereIn('pcpName',$doctors)->get()->toArray();
         }else{
             $leads = Lead::all()->toArray();
         }
@@ -52,10 +54,13 @@ class LeadController extends Controller
     public function store(Request $request)
     {
 
-
+     
         // dd($request->all());
         $data = $request->all();
-
+        if(!array_key_exists('agent',$data) || $request->agent == '' || $request->pcpName == 0){
+            $data['agent'] = NULL;
+            $data['lStatus'] = 2;
+        }
         $last_id  = Lead::create($data);
 
         $lead_details = Lead::find($last_id->id);
@@ -89,9 +94,17 @@ class LeadController extends Controller
      * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function edit(Lead $lead)
+    public function edit(Request $request)
     {
-        //
+        $lead_details = Lead::find($request->id);
+        $doctors = Doctors::get();
+        $agents = RoleUser::where('role_id',2)->pluck('user_id');
+        $agent_details = User::whereIn('id',$agents)->get();
+       if(!Auth::user()->hasRole('agent-user')){
+        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
+       }else{
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details'));
+       }
     }
 
     /**

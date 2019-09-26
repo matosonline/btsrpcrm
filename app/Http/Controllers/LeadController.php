@@ -64,6 +64,7 @@ class LeadController extends Controller
         if(array_key_exists('id',$data)){
             unset($data['_token']);
             unset($data['agent_id']);
+            unset($data['uploadDocs']);
             Lead::where('id',$data['id'])->update($data);
         }else{
             $last_id  = Lead::create($data);

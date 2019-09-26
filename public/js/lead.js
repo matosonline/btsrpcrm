@@ -17,7 +17,7 @@ $(function () {
    /* $('#add_user_button').click(function () {
         location.href = base_url + '/user/add_user';
     })*/
-    $('#dob').datepicker({
+    $('#dob,#startDate').datepicker({
         format: 'yyyy-mm-dd',
         todayHighlight:true,
         autoclose:true

@@ -20,15 +20,15 @@
 
         <form action="{{ route('lead.store') }}" method="POST" id="lead_edit_form">
             @csrf
-            <input type="hidden" name="id" id='id' value="{{isset($lead_details)?$lead_details['lead_id']:''}}">
+            <input type="hidden" name="id" id='id' value="{{isset($lead_details)?$lead_details['id']:''}}">
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="agentChoose">Agent</label>
-                    <select name="agentChoose" id="agentChoose" class="form-control">
+                    <select name="agent" id="agentEdit" class="form-control">
                         <option selected value="">Unassigned</option>
                         @if($agent_details)
                             @foreach($agent_details as $key => $val)
-                                <option value="{{$val['id']}}" {{isset($lead_details)&& $lead_details['agentChoose'] == $key?'selected':''}}>{{$val['first_name'].' '.$val['last_name']}}</option>
+                                <option value="{{$val['id']}}" {{isset($lead_details)&& $lead_details['agent'] == $val['id']?'selected':''}}>{{$val['first_name'].' '.$val['last_name']}}</option>
                             @endforeach
                         @endif
                     </select>
@@ -48,7 +48,7 @@
             <div class="form-row">
                 <div class="form-group col-sm-4 mx-auto">
                     <label for="dob">Date of Birth</label>
-                    <input class="form-control" type="date" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}">
+                    <input class="form-control" type="text" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}">
                 </div>
                 <div class="form-group col-sm-4 mx-auto">
                     <label for="lang">Preferred Language</label>
@@ -174,7 +174,7 @@
                 <div class="col-6">
                     <div class="form-group mx-auto">
                         <label for="startDate">Start Date</label>
-                        <input class="form-control" type="date" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}">
+                        <input class="form-control" type="test" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}">
                     </div>
                 </div>
             </div>
@@ -226,7 +226,7 @@
 @endsection
 @section('pagescript')
 <script>
-    $('#main_header').html('Add Lead');
+    $('#main_header').html('Edit Lead');
 </script>
 
 <script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>

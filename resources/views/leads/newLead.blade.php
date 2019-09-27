@@ -161,6 +161,7 @@
                 </div>
             </div>
             <hr>
+            
             <div class="btn-group d-flex" role="group">
                 <button type="reset" class="btn btn-lg btn-danger m-1">Dismiss</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
                 <button type="submit" class="btn btn-lg btn-success m-1">Add</button> <!-- must correspond with corrent selection above -->

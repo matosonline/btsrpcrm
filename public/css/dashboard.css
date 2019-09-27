@@ -51,3 +51,4 @@ body { font-size: .875rem; }
 }
 .mobile-nav{display: flex;align-items: center;}
 }
+.nav-item::marker{display:none;}

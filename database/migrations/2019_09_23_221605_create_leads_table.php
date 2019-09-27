@@ -29,6 +29,7 @@ class CreateLeadsTable extends Migration
             $table->boolean('agreeOrDisagree');
             $table->integer('planType')->nullable();
             $table->string('pcpName')->nullable();
+            $table->integer('agent')->nullable();
             $table->longText('notes')->nullable();
             $table->string('careID')->nullable();
             $table->integer('healthPlan');

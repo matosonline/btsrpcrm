@@ -36,13 +36,16 @@
         });
         feather.replace()
     });
-    var base_url = "{{url('')}}";    
+    var base_url = "{{url('')}}";
     $.ajaxSetup({
                   headers: {
                       'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                   }
               });
 </script>
+
+<!-- Bootstrap Form Helpers -->
+<script src="/js/bootstrap-formhelpers-phone.js"></script>
 
 <!--            -->
 <!-- END SCRIPT -->

@@ -49,7 +49,7 @@
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
-            
+
                     <label for="inputAddress">Address</label>
                     <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St">
                 </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group col-12 col-md-6">
                     <label for="phone1">Phone Number</label>
-                    <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number">
+                    <input type="text" class="form-control bfh-phone" name="phone1" id="phone1" data-format="(ddd) ddd-dddd" placeholder="Phone Number">
                 </div>
             </div>
 
@@ -131,7 +131,7 @@
                         </div>
                         <div class="form-group col-12 col-md-6">
                             <label for="planTypeDetail">Detail</label>
-                            <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
+                            <input type="text" {{--name="planTypeDetail"--}} class="form-control" id="planTypeDetail">
                         </div>
                     </div>
                     <div class="form-row">
@@ -161,7 +161,7 @@
                 </div>
             </div>
             <hr>
-            
+
             <div class="btn-group d-flex" role="group">
                 <button type="reset" class="btn btn-lg btn-danger m-1">Dismiss</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
                 <button type="submit" class="btn btn-lg btn-success m-1">Add</button> <!-- must correspond with corrent selection above -->

@@ -57,7 +57,7 @@ class LeadController extends Controller
     public function store(Request $request)
     {
 
-     
+
         // dd($request->all());
         $data = $request->all();
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
@@ -73,7 +73,7 @@ class LeadController extends Controller
             $last_id  = Lead::create($data);
 
             $lead_details = Lead::find($last_id->id);
-    
+
             if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
                 $lead_details->lStatus = 1;
                 $lead_details->save();
@@ -88,9 +88,9 @@ class LeadController extends Controller
                         $data = [
                             'formData' => $lead_details,
                             'doctor' => $getDoc,
-                            'from' => 'admin@devhealth.com',
+                            'from' => 'test.devhealth@gmail.com',
                             'to'    => $getAgentEmail->email,
-                            'cc'    => 'msmcmanager@devhealth.com'
+                            'cc'    => 'rmatos@devhealth.net'
 //                            'to'    => 'poojaatridhyatech@gmail.com',
 //                            'cc'    => 'poojaatridhyatech@gmail.com'
                         ];
@@ -100,7 +100,7 @@ class LeadController extends Controller
                     }
             }
         }
-       
+
 
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');

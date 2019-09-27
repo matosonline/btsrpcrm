@@ -10,11 +10,10 @@
   <a class="navbar-brand d-none d-md-flex col-sm-3 col-md-3 col-lg-2 mr-0 order-1" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
   <input class="form-control form-control-dark w-100 order-3 order-md-2" type="text" placeholder="Search" aria-label="Search">
   <div class="dropdown action-menu order-2 order-md-3">
-    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">John</a>
+    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name.' '.Auth::user()->last_name}}</a>
  
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="#">Action</a>
-      <a class="dropdown-item" href="#">Another action</a>
+      <a class="dropdown-item" href="{{url('/viewprofile')}}">View Profile</a>
       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
     </div>
   </div>
@@ -28,12 +27,6 @@
     <nav class="col-6 col-md-3 col-lg-2 d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
-            <li class="nav-item">
-            <a class="nav-link {{Request::is('viewprofile')?"active":''}}" href="{{url('/viewprofile')}}">
-              <span data-feather="grid"></span>
-              View Profile <span class="sr-only">(current)</span>
-            </a>
-          </li>
           <li class="nav-item">
             <a class="nav-link {{Request::is('dashboard')?"active":''}}" href="{{url('/dashboard')}}">
               <span data-feather="grid"></span>

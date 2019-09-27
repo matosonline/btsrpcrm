@@ -1,3 +1,4 @@
+<div class="overlay"></div>
 <!--              -->
 <!-- BEGIN SCRIPT -->
 <!--              -->
@@ -13,6 +14,7 @@
 <!--<script src="{{asset('/docs/4.3/dist/js/bootstrap.bundle.min.js')}}"
     integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o" crossorigin="anonymous">
 </script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js" integrity="sha256-fzFFyH01cBVPYzl16KT40wqjhgPtq6FFUB6ckN2+GGw=" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
 <!-- <script src="{{url('/js/dashboard.js')}}"></script>-->
@@ -20,6 +22,20 @@
 <script src="{{asset('assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('assets/node_modules/sweetalert2/sweet-alert.init.js')}}"></script>
 <script>
+	$(document).ready(function () {
+        $('#dismiss, .overlay').on('click', function () {
+            $('.sidebar').removeClass('shown');
+            $('.overlay').removeClass('active');
+        });
+
+        $('#sidebarCollapse').on('click', function () {
+            $('.sidebar').addClass('shown');
+            $('.overlay').addClass('active');
+            //$('.collapse.in').toggleClass('in');
+            //$('a[aria-expanded=true]').attr('aria-expanded', 'false');
+        });
+        feather.replace()
+    });
     var base_url = "{{url('')}}";    
     $.ajaxSetup({
                   headers: {

@@ -167,15 +167,22 @@
                 </div>
                 <div class="col-6">
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="col-6 form-group">
                             <label for="planType">Plan Type</label>
                             <select name="planType" class="custom-select">
-                                <option value="0" default>Other - Not Humana</option>
-                                <option value="1">Humana Commercial HMO/PPO</option>
-                                <option value="2">Humana Medicare HMO/PPO</option>
-                                <option value="3">Humana Medicaid</option>
+                                <option value="0" default>Medicare Advantage</option>
+                                <option value="1">Medicaid</option>
+                                <option value="2">Commercial</option>
+                                <option value="3">Medicare FFS</option>
+                                <option value="4">Aging-In</option>
                             </select>
                         </div>
+                        <div class="col-6 form-group">
+                            <label for="planTypeDetail">Detail</label>
+                            <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
+                        </div>
+                    </div>
+                    <div class="form-row">
                         <div class="form-group">
                             <label for="pcpName">PCP Name</label>
                             <select name="pcpName" id="pcpName" class="form-control">

@@ -17,26 +17,27 @@
     </div>
 @endif
 
-    <div class="card col-8 mx-auto p-3">
+<div class="row">
+    <div class="col-12 col-lg-8">
 
         <form action="{{ route('lead.store') }}" method="POST" id="lead_form" name="lead_form">
             @csrf
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                     <label for="fName">First Name</label>
                     <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                     <label for="lName">Last Name</label>
                     <input type="text" name="lName" class="form-control" id="lName" placeholder="Last Name">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-sm-4">
+                <div class="form-group col-12 col-md-6">
                     <label for="dob">Date of Birth</label>
                     <input class="form-control" type="text" name="dob" id="dob">
                 </div>
-                <div class="form-group col-sm-4">
+                <div class="form-group col-12 col-md-6">
                     <label for="lang">Preferred Language</label>
                     <select name="lang" id="lang" class="form-control">
                         <option value="1">English</option>
@@ -46,20 +47,23 @@
                     </select>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="inputAddress">Address</label>
-                <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St">
-            </div>
-            <div class="form-group">
-                <label for="inputAddress2">Address 2</label>
-                <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+            <div class="form-row">
+                <div class="form-group col-12 col-md-6">
+            
+                    <label for="inputAddress">Address</label>
+                    <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="inputAddress2">Address 2</label>
+                    <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-sm-4">
                     <label for="inputCity">City</label>
                     <input type="text" name="inputCity" class="form-control" id="inputCity">
                 </div>
-                <div class="form-group col-md-4">
+                <div class="form-group col-12 col-sm-4">
                     <label for="inputState">State</label>
                     <select name="inputState" id="inputState" class="form-control">
                         <option selected value="">Choose...</option>
@@ -120,17 +124,17 @@
                         <option value="55">GU</option>
                     </select>
                 </div>
-                <div class="form-group col-md-2">
+                <div class="form-group col-12 col-sm-4">
                     <label for="inputZip">Zip</label>
                     <input type="text" name="inputZip" class="form-control" id="inputZip">
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                     <label for="email">Email</label>
                     <input type="email" name="email" class="form-control" id="email" placeholder="Email">
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-12 col-md-6">
                     <label for="phone1">Phone Number</label>
                     <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number">
                 </div>
@@ -139,7 +143,7 @@
             <hr>
 
             <div class="row">
-                <div class="col-6">
+                <div class="col-12 col-lg-6">
                     <div class="form-row">
                         <div class="form-group">
                             <div class="form-check">
@@ -165,9 +169,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-12 col-lg-6">
                     <div class="form-row">
-                        <div class="col-6 form-group">
+                        <div class="form-group col-12 col-md-6">
                             <label for="planType">Plan Type</label>
                             <select name="planType" class="custom-select">
                                 <option value="0" default>Medicare Advantage</option>
@@ -177,13 +181,13 @@
                                 <option value="4">Aging-In</option>
                             </select>
                         </div>
-                        <div class="col-6 form-group">
+                        <div class="form-group col-12 col-md-6">
                             <label for="planTypeDetail">Detail</label>
                             <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group">
+                        <div class="form-group col-12 col-md-6">
                             <label for="pcpName">PCP Name</label>
                             <select name="pcpName" id="pcpName" class="form-control">
                                 <option value="">Choose...</option>
@@ -193,7 +197,7 @@
                                 <option value="0">Other..See Notes...</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group col-12 col-md-6">
                                 <label for="pcpName">Agent</label>
                                 <select name="agent" id="agent" class="form-control">
                                     <option value="">Choose...</option>
@@ -202,9 +206,11 @@
                     </div>
                 </div>
             </div>
-            <div class="form-group">
-                <label for="notes">Notes</label>
-                <textarea name="notes" class="form-control" id="notes" rows="3"></textarea>
+            <div class="form-row">
+                <div class="form-group col-12">
+                    <label for="notes">Notes</label>
+                    <textarea name="notes" class="form-control" id="notes" rows="3"></textarea>
+                </div>
             </div>
             <hr>
             <div class="btn-group d-flex" role="group">
@@ -213,6 +219,7 @@
             </div>
         </form>
     </div>
+</div>
 
 @endsection
 @section('pagecss')

@@ -41,8 +41,7 @@
                             @elseif($row['lStatus'] == 4)
                                 <td>Lost Failure</td>
                             @endif
-                            <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
-                                        title="Edit"><i class="fa fas fa-edit"></i></a></td>
+                            <td><a href="{{url('/editLead/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit" class="btn btn-sm btn-success" ><i class="fa fas fa-edit"></i></a></td>
                         </tr>
                         @endforeach
                     </tbody>

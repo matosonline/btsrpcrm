@@ -7,7 +7,7 @@
 
             <!-- Leaderboard -->
             <div class="row mb-5">
-                <div class="col-sm-2 mx-auto">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header">
                             Total Leads
@@ -20,7 +20,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2 mx-auto">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header">
                             Closed Leads
@@ -33,7 +33,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2 mx-auto">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-0 mx-auto">
                     <div class="card">
                         <div class="card-header">
                             New Leads
@@ -46,7 +46,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2 mx-auto">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mx-auto">
                     <div class="card">
                         <div class="card-header">
                             Total Opted Out
@@ -73,7 +73,7 @@
                 </div>
 
             </div>
-            <div class="table-responsive">
+            <div class="table-responsive-sm">
                 <table class="table table-striped">
                     <thead>
                         <tr>
@@ -104,8 +104,7 @@
                                     @elseif($row['lStatus'] == 4)
                                         <td>Lost Failure</td>
                                     @endif
-                                    <td><a class="btn" href="{{url('/editLead/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
-                                        title="Edit"><i class="fa fas fa-edit"></i></a></td>
+                                    <td><a href="{{url('/editLead/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit" class="btn btn-sm btn-success" ><i class="fa fas fa-edit"></i></a></td>
                             </tr>
 
                         @endforeach

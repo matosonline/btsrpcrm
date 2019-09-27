@@ -39,12 +39,11 @@ class UserController extends Controller
     }
     public function store_user_details(Request $request){
         //$data=$request->all();
-       
         if(empty($request->user_id)){
             $validatedData = $request->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|email:rfc,dns',
+                'email' => 'required|email',
                 'password' => 'required',
                 'confirm_password' => 'required',
                 'role'=>'required'
@@ -55,13 +54,15 @@ class UserController extends Controller
             $validatedData = $request->validate([
                 'first_name' => 'required',
                 'last_name' => 'required',
-                'email' => 'required|email:rfc,dns',
+                'email' => 'required|email',
                 'password' => 'required',
                 'role'=>'required'
             ]);
             $user = User::find($request->user_id);
+            $user->password = bcrypt($request->password);
         }
        
+//       echo "<pre>";print_R($request->password);exit;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
@@ -98,5 +99,9 @@ class UserController extends Controller
         $action="edit";
         $roles=Role::get();
         return view('user.add_user',compact('user_details','action','roles','user_role'));
+    }
+    public function profile(Request $request) {
+        $user_details = User::find(Auth::user()->id);
+        return view('user.profile_user',compact('user_details'));
     }
 }

@@ -22,15 +22,17 @@ Route::get('/newLead', 'LeadController@create')->name('lead.view');
 
 Route::post('/newLead', 'LeadController@store')->name('lead.store');
 
+
+
 Route::get('/leads', 'LeadController@index')->name('leads.index');
 
 Route::get('/newCenter', function () {
     return view('centers.newCenter');
 })->name('newCenter');
 
-Route::get('/centers', function () {
-    return view('centers.index');
-})->name('centers');
+//Route::get('/centers', function () {
+//    return view('centers.index');
+//})->name('centers');
 
 Route::get('/newProvider', function () {
     return view('providers.newProvider');
@@ -53,6 +55,12 @@ Route::delete('/user/delete','UserController@delete_user')->name('delete_user');
 Route::get('/get_agent','LeadController@get_agents')->name('edit_user');
 Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
 
+
+Route::get('/viewprofile', 'UserController@profile')->name('user.profile');
+Route::get('/centers', 'CenterController@index')->name('center.index');
+Route::get('/newCenter', 'CenterController@create')->name('center.view');
+Route::post('/newCenter', 'CenterController@store')->name('center.store');
+Route::get('/editCenter/{center_id}','CenterController@edit')->name('editcenter');
 
 
 

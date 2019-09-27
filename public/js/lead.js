@@ -36,11 +36,11 @@ $(function () {
                 required: true,
 
             },
-            email: {
-                required: '#agree:checked',
-                valid_email: true
-
-            },
+//            email: {
+//                required: '#agree:checked',
+//                valid_email: true
+//
+//            },
             dob: {
                 required: '#agree:checked',
 
@@ -74,10 +74,10 @@ $(function () {
         messages: {
             fName: "Please enter your firstname",
             lName: "Please enter your lastname",
-            email: {
-                required: "Please enter your email",
-                valid_email: "Please enter a valid email address",
-            },
+//            email: {
+//                required: "Please enter your email",
+//                valid_email: "Please enter a valid email address",
+//            },
             dob: {
                 required: "Please select Date of Birth",
                 
@@ -120,11 +120,11 @@ $(function () {
                 required: true,
 
             },
-            email: {
-                required: true,
-                valid_email: true,
-
-            },
+//            email: {
+//                required: true,
+//                valid_email: true,
+//
+//            },
             dob: {
                 required: true,
 
@@ -169,10 +169,10 @@ $(function () {
         messages: {
             fName: "Please enter your firstname",
             lName: "Please enter your lastname",
-            email: {
-                required: "Please enter your email",
-                valid_email: "Please enter a valid email address",
-            },
+//            email: {
+//                required: "Please enter your email",
+//                valid_email: "Please enter a valid email address",
+//            },
             dob: {
                 required: "Please select Date of Birth",
                 

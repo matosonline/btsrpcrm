@@ -65,61 +65,10 @@
                     <label for="inputState">State</label>
                     <select name="inputState" id="inputState" class="form-control">
                         <option selected value="">Choose...</option>
-                        <option value="1" {{isset($lead_details) && $lead_details->inputState  == 1 ?'selected':''}}>AL</option>
-                        <option value="2" {{isset($lead_details) && $lead_details->inputState  == 2 ?'selected':''}}>AK</option>
-                        <option value="3" {{isset($lead_details) && $lead_details->inputState  == 3 ?'selected':''}}>AZ</option>
-                        <option value="4" {{isset($lead_details) && $lead_details->inputState  == 4 ?'selected':''}}>AR</option>
-                        <option value="5" {{isset($lead_details) && $lead_details->inputState  == 5 ?'selected':''}}>CA</option>
-                        <option value="6" {{isset($lead_details) && $lead_details->inputState  == 6 ?'selected':''}}>CO</option>
-                        <option value="7" {{isset($lead_details) && $lead_details->inputState  == 7 ?'selected':''}}>CT</option>
-                        <option value="8" {{isset($lead_details) && $lead_details->inputState  == 8 ?'selected':''}}>DE</option>
-                        <option value="9" {{isset($lead_details) && $lead_details->inputState  == 9 ?'selected':''}}>DC</option>
-                        <option value="10" {{isset($lead_details) && $lead_details->inputState  == 10 ?'selected':''}}>FL</option>
-                        <option value="11" {{isset($lead_details) && $lead_details->inputState  == 11 ?'selected':''}}>GA</option>
-                        <option value="12" {{isset($lead_details) && $lead_details->inputState  == 12 ?'selected':''}}>HI</option>
-                        <option value="13" {{isset($lead_details) && $lead_details->inputState  == 13 ?'selected':''}}>ID</option>
-                        <option value="14" {{isset($lead_details) && $lead_details->inputState  == 14 ?'selected':''}}>IL</option>
-                        <option value="15" {{isset($lead_details) && $lead_details->inputState  == 15 ?'selected':''}}>IN</option>
-                        <option value="16" {{isset($lead_details) && $lead_details->inputState  == 16 ?'selected':''}}>IA</option>
-                        <option value="17" {{isset($lead_details) && $lead_details->inputState  == 17 ?'selected':''}}>KS</option>
-                        <option value="18" {{isset($lead_details) && $lead_details->inputState  == 18 ?'selected':''}}>KY</option>
-                        <option value="19" {{isset($lead_details) && $lead_details->inputState  == 19 ?'selected':''}}>LA</option>
-                        <option value="20" {{isset($lead_details) && $lead_details->inputState  == 20 ?'selected':''}}>ME</option>
-                        <option value="21" {{isset($lead_details) && $lead_details->inputState  == 21 ?'selected':''}}>MD</option>
-                        <option value="22" {{isset($lead_details) && $lead_details->inputState  == 22 ?'selected':''}}>MA</option>
-                        <option value="23" {{isset($lead_details) && $lead_details->inputState  == 23 ?'selected':''}}>MI</option>
-                        <option value="24" {{isset($lead_details) && $lead_details->inputState  == 24 ?'selected':''}}>MN</option>
-                        <option value="25" {{isset($lead_details) && $lead_details->inputState  == 25 ?'selected':''}}>MS</option>
-                        <option value="26" {{isset($lead_details) && $lead_details->inputState  == 26 ?'selected':''}}>MO</option>
-                        <option value="27" {{isset($lead_details) && $lead_details->inputState  == 27 ?'selected':''}}>MT</option>
-                        <option value="28" {{isset($lead_details) && $lead_details->inputState  == 28 ?'selected':''}}>NE</option>
-                        <option value="29" {{isset($lead_details) && $lead_details->inputState  == 29 ?'selected':''}}>NV</option>
-                        <option value="30" {{isset($lead_details) && $lead_details->inputState  == 30?'selected':''}}>NH</option>
-                        <option value="31" {{isset($lead_details) && $lead_details->inputState  == 31 ?'selected':''}}>NJ</option>
-                        <option value="32" {{isset($lead_details) && $lead_details->inputState  == 32 ?'selected':''}}>NM</option>
-                        <option value="33" {{isset($lead_details) && $lead_details->inputState  == 32 ?'selected':''}}>NY</option>
-                        <option value="34" {{isset($lead_details) && $lead_details->inputState  == 34 ?'selected':''}}>NC</option>
-                        <option value="35" {{isset($lead_details) && $lead_details->inputState  == 35 ?'selected':''}}>ND</option>
-                        <option value="36" {{isset($lead_details) && $lead_details->inputState  == 36 ?'selected':''}}>OH</option>
-                        <option value="37" {{isset($lead_details) && $lead_details->inputState  == 37 ?'selected':''}}>OK</option>
-                        <option value="38" {{isset($lead_details) && $lead_details->inputState  == 38 ?'selected':''}}>OR</option>
-                        <option value="39" {{isset($lead_details) && $lead_details->inputState  == 39 ?'selected':''}}>PA</option>
-                        <option value="40" {{isset($lead_details) && $lead_details->inputState  == 40 ?'selected':''}}>RI</option>
-                        <option value="41" {{isset($lead_details) && $lead_details->inputState  == 41 ?'selected':''}}>SC</option>
-                        <option value="42" {{isset($lead_details) && $lead_details->inputState  == 42 ?'selected':''}}>SD</option>
-                        <option value="43" {{isset($lead_details) && $lead_details->inputState  == 43?'selected':''}}>TN</option>
-                        <option value="44" {{isset($lead_details) && $lead_details->inputState  == 44 ?'selected':''}}>TX</option>
-                        <option value="45" {{isset($lead_details) && $lead_details->inputState  == 45 ?'selected':''}}>UT</option>
-                        <option value="46" {{isset($lead_details) && $lead_details->inputState  == 46 ?'selected':''}}>VT</option>
-                        <option value="47" {{isset($lead_details) && $lead_details->inputState  == 47 ?'selected':''}}>VA</option>
-                        <option value="48" {{isset($lead_details) && $lead_details->inputState  == 48 ?'selected':''}}>WA</option>
-                        <option value="49" {{isset($lead_details) && $lead_details->inputState  == 49 ?'selected':''}}>WV</option>
-                        <option value="50" {{isset($lead_details) && $lead_details->inputState  == 50 ?'selected':''}}>WI</option>
-                        <option value="51" {{isset($lead_details) && $lead_details->inputState  == 51 ?'selected':''}}>WY</option>
-                        <option value="52" {{isset($lead_details) && $lead_details->inputState  == 52 ?'selected':''}}>AS</option>
-                        <option value="53" {{isset($lead_details) && $lead_details->inputState  == 53 ?'selected':''}}>PR</option>
-                        <option value="54" {{isset($lead_details) && $lead_details->inputState  == 54 ?'selected':''}}>VI</option>
-                        <option value="55" {{isset($lead_details) && $lead_details->inputState  == 55 ?'selected':''}}>GU</option>
+                        @foreach($state as $val)
+                            <option value="{{$val->id}}" {{$val->id == $lead_details->inputState ?'selected':''}}>{{$val->name}}</option>
+                        @endforeach
+                       
                     </select>
                 </div>
                 <div class="form-group col-md-2">

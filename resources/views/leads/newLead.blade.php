@@ -63,61 +63,9 @@
                     <label for="inputState">State</label>
                     <select name="inputState" id="inputState" class="form-control">
                         <option selected value="">Choose...</option>
-                        <option value="1">AL</option>
-                        <option value="2">AK</option>
-                        <option value="3">AZ</option>
-                        <option value="4">AR</option>
-                        <option value="5">CA</option>
-                        <option value="6">CO</option>
-                        <option value="7">CT</option>
-                        <option value="8">DE</option>
-                        <option value="9">DC</option>
-                        <option value="10">FL</option>
-                        <option value="11">GA</option>
-                        <option value="12">HI</option>
-                        <option value="13">ID</option>
-                        <option value="14">IL</option>
-                        <option value="15">IN</option>
-                        <option value="16">IA</option>
-                        <option value="17">KS</option>
-                        <option value="18">KY</option>
-                        <option value="19">LA</option>
-                        <option value="20">ME</option>
-                        <option value="21">MD</option>
-                        <option value="22">MA</option>
-                        <option value="23">MI</option>
-                        <option value="24">MN</option>
-                        <option value="25">MS</option>
-                        <option value="26">MO</option>
-                        <option value="27">MT</option>
-                        <option value="28">NE</option>
-                        <option value="29">NV</option>
-                        <option value="30">NH</option>
-                        <option value="31">NJ</option>
-                        <option value="32">NM</option>
-                        <option value="33">NY</option>
-                        <option value="34">NC</option>
-                        <option value="35">ND</option>
-                        <option value="36">OH</option>
-                        <option value="37">OK</option>
-                        <option value="38">OR</option>
-                        <option value="39">PA</option>
-                        <option value="40">RI</option>
-                        <option value="41">SC</option>
-                        <option value="42">SD</option>
-                        <option value="43">TN</option>
-                        <option value="44">TX</option>
-                        <option value="45">UT</option>
-                        <option value="46">VT</option>
-                        <option value="47">VA</option>
-                        <option value="48">WA</option>
-                        <option value="49">WV</option>
-                        <option value="50">WI</option>
-                        <option value="51">WY</option>
-                        <option value="52">AS</option>
-                        <option value="53">PR</option>
-                        <option value="54">VI</option>
-                        <option value="55">GU</option>
+                        @foreach($state as $val)
+                            <option value="{{$val->id}}">{{$val->name}}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="form-group col-md-2">

@@ -22,27 +22,33 @@
     <nav class="col-md-2 d-none d-md-block bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
+            <li class="nav-item">
+            <a class="nav-link {{Request::is('viewprofile')?"active":''}}" href="{{url('/viewprofile')}}">
+              <span data-feather="grid"></span>
+              View Profile <span class="sr-only">(current)</span>
+            </a>
+          </li>
           <li class="nav-item">
-            <a class="nav-link active" href="{{url('/dashboard')}}">
+            <a class="nav-link {{Request::is('dashboard')?"active":''}}" href="{{url('/dashboard')}}">
               <span data-feather="grid"></span>
               Dashboard <span class="sr-only">(current)</span>
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('leads.index') }}">
+            <a class="nav-link {{Request::is('leads') || Request::is('newLead') || Request::is('editLead/*')?"active":''}}" href="{{ route('leads.index') }}">
               <span data-feather="file"></span>
               Leads
             </a>
           </li>
           @if(Auth::user()->hasRole('Admin'))
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('providers') }}">
+            <a class="nav-link {{Request::is('providers') || Request::is('newProvider')?"active":''}}" href="{{ route('providers') }}">
               <span data-feather="users"></span>
               Providers
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ route('centers') }}">
+            <a class="nav-link {{Request::is('centers') || Request::is('newCenter')?"active":''}}" href="{{ route('center.index') }}">
               <span data-feather="home"></span>
               Centers
             </a>
@@ -82,15 +88,6 @@
               Unassigned Leads
             </a>
           </li>
-          @endif
-          @if(Auth::user()->hasRole('Admin'))
-          <li class="nav-item">
-            <a class="nav-link" href="{{url('/users')}}">
-              <span data-feather="file-text"></span>
-              Manage Users
-            </a>
-          </li>
-
         </ul>
         @endif
         @if(Auth::user()->hasRole('Admin'))
@@ -99,6 +96,14 @@
           <span data-feather="settings"></span>
           admin
         </a>
+        <ul class="nav flex-column mb-2">
+          <li class="nav-item">
+            <a class="nav-link {{Request::is('user/*') || Request::is('users') ?"active":''}}" href="{{url('/users')}}">
+              <span data-feather="file-text"></span>
+              Manage Users
+            </a>
+          </li>
+        </ul>
         @endif
 
       </div>

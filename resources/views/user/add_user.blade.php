@@ -48,7 +48,15 @@
             <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number"
                 value="{{$user_details->phone_number}}">
         </div>
-
+        <div class="form-group">
+            <label for="password">Password <span class="error">*</span></label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Password"
+                   value="{{($user_details->password)}}" autocomplete="off">
+            @if ($errors->has('password') && $errors->first('password') != 'The password
+            confirmation does not match.')
+            <span class="error">{{ $errors->first('password') }}</span>
+            @endif
+        </div>
         @else
         <div class="form-group">
             <label for="role">Role <span class="error">*</span></label>

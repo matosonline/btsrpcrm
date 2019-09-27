@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use phpseclib\System\SSH\Agent;
+use Illuminate\Support\Facades\Mail;
+use App\State;
 
 class LeadController extends Controller
 {
@@ -42,7 +44,8 @@ class LeadController extends Controller
     public function create()
     {
         $doctors = Doctors::get();
-        return view('leads\newLead', compact('doctors'));
+        $state = State::get();
+        return view('leads\newLead', compact('doctors','state'));
     }
 
     /**
@@ -78,6 +81,24 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
+            if (!empty($lead_details->agent)) {
+                $getAgentEmail = User::where('id',$lead_details->agent)->select('email')->first();
+                $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
+                    if(!empty($getAgentEmail)){
+                        $data = [
+                            'formData' => $lead_details,
+                            'doctor' => $getDoc,
+                            'from' => 'admin@devhealth.com',
+                            'to'    => $getAgentEmail->email,
+                            'cc'    => 'msmcmanager@devhealth.com'
+//                            'to'    => 'poojaatridhyatech@gmail.com',
+//                            'cc'    => 'poojaatridhyatech@gmail.com'
+                        ];
+                        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+                            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+                        });
+                    }
+            }
         }
        
 
@@ -111,7 +132,8 @@ class LeadController extends Controller
 //       if(!Auth::user()->hasRole('agent-user')){
 //        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
 //       }else{
-        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details'));
+        $state = State::get();
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state'));
 //       }
     }
 

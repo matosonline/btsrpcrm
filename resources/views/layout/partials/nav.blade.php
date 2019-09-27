@@ -11,7 +11,7 @@
   <input class="form-control form-control-dark w-100 order-3 order-md-2" type="text" placeholder="Search" aria-label="Search">
   <div class="dropdown action-menu order-2 order-md-3">
     <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name.' '.Auth::user()->last_name}}</a>
- 
+
     <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
       <a class="dropdown-item" href="{{url('/viewprofile')}}">View Profile</a>
       <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
@@ -91,17 +91,20 @@
         @endif
         @if(Auth::user()->hasRole('Admin'))
         <hr>
-        <a class="nav-link" href="#">
-          <span data-feather="settings"></span>
-          admin
-        </a>
+
         <ul class="nav flex-column mb-2">
-          <li class="nav-item">
-            <a class="nav-link {{Request::is('user/*') || Request::is('users') ?"active":''}}" href="{{url('/users')}}">
-              <span data-feather="file-text"></span>
-              Manage Users
-            </a>
-          </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span data-feather="settings"></span>
+                admin
+                </a>
+                <div class="dropdown-menu" aria-labelledby="adminDropdown">
+                    <a class="dropdown-item {{Request::is('user/*') || Request::is('users') ?"active":''}}" href="{{url('/users')}}">
+                    <span data-feather="file-text"></span>
+                    Manage Users
+                    </a>
+                </div>
+            </li>
         </ul>
         @endif
 

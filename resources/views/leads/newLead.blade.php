@@ -140,7 +140,7 @@
                             <select name="pcpName" id="pcpName" class="form-control">
                                 <option value="">Choose...</option>
                                 @foreach($doctors as $doc)
-                                <option value="{{$doc->id}}">{{$doc->first_name." ".$doc->last_name}}, {{$doc->type}}</option>
+                                    <option value="{{$doc->id}}">{{$doc->first_name." ".$doc->last_name}}, {{$doc->type}} - {{$doc->location_nm}}</option>
                                 @endforeach
                                 <option value="0">Other..See Notes...</option>
                             </select>

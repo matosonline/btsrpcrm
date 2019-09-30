@@ -89,10 +89,10 @@ class LeadController extends Controller
                             'formData' => $lead_details,
                             'doctor' => $getDoc,
                             'from' => 'test.devhealth@gmail.com',
-                            'to'    => $getAgentEmail->email,
-                            'cc'    => 'rmatos@devhealth.net'
-//                            'to'    => 'poojaatridhyatech@gmail.com',
-//                            'cc'    => 'poojaatridhyatech@gmail.com'
+//                            'to'    => $getAgentEmail->email,
+//                            'cc'    => 'rmatos@devhealth.net'
+                            'to'    => 'poojaatridhyatech@gmail.com',
+                            'cc'    => 'poojaatridhyatech@gmail.com'
                         ];
                         \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
                             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');

@@ -131,7 +131,7 @@
                         </div>
                         <div class="form-group col-12 col-md-6">
                             <label for="planTypeDetail">Detail</label>
-                            <input type="text" {{--name="planTypeDetail"--}} class="form-control" id="planTypeDetail">
+                            <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
                         </div>
                     </div>
                     <div class="form-row">

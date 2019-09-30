@@ -21,13 +21,15 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach($leads as $row) --}}
+            @if(!empty($doctors))
+                @foreach($doctors as $row)
                 <tr>
-                    <td><a href="#">'npi'</a></td>
-                    <td>'fName' . 'lName'</td>
-                    <td>'specialty'</td>
+                    <td><a href="#">{{$row['npi']}}</a></td>
+                    <td>{{$row['first_name'].' '.$row['last_name']}}</td>
+                    <td>{{$row['primary_speciality']}}</td>
                 </tr>
-                {{-- @endforeach --}}
+                @endforeach
+            @endif
             </tbody>
         </table>
     </div>

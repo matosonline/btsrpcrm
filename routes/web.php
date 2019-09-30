@@ -30,17 +30,8 @@ Route::get('/newCenter', function () {
     return view('centers.newCenter');
 })->name('newCenter');
 
-//Route::get('/centers', function () {
-//    return view('centers.index');
-//})->name('centers');
 
-Route::get('/newProvider', function () {
-    return view('providers.newProvider');
-})->name('newProvider');
 
-Route::get('/providers', function () {
-    return view('providers.index');
-})->name('providers');
 
 Route::get('/agentLead', function () {
     return view('leads.agentLead');
@@ -64,3 +55,5 @@ Route::get('/editCenter/{center_id}','CenterController@edit')->name('editcenter'
 
 
 
+Route::get('/newProvider', 'DoctorController@create')->name('newProvider');
+Route::get('/providers', 'DoctorController@index')->name('providers');

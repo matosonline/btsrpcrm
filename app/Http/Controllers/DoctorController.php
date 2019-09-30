@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
+use App\Doctors;
+use App\DoctorsAgent;
+use App\Lead;
+use App\RoleUser;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use phpseclib\System\SSH\Agent;
+use Illuminate\Support\Facades\Mail;
+use App\State;
 
-class CustomerController extends Controller
+class DoctorController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,7 +27,8 @@ class CustomerController extends Controller
     }
     public function index()
     {
-        //
+        $doctors = Doctors::all()->toArray();
+        return view('providers.index', compact('doctors'));
     }
 
     /**
@@ -28,7 +38,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('providers.newProvider');
     }
 
     /**
@@ -39,16 +49,16 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function show(Customer $customer)
+    public function show(Lead $lead)
     {
         //
     }
@@ -56,34 +66,34 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function edit(Customer $customer)
+    public function edit(Request $request)
     {
-        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Customer  $customer
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(Request $request, Lead $lead)
     {
-        //
+        
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Customer  $customer
+     * @param  \App\Lead  $lead
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Customer $customer)
+    public function destroy(Lead $lead)
     {
         //
     }
+    
 }

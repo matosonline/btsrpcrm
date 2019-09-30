@@ -28,7 +28,7 @@ class CreateLeadsTable extends Migration {
 			$table->integer('lang')->nullable();
 			$table->boolean('agreeOrDisagree')->nullable();
 			$table->integer('planType')->nullable();
-			$table->string('planTypeDetail');
+			$table->string('planTypeDetail')->nullable();
 			$table->string('pcpName')->nullable();
 			$table->integer('agent')->nullable();
 			$table->text('notes')->nullable();

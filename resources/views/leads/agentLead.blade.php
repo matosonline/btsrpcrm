@@ -34,17 +34,8 @@
                             @endif
                         </select>
                     </div>
-                    <div class="form-group col-12 col-md-6">
-                        <label for="inputState">State</label>
-                        <select name="inputState" id="inputState" class="form-control">
-                            <option selected value="">Choose...</option>
-                            @foreach($state as $val)
-                                <option value="{{$val->id}}" {{$val->id == $lead_details->inputState ?'selected':''}}>{{$val->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
                 </div>
-               
+
                 <div class="form-row">
                     <div class="form-group col-12 col-md-6">
                         <label for="fName">First Name</label>
@@ -113,7 +104,7 @@
                         <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number"   value="{{isset($lead_details)?$lead_details['phone1']:''}}">
                     </div>
                 </div>
-                
+
                 <div class="form-row">
                     <div class="form-group col-12 col-sm-6">
                         <label for="healthPlan">Health Plan</label>

@@ -45,7 +45,7 @@ class LeadController extends Controller
     {
         $doctors = Doctors::get();
         $state = State::get();
-        return view('leads\newLead', compact('doctors','state'));
+        return view('leads.newLead', compact('doctors','state'));
     }
 
     /**

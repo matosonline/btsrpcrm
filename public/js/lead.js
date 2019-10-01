@@ -41,7 +41,7 @@ $(function () {
 //                valid_email: true
 //
 //            },
-            dob: {
+         /*   dob: {
                 required: '#agree:checked',
 
             },
@@ -59,14 +59,14 @@ $(function () {
             },
             inputZip:{
                 required: '#agree:checked',
-            },
+            },*/
             phone1:{
                 required: '#agree:checked',
             },
-            pcpName:{
+           /* pcpName:{
                 required: '#agree:checked',
-            },
-           /* agent:{
+            },*/
+          /* agent:{
                 required: true
             }*/
             
@@ -74,11 +74,11 @@ $(function () {
         messages: {
             fName: "Please enter your firstname",
             lName: "Please enter your lastname",
-//            email: {
+//          email: {
 //                required: "Please enter your email",
 //                valid_email: "Please enter a valid email address",
 //            },
-            dob: {
+          /*  dob: {
                 required: "Please select Date of Birth",
                 
             },
@@ -95,10 +95,10 @@ $(function () {
             },
             inputZip:{
                 required: "Please enter zipcode",
-            },
+            },*/
             phone1:{
                 required: "Please enter Phone Number",
-            },
+            },/*
             pcpName:{
                 required: "Please select pcpName",
             },

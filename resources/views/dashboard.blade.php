@@ -2,7 +2,7 @@
 
 @section('content')
 
-            <!-- JS Chart -->
+   <!-- JS Chart -->
             {{-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> --}}
 
             <!-- Leaderboard -->
@@ -13,8 +13,8 @@
                             Total Leads
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title text-center">##</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
+                            <h1 class="card-title text-center">{{count($totalLeads)}}</h1>
+                            <p class="card-text text-muted">Last Updated - mmddyyy/p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
@@ -26,7 +26,7 @@
                             Closed Leads
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title text-center">##</h1>
+                            <h1 class="card-title text-center">{{count($closeLeads)}}</h1>
                             <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
@@ -39,7 +39,7 @@
                             New Leads
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title text-center">##</h1>
+                            <h1 class="card-title text-center">{{count($newLeads)}}</h1>
                             <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
@@ -52,7 +52,7 @@
                             Total Opted Out
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title text-center">##</h1>
+                            <h1 class="card-title text-center">{{count($totalOptedOut)}}</h1>
                             <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>

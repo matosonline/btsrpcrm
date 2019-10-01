@@ -45,7 +45,7 @@
 </script>
 
 <!-- Bootstrap Form Helpers -->
-<script src="/js/bootstrap-formhelpers-phone.js"></script>
+<script src="{{asset('js/bootstrap-formhelpers-phone.js')}}"></script>
 
 <!--            -->
 <!-- END SCRIPT -->

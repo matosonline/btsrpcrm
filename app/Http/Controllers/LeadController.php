@@ -110,11 +110,12 @@ class LeadController extends Controller
                 $lead_details->save();
             }
             if (!empty($lead_details->agent)) {
-                $getAgentEmail = User::where('id',$lead_details->agent)->select('email')->first();
+                $getAgentEmail = User::where('id',$lead_details->agent)->select('email','last_name','first_name')->first();
                 $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
                     if(!empty($getAgentEmail)){
                         $data = [
                             'formData' => $lead_details,
+                            'getAgentData'=>$getAgentEmail,
                             'doctor' => $getDoc,
                             'from' => 'test.devhealth@gmail.com',
                             'to'    => $getAgentEmail->email,
@@ -126,6 +127,27 @@ class LeadController extends Controller
                             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
                         });
                     }
+            }else{
+                $doctorsAgent = DoctorsAgent::where('doctor_id',$lead_details->pcpName)->select('agent_id')->get();
+                foreach($doctorsAgent as $val){
+                    $getAgentEmail = User::where('id',$val->agent_id)->select('email','last_name','first_name')->first();
+                    $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
+                    if(!empty($getAgentEmail)){
+                        $data = [
+                            'formData' => $lead_details,
+                            'getAgentData'=>$getAgentEmail,
+                            'doctor' => $getDoc,
+                            'from' => 'test.devhealth@gmail.com',
+                            'to'    => $getAgentEmail->email,
+                            'cc'    => 'rmatos@devhealth.net'
+//                            'to'    => 'poojaatridhyatech@gmail.com',
+//                            'cc'    => 'poojaatridhyatech@gmail.com'
+                        ];
+                        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+                            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+                        });
+                    }
+                }
             }
         }
 

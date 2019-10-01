@@ -14,7 +14,7 @@
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($totalLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy/p>
+                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
                             {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>

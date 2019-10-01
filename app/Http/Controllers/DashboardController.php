@@ -28,6 +28,10 @@ class DashboardController extends Controller
             $leads = Lead::all()->toArray();
         }
         
-        return view('/dashboard', compact('leads'));
+        $totalLeads = Lead::orderBy('created_at', 'DESC')->get()->toArray();
+        $closeLeads = Lead::where('lStatus',3)->get()->toArray();
+        $newLeads = Lead::where('lStatus',1)->get()->toArray();
+        $totalOptedOut = Lead::where('agreeOrDisagree',2)->get()->toArray();
+        return view('/dashboard', compact('leads','totalLeads','closeLeads','newLeads','totalOptedOut'));
     }
 }

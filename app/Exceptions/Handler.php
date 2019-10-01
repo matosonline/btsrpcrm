@@ -3,7 +3,10 @@
 namespace App\Exceptions;
 
 use Exception;
+
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Session;
 
 class Handler extends ExceptionHandler
 {
@@ -46,6 +49,11 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        if($exception){
+            Session::put('excpMsg','Oops! Something went wrong!');
+            return Redirect::to('dashboard');//->with('excpMsg', 'Oops! Something went wrong!');
+        }else{
+            return parent::render($request, $exception);
+        }
     }
 }

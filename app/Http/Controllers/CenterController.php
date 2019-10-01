@@ -43,6 +43,7 @@ class CenterController extends Controller
         $validatedData = $request->validate([
                 'centerName' => 'required',
                 'inputAddress' => 'required',
+                'inputAddress2' => 'required',
                 'inputCity' => 'required',
                 'inputState' => 'required',
                 'inputZip' => 'required',

@@ -12,6 +12,9 @@ $(function () {
             inputAddress:{
                 required: true,
             },
+            inputAddress2:{
+                required: true,
+            },
             inputCity:{
                 required: true,
             },
@@ -32,6 +35,9 @@ $(function () {
         messages: {
             centerName: "Please enter center name",
             inputAddress:{
+                required: "Please enter address",
+            },
+            inputAddress2:{
                 required: "Please enter address",
             },
             inputCity:{

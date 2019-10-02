@@ -104,4 +104,19 @@ class UserController extends Controller
         $user_details = User::find(Auth::user()->id);
         return view('user.profile_user',compact('user_details'));
     }
+    public function changePassword(Request $request) {
+        return view('user.change_password');
+    }
+    
+    public function editPassword(Request $request) {
+        $validatedData = $request->validate([
+            'password' => 'required',
+            'confirm_password' => 'required'
+        ]);
+        $user = User::find(Auth::user()->id);
+        $user->password = bcrypt($request->password);
+        $user->save();
+        
+        return redirect('/users');
+    }
 }

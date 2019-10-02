@@ -48,6 +48,8 @@ Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
 
 
 Route::get('/viewprofile', 'UserController@profile')->name('user.profile');
+Route::get('/changePassword', 'UserController@changePassword')->name('user.changePassword');
+Route::post('/editPassword', 'UserController@editPassword')->name('user.editPassword');
 Route::get('/centers', 'CenterController@index')->name('center.index');
 Route::get('/newCenter', 'CenterController@create')->name('center.view');
 Route::post('/newCenter', 'CenterController@store')->name('center.store');

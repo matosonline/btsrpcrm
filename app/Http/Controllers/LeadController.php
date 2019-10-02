@@ -66,13 +66,13 @@ class LeadController extends Controller
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
-        if(array_key_exists('id',$data)){ 
+        if(array_key_exists('id',$data)){
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
             //$updateLead = Lead::where('id',$data['id'])->update($data);
 
-//          Continue in file upload 
+//          Continue in file upload
             if(count($request['uploadDocs'])>0)
             {
                 $allowedfileExtension=['pdf'];
@@ -93,7 +93,7 @@ class LeadController extends Controller
                     }
                 }
             }
-            
+
         }else{
             $last_id  = Lead::create($data);
 
@@ -115,10 +115,10 @@ class LeadController extends Controller
                             'getAgentData'=>$getAgentEmail,
                             'doctor' => $getDoc,
                             'from' => 'test.devhealth@gmail.com',
-//                            'to'    => $getAgentEmail->email,
-//                            'cc'    => 'rmatos@devhealth.net'
-                            'to'    => 'poojaatridhyatech@gmail.com',
-                            'cc'    => 'poojaatridhyatech@gmail.com'
+                           'to'    => $getAgentEmail->email,
+                           'cc'    => 'rmatos@devhealth.net'
+                            // 'to'    => 'poojaatridhyatech@gmail.com',
+                            // 'cc'    => 'poojaatridhyatech@gmail.com'
                         ];
                         \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
                             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
@@ -135,10 +135,10 @@ class LeadController extends Controller
                             'getAgentData'=>$getAgentEmail,
                             'doctor' => $getDoc,
                             'from' => 'test.devhealth@gmail.com',
-//                            'to'    => $getAgentEmail->email,
-//                            'cc'    => 'rmatos@devhealth.net'
-                            'to'    => 'poojaatridhyatech@gmail.com',
-                            'cc'    => 'poojaatridhyatech@gmail.com'
+                           'to'    => $getAgentEmail->email,
+                           'cc'    => 'rmatos@devhealth.net'
+                            // 'to'    => 'poojaatridhyatech@gmail.com',
+                            // 'cc'    => 'poojaatridhyatech@gmail.com'
                         ];
                         \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
                             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');

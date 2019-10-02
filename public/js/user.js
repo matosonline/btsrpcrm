@@ -60,6 +60,29 @@ $(function () {
         },
 
     });
+    $('#change_pass').validate({ // initialize the plugin
+        rules: {
+            password: {
+                required: true,
+
+            },
+            confirm_password: {
+                required: true,
+                equalTo: "#password"
+
+            }
+        },
+        messages: {
+            password: {
+                required: "Please provide a password",
+            },
+            confirm_password: {
+                required: "Please provide a confirm password",
+                equalTo: "Please enter same password as password",
+            }
+        },
+
+    });
     $("#phone_number").on("keypress keyup blur", function (e) {
         var regex = new RegExp(/^(\?\+?[0-9]\?)?[0-9_\-+ ]*$/);
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);

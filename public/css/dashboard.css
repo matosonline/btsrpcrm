@@ -52,3 +52,21 @@ body { font-size: .875rem; }
 .mobile-nav{display: flex;align-items: center;}
 }
 .nav-item::marker{display:none;}
+
+/*//For dashboard pagination*/
+.custom_footable .table-responsive .dataTables_paginate{
+    right: 0px !important;
+    position: absolute;
+    position: absolute !important;
+    top: -64px !important;
+    z-index: 999 !important;
+}
+
+.custom_footable .table-responsive{
+    overflow-x: visible;
+}
+.custom_footable .dataTables_paginate .paginate_button.current,.custom_footable .dataTables_paginate .paginate_button:hover{background:#007bff !important;color: #fff !important;}
+.custom_footable .paginate_button{
+            border: 1px solid transparent !important;
+            color: #007bff !important;border-color: #007bff !important;
+            padding:10px !important;margin-left: 0px !important;}

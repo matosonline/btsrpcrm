@@ -11,6 +11,7 @@
       <!-- Custom styles for this template -->
       <!-- Custom styles for this template -->
       <link href="{{url('/css/dashboard.css')}}" rel="stylesheet">
+      <link href="{{url('/css/jquery.dataTables.min.css')}}" rel="stylesheet">
 
       <!-- fonts -->
       <link href="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css">

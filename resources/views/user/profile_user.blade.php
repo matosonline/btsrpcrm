@@ -24,6 +24,9 @@
                 </div>
            </div>
        </div>
+    <div class="card-footer">
+        <a class="btn btn-success" href="{{url('/changePassword')}}">Change Password</a>
+    </div>
 </div>
 @endsection
 @section('pagescript')

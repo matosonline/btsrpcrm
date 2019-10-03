@@ -73,22 +73,25 @@ class LeadController extends Controller
             
             $getOldData = Lead::where('id',$data['id'])->select('agent')->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
-            if(Auth::user()->hasRole('agent_Manager')){
-                if( $getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
+            
+            if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
+                if (!empty($data['agent'])) {
                     $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
-                        $data = [
-                            'formData' => $getOldData,
-                            'getAgentData'=>$getAgentEmail,
-                            'from' => 'test.devhealth@gmail.com',
-                            'to'    => $getAgentEmail->email,
-                            'cc'    => Auth::user()->email
-                        ];
-                        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-                            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-                        });
+                    $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
+                        if(!empty($getAgentEmail)){
+                             $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
+                        }
+                }else{
+                    $doctorsAgent = DoctorsAgent::where('doctor_id',$data['pcpName'])->select('agent_id')->get();
+                    foreach($doctorsAgent as $val){
+                        $getAgentEmail = User::where('id',$val->agent_id)->select('email','last_name','first_name')->first();
+                        $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
+                        if(!empty($getAgentEmail)){
+                            $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
+                        }
+                    }
                 }
             }
-
 //          Continue in file upload
             if(isset($request['uploadDocs']))
             {
@@ -130,19 +133,7 @@ class LeadController extends Controller
                 $getAgentEmail = User::where('id',$lead_details->agent)->select('email','last_name','first_name')->first();
                 $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
                     if(!empty($getAgentEmail)){
-                        $data = [
-                            'formData' => $lead_details,
-                            'getAgentData'=>$getAgentEmail,
-                            'doctor' => $getDoc,
-                            'from' => 'test.devhealth@gmail.com',
-                           'to'    => $getAgentEmail->email,
-                           'cc'    => 'rmatos@devhealth.net'
-//                             'to'    => 'poojaatridhyatech@gmail.com',
-//                             'cc'    => 'poojaatridhyatech@gmail.com'
-                        ];
-                        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-                            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-                        });
+                        $this->leadEmail($lead_details,$getAgentEmail,$getDoc);
                     }
             }else{
                 $doctorsAgent = DoctorsAgent::where('doctor_id',$lead_details->pcpName)->select('agent_id')->get();
@@ -150,19 +141,7 @@ class LeadController extends Controller
                     $getAgentEmail = User::where('id',$val->agent_id)->select('email','last_name','first_name')->first();
                     $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
                     if(!empty($getAgentEmail)){
-                        $data = [
-                            'formData' => $lead_details,
-                            'getAgentData'=>$getAgentEmail,
-                            'doctor' => $getDoc,
-                            'from' => 'test.devhealth@gmail.com',
-                           'to'    => $getAgentEmail->email,
-                           'cc'    => 'rmatos@devhealth.net'
-//                             'to'    => 'poojaatridhyatech@gmail.com',
-//                             'cc'    => 'poojaatridhyatech@gmail.com'
-                        ];
-                        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-                            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-                        });
+                        $this->leadEmail($lead_details,$getAgentEmail,$getDoc);
                     }
                 }
             }
@@ -171,6 +150,29 @@ class LeadController extends Controller
 
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
+    }
+    
+    public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
+        $getManagerData = RoleUser::leftjoin('users','role_user.user_id','users.id')->where('role_user.role_id',5)->select('users.email')->get();
+        $ccArray = array();
+        if(!$getManagerData->isEmpty()){
+            foreach($getManagerData as $val){
+                $ccArray[] = $val->email;
+            }
+        }
+        $data = [
+                'formData' => $lead_details,
+                'getAgentData'=>$getAgentEmail,
+                'doctor' => $getDoc,
+                'from' => 'test.devhealth@gmail.com',
+                'to'    => $getAgentEmail->email,
+                'cc'    => $ccArray
+//               'cc'    => 'rmatos@devhealth.net'
+//                'to'    => 'poojaatridhyatech@gmail.com',
+            ];
+        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+        });
     }
 
     /**

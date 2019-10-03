@@ -15,6 +15,10 @@ class CreateDoctorInsuranceTable extends Migration
     {
         Schema::create('doctor_insurance', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('doctor_id')->nullable();
+            $table->integer('insurance_type_id')->nullable();
+            $table->timestamp('start_date', true)->nullable();
+            $table->timestamp('end_date', true)->nullable();
             $table->timestamps();
         });
     }

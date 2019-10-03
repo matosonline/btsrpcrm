@@ -21,6 +21,8 @@
                     <th>Name</th>
                     <th>Phone</th>
                     <th>DOB</th>
+                    <th>Phone</th>
+                    <th>Address</th>
                     <th>Lead Status</th>
                 </tr>
             </thead>
@@ -31,15 +33,23 @@
                     <td>{{ $row['fName'] . ' ' . $row['lName'] }}</td>
                     <td><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></td>
                     <td>{{ $row['dob'] }}</td>
+                    <td><a href="tel:{{$row['phone1']}}">{{ $row['phone1'] }}</a></td>
+                    <td>
+                        <?php 
+                            $stateName = (new \App\Helpers\CommonHelper)->getStateName($row['inputState']) ;
+                            $address = $row['inputAddress'].(($row['inputAddress2'] != '')?','.$row['inputAddress2']:'').(($row['inputCity'] != '')?','.$row['inputCity']:'').(($stateName != '')?','.$stateName['name']:'').(($row['inputZip'] != '')?','.$row['inputZip']:'');
+                        ?>
+                        <a href="http://maps.google.com/maps?q={{$address}}" target="_blank" title="address">{{$address}}</a>
                     @if($row['lStatus'] == 1 )
                         <td>New</td>
                     @elseif($row['lStatus'] == 2)
                         <td>Pending</td>
                     @elseif($row['lStatus'] == 3)
                         <td>Closed Success</td>
-                    @elseif($row['lStatus'] == 4)
-                        <td>Lost Failure</td>
+                    @elseif($row['lStatus'] == 4) 
+                       <td>Lost Failure</td>
                     @endif
+                     
                 </tr>
                 @endforeach
             </tbody>

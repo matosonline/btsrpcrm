@@ -24,7 +24,7 @@
             @if(!empty($doctors))
                 @foreach($doctors as $row)
                 <tr>
-                    <td><a href="#">{{$row['npi']}}</a></td>
+                    <td><a href="{{url('/editProvider/'.$row['id'])}}">{{$row['npi']}}</a></td>
                     <td>{{$row['first_name'].' '.$row['last_name']}}</td>
                     <td>{{$row['primary_speciality']}}</td>
                 </tr>

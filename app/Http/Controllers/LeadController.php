@@ -119,7 +119,6 @@ class LeadController extends Controller
             
         }else{
             $last_id  = Lead::create($data);
-
             $lead_details = Lead::find($last_id->id);
 
             if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
@@ -129,6 +128,11 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
+            //For customer Mail
+            if(!empty($lead_details->email)){
+                $this->custLeadEmail($lead_details->email);
+            }
+            // For agent mail
             if (!empty($lead_details->agent)) {
                 $getAgentEmail = User::where('id',$lead_details->agent)->select('email','last_name','first_name')->first();
                 $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
@@ -152,6 +156,16 @@ class LeadController extends Controller
         return redirect()->back()->with('message', 'Record Updated!');
     }
     
+    public function custLeadEmail($customerMail) {
+        $data = [
+                'from' => 'test.devhealth@gmail.com',
+                'to'    => $customerMail
+            ];
+        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+        });
+
+    }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
         $getManagerData = RoleUser::leftjoin('users','role_user.user_id','users.id')->where('role_user.role_id',5)->select('users.email')->get();
         $ccArray = array();

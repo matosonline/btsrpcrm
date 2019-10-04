@@ -51,7 +51,7 @@ class CenterController extends Controller
                 'fax1'=>'required'
         ]);
         if(array_key_exists('id',$data)){
-             unset($data['_token']);
+            unset($data['_token']);
             Center::where('id',$data['id'])->update($data);
         }else{
             Center::create($data);

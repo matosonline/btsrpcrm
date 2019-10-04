@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\DB;
 use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
+use App\InsuranceType;
+use App\DoctorInsurance;
+use App\Specialties;
 
 class DoctorController extends Controller
 {
@@ -38,7 +41,10 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        return view('providers.newProvider');
+        $state = State::get();
+        $insuranceType = InsuranceType::get();
+        $specialties = Specialties::get();
+        return view('providers.newProvider',compact('state','insuranceType','specialties'));
     }
 
     /**
@@ -49,7 +55,66 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
-       
+        $validatedData = $request->validate([
+                'fName' => 'required',
+                'lName' => 'required',
+                'npi' => 'required',
+                'cred' => 'required',
+                'spec' => 'required',
+                'phone1' => 'required',
+                'email' => 'required',
+                'startDate1'=>'required_with:1_Check',
+                'startDate2'=>'required_with:2_Check',
+                'startDate3'=>'required_with:3_Check',
+                'startDate4'=>'required_with:4_Check',
+        ]);
+        $data = $request->all();
+        
+        if(array_key_exists('id',$data)){
+            $obj = Doctors::find($data['id']);
+        }else{
+            $obj = new Doctors();
+        }
+        $obj->first_name = ($data['fName'] != '')?$data['fName']:NULL;
+        $obj->last_name = ($data['lName'] != '')?$data['lName']:NULL;
+        $obj->dob    =  ($data['dob'] != '')?$data['dob']:NULL;
+        $obj->npi    = ($data['npi'] != '')?$data['npi']:NULL;
+        $obj->ssn    = ($data['ssn'] != '')?$data['ssn']:NULL;
+        $obj->type    = ($data['cred'] != '')?$data['cred']:NULL;
+        $obj->primary_speciality    = ($data['spec'] != '')?$data['spec']:NULL;
+        $obj->lang    = ($data['lang'] != '')?serialize($data['lang']):NULL;
+        $obj->address1    = ($data['inputAddress'] != '')?$data['inputAddress']:NULL;
+        $obj->inputAddress2    = ($data['inputAddress2'] != '')?$data['inputAddress2']:NULL;
+        $obj->inputCity    = ($data['inputCity'] != '')?$data['inputCity']:NULL;
+        $obj->inputState    = ($data['inputState'] != '')?$data['inputState']:NULL;
+        $obj->inputZip    = ($data['inputZip'] != '')?$data['inputZip']:NULL;
+        $obj->email    = ($data['email'] != '')?$data['email']:NULL;
+        $obj->phone1    = ($data['phone1'] != '')?$data['phone1']:NULL;
+        $obj->notes    = ($data['notes'] != '')?$data['notes']:NULL;
+        $obj->save();
+        $lastInsertId = $obj->id;
+        $insuranceType = InsuranceType::get();
+
+        if($lastInsertId != ''){
+            foreach($insuranceType as $val){
+                $fieldName = $val['id'].'_Check';
+                if(array_key_exists($fieldName,$data)){
+                    
+                    $checkExist = DoctorInsurance::where('doctor_id',$lastInsertId)->where('insurance_type_id',$val['id'])->first();
+                    if($checkExist){
+                        $insType = DoctorInsurance::find($checkExist['id']);
+                    }else{
+                        $insType = new DoctorInsurance();
+                    }
+                    $insType->doctor_id	= $lastInsertId;
+                    $insType->insurance_type_id	= $val['id'];
+                    $insType->start_date	= $data['startDate'.$val['id']];
+                    $insType->end_date	= $data['termDate'.$val['id']];
+                    $insType->save();
+                }
+            }
+        }
+        return redirect()->back()->with('message', 'Record Updated!');
     }
 
     /**
@@ -71,6 +136,12 @@ class DoctorController extends Controller
      */
     public function edit(Request $request)
     {
+        $doctors_details = Doctors::with('doctorInsuranceType')->find($request->provider_id);
+        $doctors_insur = DoctorInsurance::where('doctor_id',$request->provider_id)->get();
+        $state = State::get();
+        $insuranceType = InsuranceType::get();
+        $specialties = Specialties::get();
+        return view('providers.editProvider', compact('doctors_details','state','insuranceType','specialties','doctors_insur'));
     }
 
     /**

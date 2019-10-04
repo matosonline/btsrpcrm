@@ -59,3 +59,5 @@ Route::get('/editCenter/{center_id}','CenterController@edit')->name('editcenter'
 
 Route::get('/newProvider', 'DoctorController@create')->name('newProvider');
 Route::get('/providers', 'DoctorController@index')->name('providers');
+Route::post('/newProvider', 'DoctorController@store')->name('provider.store');
+Route::get('/editProvider/{provider_id}','DoctorController@edit')->name('editprovider');

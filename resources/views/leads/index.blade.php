@@ -19,7 +19,7 @@
                 <tr>
                     <th>Lead</th>
                     <th>Name</th>
-                    <th>Phone</th>
+                    {{-- <th>Phone</th> --}}
                     <th>DOB</th>
                     <th>Phone</th>
                     <th>Address</th>
@@ -31,11 +31,11 @@
                 <tr>
                     <td><a href="{{url('/editLead/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit">{{ $row['id'] }}</a></td>
                     <td>{{ $row['fName'] . ' ' . $row['lName'] }}</td>
-                    <td><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></td>
+                    {{-- <td><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></td> --}}
                     <td>{{ $row['dob'] }}</td>
                     <td><a href="tel:{{$row['phone1']}}">{{ $row['phone1'] }}</a></td>
                     <td>
-                        <?php 
+                        <?php
                             $stateName = (new \App\Helpers\CommonHelper)->getStateName($row['inputState']) ;
                             $address = $row['inputAddress'].(($row['inputAddress2'] != '')?','.$row['inputAddress2']:'').(($row['inputCity'] != '')?','.$row['inputCity']:'').(($stateName != '')?','.$stateName['name']:'').(($row['inputZip'] != '')?','.$row['inputZip']:'');
                         ?>
@@ -46,10 +46,10 @@
                         <td>Pending</td>
                     @elseif($row['lStatus'] == 3)
                         <td>Closed Success</td>
-                    @elseif($row['lStatus'] == 4) 
+                    @elseif($row['lStatus'] == 4)
                        <td>Lost Failure</td>
                     @endif
-                     
+
                 </tr>
                 @endforeach
             </tbody>

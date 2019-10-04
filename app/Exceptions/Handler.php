@@ -3,7 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
-
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Support\Facades\Session;
@@ -48,12 +48,18 @@ class Handler extends ExceptionHandler
      * @return \Illuminate\Http\Response
      */
     public function render($request, Exception $exception)
-    {
-        if($exception){
-            Session::put('excpMsg','Oops! Something went wrong!');
-            return Redirect::to('dashboard');//->with('excpMsg', 'Oops! Something went wrong!');
-        }else{
-            return parent::render($request, $exception);
+    {   
+        if($this->isHttpException($exception))
+        {
+            if($exception->getStatusCode() != ''){
+                Session::put('excpMsg','Oops! Something went wrong!');
+                return Redirect::to('dashboard');
+            }
         }
+        if ($exception instanceof \Symfony\Component\HttpKernel\Exception\NotFoundHttpException) {
+            Session::put('excpMsg','Oops! Something went wrong!');
+            return Redirect::to('dashboard');
+        } 
+        return parent::render($request, $exception);
     }
 }

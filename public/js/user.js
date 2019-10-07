@@ -113,28 +113,26 @@ $(function () {
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
             }).then((result) => {
-              
                 if (result.value) {
-                $.ajax({
-                    url: base_url + "/user/delete",
-                    method: 'delete',
-                    data: {
-                        user_id: $(this).attr('user_id')
-                    },
-                    success: function (result) {
-                        Swal.fire(
-                            'Deleted!',
-                            'User has been deleted.',
-                            'success'
-                        ).then((result)=>{
-                            location.reload();
+                    var CSRF_TOKEN = $('input[name="_token"]').val();
+                    $.ajax({
+                        url: base_url + "/user/delete",
+                        method: 'delete',
+                        data: {_token: CSRF_TOKEN,user_id: $(this).attr('user_id')},
+                        type : "DELETE",
+                        success: function (result) {
+                  console.log(result);
+                            Swal.fire(
+                                'Deleted!',
+                                'User has been deleted.',
+                                'success'
+                            ).then((result)=>{
+                                location.reload();
+                            }
+                            )
                         }
-                        )
-                    }
-                });
+                    });
             }
-                    
-                
             })
         });
 

@@ -49,7 +49,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-4 mx-auto">
                         <label for="dob">Date of Birth</label>
-                        <input class="form-control" type="text" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}">
+                        <input class="form-control" type="text" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}" placeholder="MM/DD/YYYY"> 
                     </div>
                     <div class="form-group col-sm-4 mx-auto">
                         <label for="lang">Preferred Language</label>
@@ -118,7 +118,7 @@
                     </div>
                     <div class="form-group col-12 col-sm-6">
                         <label for="startDate">Start Date</label>
-                        <input class="form-control" type="test" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}">
+                        <input class="form-control" type="test" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}"  placeholder="MM/DD/YYYY">
                     </div>
                 </div>
                 <div class="form-row">
@@ -131,6 +131,7 @@
                                     <option value="{{$val['id']}}" {{isset($lead_details)&& $lead_details['pcpName'] == $val['id'] ?'selected':''}}>{{$val['first_name'].' '.$val['last_name']}}, {{$val['type']}}</option>
                                 @endforeach
                             @endif
+                            <option value="0">Other..See Notes...</option>
                         </select>
                     </div>
                 </div>
@@ -142,7 +143,7 @@
                 </div>
                 <hr>
                 <div class="form-row">
-                    <div class="form-group col-12 col-sm-6">
+                    <div class="form-group col-12 col-sm-5">
                         <label for="lStatus">Lead Status</label>
                         <select name="lStatus" id="lStatus" class="form-control">
                             <option value="1" {{isset($lead_details)&& $lead_details['lStatus'] == 1?'selected':''}}>New</option>
@@ -151,7 +152,11 @@
                             <option value="4" {{isset($lead_details)&& $lead_details['lStatus'] == 4?'selected':''}}>Lost <span class="test-danger text-italic">Failure</span></option>
                         </select>
                     </div>
-                    <div class="form-group col-12 col-sm-6">
+<!--                    <div class="form-group col-12 col-sm-2">
+                        <label>View All Files</label><br>
+                        <span data-feather="eye" class="view_icon view_lead_file" data-lead="{{$lead_details->id}}"></span>
+                    </div>-->
+                    <div class="form-group col-12 col-sm-5">
                         <label for="uploadDocs">Upload Files</label>
                         <input type="file" name="uploadDocs[]" class="form-control-file" id="uploadDocs" multiple>
                     </div>
@@ -161,12 +166,13 @@
                     <button type="reset" class="btn btn-lg btn-danger m-1">Dismiss</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
                     <button type="submit" class="btn btn-lg btn-success m-1">Update</button> <!-- must correspond with corrent selection above -->
                 </div>
-
             </form>
     </div>
 </div>
-
 @endsection
+<!--<div id="view_lead_file" class="modal fade" role="dialog">-->
+        
+        
 @section('pagecss')
 <link rel="stylesheet" href="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
 @endsection

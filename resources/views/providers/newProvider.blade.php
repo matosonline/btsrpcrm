@@ -34,7 +34,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3 mx-auto">
                     <label for="dob">Date of Birth</label>
-                    <input class="form-control" type="text" name="dob" id="dob">
+                    <input class="form-control" type="text" name="dob" id="dob"  placeholder="MM/DD/YYYY">
                 </div>
                 <div class="form-group col-md-3 mx-auto">
                     <label for="npi">NPI</label>

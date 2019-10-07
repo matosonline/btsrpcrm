@@ -15,6 +15,7 @@ use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
 use App\LeadDetail;
+use App\Traits\LogData;
 
 class LeadController extends Controller
 {
@@ -23,6 +24,7 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use LogData;
     public function __construct()
     {
         $this->middleware('auth');
@@ -59,19 +61,21 @@ class LeadController extends Controller
     public function store(Request $request)
     {
 
-
         // dd($request->all());
         $data = $request->all();
+        
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
+        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
         if(array_key_exists('id',$data)){
+            $data['startDate'] =  date("Y-m-d", strtotime($data['startDate']));
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
             
-            $getOldData = Lead::where('id',$data['id'])->select('agent')->first();
+            $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
             
             if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
@@ -116,8 +120,14 @@ class LeadController extends Controller
                     }
                 }
             }
-            
+            $old_data = json_encode($getOldData);
+            $new_data = json_encode($data);
+            $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            if($data['pcpName'] == 0){
+                $data['pcpName'] = $data['pcp_other'];
+                unset($data['pcp_other']);
+            }
             $last_id  = Lead::create($data);
             $lead_details = Lead::find($last_id->id);
 
@@ -149,6 +159,8 @@ class LeadController extends Controller
                     }
                 }
             }
+            $new_data = json_encode($data);
+            $this->insertLog($lead_details->id,'Add Lead','',$new_data);
         }
 
 

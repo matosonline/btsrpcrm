@@ -1,5 +1,5 @@
 $(function () {
-   if($('#id').val() != ''){
+   if($('#id').val() != '' && typeof($('#id').val()) != 'undefined'){
        $('#pcpName').trigger('change');
        $('#agent').val($('#agent_id').val());
    }
@@ -18,7 +18,7 @@ $(function () {
         location.href = base_url + '/user/add_user';
     })*/
     $('#dob,#startDate').datepicker({
-        format: 'yyyy-mm-dd',
+        format: 'mm/dd/yyyy', //'yyyy-mm-dd',
         todayHighlight:true,
         autoclose:true
     });
@@ -63,9 +63,16 @@ $(function () {
             phone1:{
                 required: '#agree:checked',
             },
-           /* pcpName:{
-                required: '#agree:checked',
-            },*/
+            
+            pcp_other:{
+                required:function(element) {
+                    return $('#pcpName').val() == '0';
+                },
+                minlength: 4
+            },
+            pcpName:{
+                required: '#inquireNo:checked',
+            },
           /* agent:{
                 required: true
             }*/
@@ -98,7 +105,11 @@ $(function () {
             },*/
             phone1:{
                 required: "Please enter Phone Number",
-            },/*
+            },
+            
+            pcp_other:{
+                required: "Please enter details",
+            },
             pcpName:{
                 required: "Please select pcpName",
             },
@@ -217,10 +228,23 @@ $(function () {
             e.preventDefault();
             return false;
         }
-
     });
+    $('#planType').on('change',function(){
+        if($(this).val() == 5){
+            $( ".type_option" ).css('display','flex');
+        }   
+    });
+
+//    $('.view_lead_file').on('click',function(){
+//       var leadId = $(this).attr('data-lead');
+//        if(leadId != ''){
+//        }
+//    });
 })
 $('#pcpName').on("change",function(){
+    if($(this).val() == 0 ){
+        $( ".pcp_other_textbox input" ).css('display','block');
+    }  
     $.ajax({
         url: base_url + "/get_agent",
         method: 'get',
@@ -235,55 +259,4 @@ $('#pcpName').on("change",function(){
         }
     });
 })
-!function ($) {
-    "use strict";
 
-    var SweetAlert = function () { };
-
-    //examples 
-    SweetAlert.prototype.init = function () {
-        $(".sa-confirm").click(function () {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to delete!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              
-                if (result.value) {
-                $.ajax({
-                    url: base_url + "/user/delete",
-                    method: 'delete',
-                    data: {
-                        user_id: $(this).attr('user_id')
-                    },
-                    success: function (result) {
-                        Swal.fire(
-                            'Deleted!',
-                            'User has been deleted.',
-                            'success'
-                        ).then((result)=>{
-                            location.reload();
-                        }
-                        )
-                    }
-                });
-            }
-                    
-                
-            })
-        });
-
-    },
-    //init
-    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-}(window.jQuery),
-
-//initializing 
-function ($) {
-    "use strict";
-    $.SweetAlert.init()
-}(window.jQuery);

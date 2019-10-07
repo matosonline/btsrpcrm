@@ -1,7 +1,7 @@
 $(function () {
     
     $('#dob,.insTypeEnd,.insTypestart').datepicker({
-        format: 'yyyy-mm-dd',
+        format: 'mm/dd/yyyy', //'yyyy-mm-dd',
         todayHighlight:true,
         autoclose:true
     });
@@ -97,55 +97,3 @@ $(function () {
     });
 })
 
-!function ($) {
-    "use strict";
-
-    var SweetAlert = function () { };
-
-    //examples 
-    SweetAlert.prototype.init = function () {
-        $(".sa-confirm").click(function () {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to delete!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-              
-                if (result.value) {
-                $.ajax({
-                    url: base_url + "/user/delete",
-                    method: 'delete',
-                    data: {
-                        user_id: $(this).attr('user_id')
-                    },
-                    success: function (result) {
-                        Swal.fire(
-                            'Deleted!',
-                            'User has been deleted.',
-                            'success'
-                        ).then((result)=>{
-                            location.reload();
-                        }
-                        )
-                    }
-                });
-            }
-                    
-                
-            })
-        });
-
-    },
-    //init
-    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-}(window.jQuery),
-
-//initializing 
-function ($) {
-    "use strict";
-    $.SweetAlert.init()
-}(window.jQuery);

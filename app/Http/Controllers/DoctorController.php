@@ -16,6 +16,7 @@ use App\State;
 use App\InsuranceType;
 use App\DoctorInsurance;
 use App\Specialties;
+use App\Traits\LogData;
 
 class DoctorController extends Controller
 {
@@ -24,6 +25,7 @@ class DoctorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use LogData;
     public function __construct()
     {
         $this->middleware('auth');
@@ -69,9 +71,10 @@ class DoctorController extends Controller
                 'startDate4'=>'required_with:4_Check',
         ]);
         $data = $request->all();
+        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
         
         if(array_key_exists('id',$data)){
-            $obj = Doctors::find($data['id']);
+            $oldData = $obj = Doctors::find($data['id']);
         }else{
             $obj = new Doctors();
         }
@@ -82,7 +85,7 @@ class DoctorController extends Controller
         $obj->ssn    = ($data['ssn'] != '')?$data['ssn']:NULL;
         $obj->type    = ($data['cred'] != '')?$data['cred']:NULL;
         $obj->primary_speciality    = ($data['spec'] != '')?$data['spec']:NULL;
-        $obj->lang    = ($data['lang'] != '')?serialize($data['lang']):NULL;
+        $obj->lang    = (array_key_exists('lang',$data) && $data['lang'] != '')?serialize($data['lang']):NULL;
         $obj->address1    = ($data['inputAddress'] != '')?$data['inputAddress']:NULL;
         $obj->inputAddress2    = ($data['inputAddress2'] != '')?$data['inputAddress2']:NULL;
         $obj->inputCity    = ($data['inputCity'] != '')?$data['inputCity']:NULL;
@@ -94,7 +97,15 @@ class DoctorController extends Controller
         $obj->save();
         $lastInsertId = $obj->id;
         $insuranceType = InsuranceType::get();
-
+        
+        $new_data = json_encode($data);
+        if(array_key_exists('id',$data)){
+            $old_data = json_encode($oldData);
+            $this->insertLog($data['id'],'Edit Provider',$old_data,$new_data);
+        }else{
+            $this->insertLog($lastInsertId,'Add Provider','',$new_data);
+        }
+        
         if($lastInsertId != ''){
             foreach($insuranceType as $val){
                 $fieldName = $val['id'].'_Check';
@@ -108,8 +119,8 @@ class DoctorController extends Controller
                     }
                     $insType->doctor_id	= $lastInsertId;
                     $insType->insurance_type_id	= $val['id'];
-                    $insType->start_date	= $data['startDate'.$val['id']];
-                    $insType->end_date	= $data['termDate'.$val['id']];
+                    $insType->start_date	= date("Y-m-d", strtotime($data['startDate'.$val['id']]));
+                    $insType->end_date	= date("Y-m-d", strtotime($data['termDate'.$val['id']]));
                     $insType->save();
                 }
             }

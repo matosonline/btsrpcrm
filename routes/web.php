@@ -43,8 +43,10 @@ Route::get('/user/add_new_user','UserController@add_new_user')->name('add_new_us
 Route::get('/user/edit/{id}','UserController@edit_user')->name('edit_user');
 Route::post('/user/store_user_details','UserController@store_user_details')->name('store_user_details');
 Route::delete('/user/delete','UserController@delete_user')->name('delete_user');
+
 Route::get('/get_agent','LeadController@get_agents')->name('edit_user');
 Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
+Route::delete('/attach/delete','LeadController@delete_attach')->name('delete_attach');
 
 
 Route::get('/viewprofile', 'UserController@profile')->name('user.profile');
@@ -54,7 +56,6 @@ Route::get('/centers', 'CenterController@index')->name('center.index');
 Route::get('/newCenter', 'CenterController@create')->name('center.view');
 Route::post('/newCenter', 'CenterController@store')->name('center.store');
 Route::get('/editCenter/{center_id}','CenterController@edit')->name('editcenter');
-
 
 
 Route::get('/newProvider', 'DoctorController@create')->name('newProvider');

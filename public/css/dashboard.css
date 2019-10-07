@@ -71,3 +71,4 @@ body { font-size: .875rem; }
             color: #007bff !important;border-color: #007bff !important;
             padding:10px !important;margin-left: 0px !important;}
 .view_icon{color: #007bff;}
+.danger_color{color:red;cursor: pointer;}

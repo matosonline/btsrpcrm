@@ -121,7 +121,6 @@ $(function () {
                         data: {_token: CSRF_TOKEN,user_id: $(this).attr('user_id')},
                         type : "DELETE",
                         success: function (result) {
-                  console.log(result);
                             Swal.fire(
                                 'Deleted!',
                                 'User has been deleted.',

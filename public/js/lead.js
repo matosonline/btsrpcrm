@@ -234,12 +234,19 @@ $(function () {
             $( ".type_option" ).css('display','flex');
         }   
     });
-
-//    $('.view_lead_file').on('click',function(){
-//       var leadId = $(this).attr('data-lead');
-//        if(leadId != ''){
-//        }
-//    });
+    $('.attach_delete').on('click',function(){
+        var CSRF_TOKEN = $('input[name="_token"]').val();
+        var attachId = $(this).attr('data-attach');
+        $.ajax({
+            url: base_url + "/attach/delete",
+            method: 'delete',
+            data: {_token: CSRF_TOKEN,attachId:attachId},
+            type : "DELETE",
+            success: function (result) {
+                $('#attach_'+attachId).remove();
+            }
+        });
+    });
 })
 $('#pcpName').on("change",function(){
     if($(this).val() == 0 ){

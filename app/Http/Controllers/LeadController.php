@@ -227,9 +227,10 @@ class LeadController extends Controller
 //       if(!Auth::user()->hasRole('agent-user')){
 //        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
 //       }else{
-        $state = State::get();
-        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state'));
 //       }
+        $state = State::get();
+        $getAttachment = LeadDetail::where('lead_id',$request->lead_id)->get();
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment'));
     }
 
     /**
@@ -263,5 +264,9 @@ class LeadController extends Controller
         }
         $agent_details = User::whereIn('id', $agents)->get();
         echo view('leads.doctor_agent', compact('agent_details'))->render();
+    }
+    public function delete_attach(Request $request) {
+        $attachId = $request->attachId;
+        LeadDetail::where('id',$attachId)->delete();
     }
 }

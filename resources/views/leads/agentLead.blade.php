@@ -141,9 +141,8 @@
                         <textarea name="notes" class="form-control" id="notes" rows="3">{{isset($lead_details)?$lead_details['notes']:''}}</textarea>
                     </div>
                 </div>
-                <hr>
                 <div class="form-row">
-                    <div class="form-group col-12 col-sm-5">
+                    <div class="form-group col-12 col-sm-6">
                         <label for="lStatus">Lead Status</label>
                         <select name="lStatus" id="lStatus" class="form-control">
                             <option value="1" {{isset($lead_details)&& $lead_details['lStatus'] == 1?'selected':''}}>New</option>
@@ -152,15 +151,31 @@
                             <option value="4" {{isset($lead_details)&& $lead_details['lStatus'] == 4?'selected':''}}>Lost <span class="test-danger text-italic">Failure</span></option>
                         </select>
                     </div>
-<!--                    <div class="form-group col-12 col-sm-2">
-                        <label>View All Files</label><br>
-                        <span data-feather="eye" class="view_icon view_lead_file" data-lead="{{$lead_details->id}}"></span>
-                    </div>-->
-                    <div class="form-group col-12 col-sm-5">
+                    <div class="form-group col-12 col-sm-6">
                         <label for="uploadDocs">Upload Files</label>
                         <input type="file" name="uploadDocs[]" class="form-control-file" id="uploadDocs" multiple>
                     </div>
                 </div>
+                @if(!$getAttachment->isempty())
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                                <tr>
+                                    <th>FileName</th>
+                                    <th>Action</th>
+                                </tr>
+                        </thead>
+                        <tbody>
+                             @foreach($getAttachment as $val)
+                            <tr class="attach_row" id="attach_{{$val->id}}">
+                                <td><span data-feather="file"></span> {{substr($val->filename, strpos($val->filename, "]") + 1)}}</td>
+                                <td><span data-feather="trash-2" class="danger_color attach_delete" data-attach="{{$val->id}}"></span></td>
+                            </tr>
+                             @endforeach
+                        </tbody>
+                    </table>
+                </div>
+                @endif
                 <hr>
                 <div class="btn-group d-flex" role="group">
                     <button type="reset" class="btn btn-lg btn-danger m-1">Dismiss</button> <!-- must validate "Are you sure this patient has declined / must correspond with correct selection" -->
@@ -170,9 +185,6 @@
     </div>
 </div>
 @endsection
-<!--<div id="view_lead_file" class="modal fade" role="dialog">-->
-        
-        
 @section('pagecss')
 <link rel="stylesheet" href="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css')}}">
 @endsection

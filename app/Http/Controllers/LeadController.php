@@ -283,8 +283,8 @@ class LeadController extends Controller
                 unset($newData['id']);
                 $logArray[$key]['username'] = $val->username;
                 $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = http_build_query($oldData,'',', ');
-                $logArray[$key]['new_data'] = http_build_query($newData,'',', ');
+                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
+                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
             }
         }
         echo view('leads.logs.viewLog',compact('logArray'))->render();

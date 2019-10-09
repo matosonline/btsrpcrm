@@ -191,8 +191,8 @@ class DoctorController extends Controller
                 unset($newData['id'],$newData['_token']);
                 $logArray[$key]['username'] = $val->username;
                 $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = http_build_query($oldData,'',', ');
-                $logArray[$key]['new_data'] = http_build_query($newData,'',', ');
+                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
+                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
             }
         }
         echo view('providers.logs.viewLog',compact('logArray'))->render();

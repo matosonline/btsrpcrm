@@ -35,7 +35,7 @@
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <label for="dob">Date of Birth</label>
-                    <input class="form-control" type="text" name="dob" id="dob">
+                    <input class="form-control" type="text" name="dob" id="dob"  placeholder="MM/DD/YYYY">
                 </div>
                 <div class="form-group col-12 col-md-6">
                     <label for="lang">Preferred Language</label>
@@ -121,17 +121,36 @@
                     <div class="form-row">
                         <div class="form-group col-12 col-md-6">
                             <label for="planType">Plan Type</label>
-                            <select name="planType" class="custom-select">
+                            <select name="planType" class="custom-select" id="planType">
                                 <option value="0" default>Medicare Advantage</option>
                                 <option value="1">Medicaid</option>
                                 <option value="2">Commercial</option>
                                 <option value="3">Medicare FFS</option>
                                 <option value="4">Aging-In</option>
+                                <option value="5">Humana</option>
                             </select>
                         </div>
                         <div class="form-group col-12 col-md-6">
                             <label for="planTypeDetail">Detail</label>
                             <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
+                        </div>
+                    </div>
+                    <div class="form-row type_option" style="display: none">
+                        <div class="form-group col-12 col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="inquire_type" id="inquireNo" value="1">
+                                    <label class="form-check-label" for="inquireNo">Wants to remain with documented PCP?</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <div class="form-group">
+                                <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="inquire_type" id="inquireYes" value="2" checked>
+                                    <label class="form-check-label" for="inquireYes">Wants to inquire about joining a MSMC PCP panel?</label>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-row">
@@ -150,7 +169,12 @@
                                 <select name="agent" id="agent" class="form-control">
                                     <option value="">Choose...</option>
                                 </select>
-                            </div>
+                        </div>
+                    </div>
+                    <div class="form-row pcp_other_textbox">
+                        <div class="form-group col-12 col-md-6">
+                            <input type="text" class="form-control" name="pcp_other" id="pcp_other" placeholder="Other" style="display:none">
+                        </div>
                     </div>
                 </div>
             </div>

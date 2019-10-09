@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\DB;
 use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
-
+use App\Traits\LogData;
 class CenterController extends Controller
 {
     /**
@@ -21,6 +21,7 @@ class CenterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use LogData;
     public function __construct()
     {
         $this->middleware('auth');
@@ -51,10 +52,19 @@ class CenterController extends Controller
                 'fax1'=>'required'
         ]);
         if(array_key_exists('id',$data)){
-             unset($data['_token']);
+            unset($data['_token']);
+            
+            $getOldData = Center::where('id',$data['id'])->first();
+            
+            $old_data = json_encode($getOldData);
+            $new_data = json_encode($data);
+            
+            $this->insertLog($data['id'],'Edit Center',$old_data,$new_data);
             Center::where('id',$data['id'])->update($data);
         }else{
-            Center::create($data);
+            $newCenter = Center::create($data);
+            $new_data = json_encode($data);
+            $this->insertLog($newCenter->id,'Add Center','',$new_data);
         }
         return redirect()->back()->with('message', 'Record Updated!');
     }

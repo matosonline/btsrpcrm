@@ -15,6 +15,7 @@ use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
 use App\LeadDetail;
+use App\Traits\LogData;
 
 class LeadController extends Controller
 {
@@ -23,6 +24,7 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    use LogData;
     public function __construct()
     {
         $this->middleware('auth');
@@ -59,19 +61,21 @@ class LeadController extends Controller
     public function store(Request $request)
     {
 
-
         // dd($request->all());
         $data = $request->all();
+        
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
+        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
         if(array_key_exists('id',$data)){
+            $data['startDate'] =  date("Y-m-d", strtotime($data['startDate']));
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
             
-            $getOldData = Lead::where('id',$data['id'])->select('agent')->first();
+            $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
             
             if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
@@ -116,10 +120,15 @@ class LeadController extends Controller
                     }
                 }
             }
-            
+            $old_data = json_encode($getOldData);
+            $new_data = json_encode($data);
+            $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            if($data['pcpName'] == 0){
+                $data['pcpName'] = $data['pcp_other'];
+                unset($data['pcp_other']);
+            }
             $last_id  = Lead::create($data);
-
             $lead_details = Lead::find($last_id->id);
 
             if (!empty($lead_details->agent) && $lead_details->agreeOrDisagree == 1) {
@@ -129,6 +138,11 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
+            //For customer Mail
+            if(!empty($lead_details->email)){
+                $this->custLeadEmail($lead_details->email);
+            }
+            // For agent mail
             if (!empty($lead_details->agent)) {
                 $getAgentEmail = User::where('id',$lead_details->agent)->select('email','last_name','first_name')->first();
                 $getDoc = Doctors::where('id',$lead_details->pcpName)->select('last_name','first_name','type')->first();
@@ -145,6 +159,8 @@ class LeadController extends Controller
                     }
                 }
             }
+            $new_data = json_encode($data);
+            $this->insertLog($lead_details->id,'Add Lead','',$new_data);
         }
 
 
@@ -152,6 +168,16 @@ class LeadController extends Controller
         return redirect()->back()->with('message', 'Record Updated!');
     }
     
+    public function custLeadEmail($customerMail) {
+        $data = [
+                'from' => 'test.devhealth@gmail.com',
+                'to'    => $customerMail
+            ];
+        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+        });
+
+    }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
         $getManagerData = RoleUser::leftjoin('users','role_user.user_id','users.id')->where('role_user.role_id',5)->select('users.email')->get();
         $ccArray = array();
@@ -201,9 +227,10 @@ class LeadController extends Controller
 //       if(!Auth::user()->hasRole('agent-user')){
 //        return view('leads.editLead', compact('lead_details', 'doctors','agent_details'));
 //       }else{
-        $state = State::get();
-        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state'));
 //       }
+        $state = State::get();
+        $getAttachment = LeadDetail::where('lead_id',$request->lead_id)->get();
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment'));
     }
 
     /**
@@ -237,5 +264,9 @@ class LeadController extends Controller
         }
         $agent_details = User::whereIn('id', $agents)->get();
         echo view('leads.doctor_agent', compact('agent_details'))->render();
+    }
+    public function delete_attach(Request $request) {
+        $attachId = $request->attachId;
+        LeadDetail::where('id',$attachId)->delete();
     }
 }

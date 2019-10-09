@@ -11,4 +11,7 @@ class Doctors extends Model
     protected $table = 'doctors';
     use SoftDeletes;
     
+    public function doctorInsuranceType() {
+        return $this->hasMany('App\DoctorInsurance','doctor_id','id');
+    }
 }

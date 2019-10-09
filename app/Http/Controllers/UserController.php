@@ -8,6 +8,7 @@ use App\Role;
 use App\RoleUser;
 use App\Doctors;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\LogData;
 
 class UserController extends Controller
 {
@@ -16,7 +17,7 @@ class UserController extends Controller
      *
      * @return void
      */
-    
+    use LogData;
     public function __construct()
     {
        
@@ -58,8 +59,9 @@ class UserController extends Controller
                 'password' => 'required',
                 'role'=>'required'
             ]);
-            $user = User::find($request->user_id);
+            $oldData = $user = User::find($request->user_id);
             $user->password = bcrypt($request->password);
+            
         }
        
 //       echo "<pre>";print_R($request->password);exit;
@@ -81,16 +83,28 @@ class UserController extends Controller
             $check_role->update_by = Auth::user()->id;
             $check_role->save();
         }
+        
         if(empty($request->user_id)){
             $request->session()->flash('success', 'New User Added');
+            
+            $new_data = json_encode($request);
+            $this->insertLog($user->id,'Add User','',$new_data);
         }else{
             $request->session()->flash('success', 'User Updated Successfully');
+            
+            $new_data = json_encode($user);
+            $old_data = json_encode($oldData);
+            $this->insertLog($request->user_id,'Edit User',$old_data,$new_data);
         }
         
         return redirect('/users');
     
     }
     public function delete_user(Request $request){
+
+        $data = User::find($request->user_id);
+        $new_data = json_encode($data);
+        $this->insertLog($request->user_id,'Delete User','',$new_data);
         User::where('id',$request->user_id)->delete();
     }
     public function edit_user(Request $request){
@@ -116,7 +130,6 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $user->password = bcrypt($request->password);
         $user->save();
-        
         return redirect('/users');
     }
 }

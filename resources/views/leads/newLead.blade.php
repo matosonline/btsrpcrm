@@ -140,7 +140,7 @@
                             <div class="form-group">
                                 <div class="form-check">
                                     <input class="form-check-input" type="radio" name="inquire_type" id="inquireNo" value="1">
-                                    <label class="form-check-label" for="inquireNo">Wants to remain with documented PCP?</label>
+                                    <label class="form-check-label" for="inquireNo">Stay with current PCP</label>
                                 </div>
                             </div>
                         </div>
@@ -148,7 +148,7 @@
                             <div class="form-group">
                                 <div class="form-check">
                                         <input class="form-check-input" type="radio" name="inquire_type" id="inquireYes" value="2" checked>
-                                    <label class="form-check-label" for="inquireYes">Wants to inquire about joining a MSMC PCP panel?</label>
+                                    <label class="form-check-label" for="inquireYes">New MSMC PCP</label>
                                 </div>
                             </div>
                         </div>

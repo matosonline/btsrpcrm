@@ -19,11 +19,13 @@
                 <tr>
                     <th>Lead</th>
                     <th>Name</th>
-                    {{-- <th>Phone</th> --}}
                     <th>DOB</th>
                     <th>Phone</th>
                     <th>Address</th>
-                    <th>Lead Status</th>
+                    <th>Lead Status</th> 
+                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                        <th>View Logs</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -31,7 +33,6 @@
                 <tr>
                     <td><a href="{{url('/editLead/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit">{{ $row['id'] }}</a></td>
                     <td>{{ $row['fName'] . ' ' . $row['lName'] }}</td>
-                    {{-- <td><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></td> --}}
                     <td>{{ $row['dob'] }}</td>
                     <td><a href="tel:{{$row['phone1']}}">{{ $row['phone1'] }}</a></td>
                     <td>
@@ -49,8 +50,10 @@
                     @elseif($row['lStatus'] == 4)
                        <td>Lost Failure</td>
                     @endif
-
-                </tr>
+                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                        <td><a href="{{url('/viewLeadLog/'.$row['id'])}}"><span data-feather='eye'></span></a></td>
+                    @endif
+               </tr>
                 @endforeach
             </tbody>
         </table>

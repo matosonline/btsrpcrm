@@ -55,10 +55,10 @@ body { font-size: .875rem; }
 
 /*//For dashboard pagination*/
 .custom_footable .table-responsive .dataTables_paginate{
-    right: 0px !important;
+    right: 25px !important;
     position: absolute;
     position: absolute !important;
-    top: -64px !important;
+    top: 28px!important;
     z-index: 999 !important;
 }
 
@@ -72,3 +72,4 @@ body { font-size: .875rem; }
             padding:10px !important;margin-left: 0px !important;}
 .view_icon{color: #007bff;}
 .danger_color{color:red;cursor: pointer;}
+.attach_row{cursor:pointer;}

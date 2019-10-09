@@ -18,6 +18,9 @@
                     <th>NPI</th>
                     <th>Name</th>
                     <th>Specialty</th>
+                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                        <th>View Logs</th>
+                    @endif
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +30,9 @@
                     <td><a href="{{url('/editProvider/'.$row['id'])}}">{{$row['npi']}}</a></td>
                     <td>{{$row['first_name'].' '.$row['last_name']}}</td>
                     <td>{{$row['primary_speciality']}}</td>
+                    @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                        <td><a href="{{url('/viewProviderLog/'.$row['id'])}}"><span data-feather='eye'></span></a></td>
+                    @endif
                 </tr>
                 @endforeach
             @endif

@@ -168,7 +168,7 @@
                         <tbody>
                              @foreach($getAttachment as $val)
                             <tr class="attach_row" id="attach_{{$val->id}}">
-                                <td><span data-feather="file"></span> {{substr($val->filename, strpos($val->filename, "]") + 1)}}</td>
+                                <td><a href="{{ url('/storage/app/leadDoc/'.$val->filename)}}" target="_blank"><span data-feather="file"></span>{{substr($val->filename, strpos($val->filename, "]") + 1)}}</td></a>
                                 <td><span data-feather="trash-2" class="danger_color attach_delete" data-attach="{{$val->id}}"></span></td>
                             </tr>
                              @endforeach

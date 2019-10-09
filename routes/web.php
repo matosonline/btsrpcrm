@@ -47,7 +47,7 @@ Route::delete('/user/delete','UserController@delete_user')->name('delete_user');
 Route::get('/get_agent','LeadController@get_agents')->name('edit_user');
 Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
 Route::delete('/attach/delete','LeadController@delete_attach')->name('delete_attach');
-
+Route::get('/viewLeadLog/{lead_id}','LeadController@viewLeadLog')->name('viewLeadLog');
 
 Route::get('/viewprofile', 'UserController@profile')->name('user.profile');
 Route::get('/changePassword', 'UserController@changePassword')->name('user.changePassword');
@@ -57,8 +57,8 @@ Route::get('/newCenter', 'CenterController@create')->name('center.view');
 Route::post('/newCenter', 'CenterController@store')->name('center.store');
 Route::get('/editCenter/{center_id}','CenterController@edit')->name('editcenter');
 
-
 Route::get('/newProvider', 'DoctorController@create')->name('newProvider');
 Route::get('/providers', 'DoctorController@index')->name('providers');
 Route::post('/newProvider', 'DoctorController@store')->name('provider.store');
 Route::get('/editProvider/{provider_id}','DoctorController@edit')->name('editprovider');
+Route::get('/viewProviderLog/{provider_id}','DoctorController@viewProviderLog')->name('viewProviderLog');

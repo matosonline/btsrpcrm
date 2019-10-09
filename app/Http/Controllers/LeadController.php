@@ -15,6 +15,7 @@ use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
 use App\LeadDetail;
+use App\Log;
 use App\Traits\LogData;
 
 class LeadController extends Controller
@@ -108,7 +109,7 @@ class LeadController extends Controller
                         $check=in_array($extension,$allowedfileExtension);
                         if($check)
                         {
-                            $destinationPath = storage_path().'\app\leadDoc';
+                            $destinationPath = public_path().'\storage\app\leadDoc'; 
                             $newFileName = date('Ydm').time().'['.$data['id'].']'.$filename;
 
                             $file->move($destinationPath, $newFileName);
@@ -268,5 +269,24 @@ class LeadController extends Controller
     public function delete_attach(Request $request) {
         $attachId = $request->attachId;
         LeadDetail::where('id',$attachId)->delete();
+    }
+    
+    public function viewLeadLog(Request $request){
+        $leadLog = Log::where('activity_name','Edit Lead')->where('activity_id',$request->lead_id)->get();
+        
+        $logArray = $oldDataArray = $newDataArray = array();
+        if(!$leadLog->isempty()){
+            foreach($leadLog as $key => $val){
+                $oldData = json_decode($val->old_data,true);
+                $newData = json_decode($val->new_data,true);
+                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
+                unset($newData['id']);
+                $logArray[$key]['username'] = $val->username;
+                $logArray[$key]['created_at'] = $val->created_at;
+                $logArray[$key]['old_data'] = http_build_query($oldData,'',', ');
+                $logArray[$key]['new_data'] = http_build_query($newData,'',', ');
+            }
+        }
+        echo view('leads.logs.viewLog',compact('logArray'))->render();
     }
 }

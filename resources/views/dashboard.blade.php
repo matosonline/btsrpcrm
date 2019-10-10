@@ -14,8 +14,7 @@
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($totalLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
                         </div>
                     </div>
                 </div>
@@ -27,8 +26,7 @@
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($closeLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
                         </div>
                     </div>
                 </div>
@@ -40,8 +38,7 @@
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($newLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
                         </div>
                     </div>
                 </div>
@@ -53,8 +50,7 @@
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($totalOptedOut)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
                         </div>
                     </div>
                 </div>

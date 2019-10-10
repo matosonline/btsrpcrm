@@ -49,7 +49,7 @@
                 <div class="form-row">
                     <div class="form-group col-sm-4 mx-auto">
                         <label for="dob">Date of Birth</label>
-                        <input class="form-control" type="text" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}" placeholder="MM/DD/YYYY"> 
+                        <input class="form-control" type="text" name="dob" id="dob" value="{{isset($lead_details)?$lead_details['dob']:''}}" placeholder="MM/DD/YYYY">
                     </div>
                     <div class="form-group col-sm-4 mx-auto">
                         <label for="lang">Preferred Language</label>
@@ -147,6 +147,7 @@
                         <select name="lStatus" id="lStatus" class="form-control">
                             <option value="1" {{isset($lead_details)&& $lead_details['lStatus'] == 1?'selected':''}}>New</option>
                             <option value="2" {{isset($lead_details)&& $lead_details['lStatus'] == 2?'selected':''}}>Pending</option>
+                            <option value="5" {{isset($lead_details)&& $lead_details['lStatus'] == 5?'selected':''}}>Pending <span class="test-danger text-italic">Appointment Scheduled</span></option>
                             <option value="3" {{isset($lead_details)&& $lead_details['lStatus'] == 3?'selected':''}}>Closed <span class="test-success text-italic">Success</span></option>
                             <option value="4" {{isset($lead_details)&& $lead_details['lStatus'] == 4?'selected':''}}>Lost <span class="test-danger text-italic">Failure</span></option>
                         </select>

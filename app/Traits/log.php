@@ -15,9 +15,9 @@ trait LogData
         $obj                 = new Log;
         $obj->activity_id    = $activityId;
         $obj->activity_name  = $activityName;
-        $obj->old_data       = $old_data;
+        $obj->old_data       = ($activityName != 'Fail Login')?$old_data:'';
         $obj->new_data       = $new_data;
-        $obj->username       = Auth::user()->email;
+        $obj->username       = ($activityName != 'Fail Login')?Auth::user()->email:$old_data;
         $obj->save();
 
         return true;

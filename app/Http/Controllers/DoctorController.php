@@ -179,23 +179,5 @@ class DoctorController extends Controller
         //
     }
     
-    public function viewProviderLog(Request $request){
-        $leadLog = Log::where('activity_name','Edit Provider')->where('activity_id',$request->provider_id)->get();
-        
-        $logArray = $oldDataArray = $newDataArray = array();
-        if(!$leadLog->isempty()){
-            foreach($leadLog as $key => $val){
-                $oldData = json_decode($val->old_data,true);
-                $newData = json_decode($val->new_data,true);
-                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at'],$oldData['create_by'],$oldData['update_by']);
-                unset($newData['id'],$newData['_token']);
-                $logArray[$key]['username'] = $val->username;
-                $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
-                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
-            }
-        }
-        echo view('providers.logs.viewLog',compact('logArray'))->render();
-    }
     
 }

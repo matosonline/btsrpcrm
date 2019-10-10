@@ -22,6 +22,9 @@
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Action</th>
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                    <th>View Logs</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -41,6 +44,9 @@
                     <a class="btn sa-confirm" type="button" name="delete" aria-label="Delete" title="Delete" id="delete"
                         user_id="{{$row->id}}"><i class="fa fas fa-trash"></i></a>
                 </td>
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                    <td><a href="{{url('/viewUserLog/'.$row->id)}}"><span data-feather='eye'></span></a></td>
+                @endif
 
             </tr>
             @php

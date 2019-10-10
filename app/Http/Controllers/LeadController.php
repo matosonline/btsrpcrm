@@ -17,6 +17,7 @@ use App\State;
 use App\LeadDetail;
 use App\Log;
 use App\Traits\LogData;
+use App\Prospects;
 
 class LeadController extends Controller
 {
@@ -46,11 +47,23 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $doctors = Doctors::get();
         $state = State::get();
-        return view('leads.newLead', compact('doctors','state'));
+        
+        $prospectData = Prospects::get();
+        $NameOfProspect = array();
+        foreach($prospectData as $val){
+            $NameOfProspect[$val['id']] = $val['PatientFirstName'].' '.$val['PatientLastName'];
+        }
+        $getProspectData = '';
+        if ($request->has('search_submit') && $request->search_submit != '') {
+            if ($request->has('searchName') && $request->searchName != '') {
+               $getProspectData = Prospects::where('id',  '=', $request->searchName)->first();
+            }
+        }
+        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));
     }
 
     /**
@@ -64,7 +77,6 @@ class LeadController extends Controller
 
         // dd($request->all());
         $data = $request->all();
-        
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
@@ -269,24 +281,5 @@ class LeadController extends Controller
     public function delete_attach(Request $request) {
         $attachId = $request->attachId;
         LeadDetail::where('id',$attachId)->delete();
-    }
-    
-    public function viewLeadLog(Request $request){
-        $leadLog = Log::where('activity_name','Edit Lead')->where('activity_id',$request->lead_id)->get();
-        
-        $logArray = $oldDataArray = $newDataArray = array();
-        if(!$leadLog->isempty()){
-            foreach($leadLog as $key => $val){
-                $oldData = json_decode($val->old_data,true);
-                $newData = json_decode($val->new_data,true);
-                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
-                unset($newData['id']);
-                $logArray[$key]['username'] = $val->username;
-                $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
-                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
-            }
-        }
-        echo view('leads.logs.viewLog',compact('logArray'))->render();
     }
 }

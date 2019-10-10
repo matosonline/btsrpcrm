@@ -9,6 +9,7 @@ use App\RoleUser;
 use App\Doctors;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\LogData;
+use App\Log;
 
 class UserController extends Controller
 {
@@ -131,5 +132,24 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         return redirect('/users');
+    }
+    
+     public function viewUserLog(Request $request){
+        $leadLog = Log::where('activity_name','Edit User')->where('activity_id',$request->user_id)->get();
+        
+        $logArray = $oldDataArray = $newDataArray = array();
+        if(!$leadLog->isempty()){
+            foreach($leadLog as $key => $val){
+                $oldData = json_decode($val->old_data,true);
+                $newData = json_decode($val->new_data,true);
+                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
+                unset($newData['id'],$newData['updated_at']);
+                $logArray[$key]['username'] = $val->username;
+                $logArray[$key]['created_at'] = $val->created_at;
+                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
+                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
+            }
+        }
+        echo view('user.logs.viewLog',compact('logArray'))->render();
     }
 }

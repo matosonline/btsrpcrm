@@ -16,26 +16,46 @@
         {{ session()->get('message') }}
     </div>
 @endif
-
 <div class="row">
     <div class="col-12 col-lg-8">
+        <div class="card lead_searchSec">
+            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false">
+               <form class="form-horizontal" method="get" action="{{ route('lead.view') }}" name="search_filter" id="search_filter">
+                    <div class="form-row">
+                        <div class="form-group col-12 col-md-6">
+                            <label for="lang">Name</label>
+                            <select name="searchName" id="searchName" class="form-control">
+                                 <option selected value="">Choose...</option>
+                                    @foreach($NameOfProspect as $key =>  $val)
+                                        <option value="{{$key}}">{{$val}}</option>
+                                    @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group col-12 col-md-6">
+                            <button name="search_submit" type="submit" class="btn btn-primary btn-dark" value="1">Add</button>
+                            <button name="search_reset" type="button" class="btn btn-info btn-secondary" onclick="location.href='{{route('lead.view')}}'">Reset</button>
+                        </div>
+                   </div>
+               </form>
+            </div>
+        </div><br>
 
         <form action="{{ route('lead.store') }}" method="POST" id="lead_form" name="lead_form">
             @csrf
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <label for="fName">First Name</label>
-                    <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name">
+                    <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name" value="{{$getProspectData?$getProspectData->PatientFirstName:''}}">
                 </div>
                 <div class="form-group col-12 col-md-6">
                     <label for="lName">Last Name</label>
-                    <input type="text" name="lName" class="form-control" id="lName" placeholder="Last Name">
+                    <input type="text" name="lName" class="form-control" id="lName" placeholder="Last Name" value="{{$getProspectData?$getProspectData->PatientLastName	:''}}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-md-6">
                     <label for="dob">Date of Birth</label>
-                    <input class="form-control" type="text" name="dob" id="dob"  placeholder="MM/DD/YYYY">
+                    <input class="form-control" type="text" name="dob" id="dob"  placeholder="MM/DD/YYYY" value="{{$getProspectData?$getProspectData->DOB:''}}">
                 </div>
                 <div class="form-group col-12 col-md-6">
                     <label for="lang">Preferred Language</label>
@@ -51,30 +71,30 @@
                 <div class="form-group col-12 col-md-6">
 
                     <label for="inputAddress">Address</label>
-                    <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St">
+                    <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St" value="{{$getProspectData?$getProspectData->AddressLine1:''}}">
                 </div>
                 <div class="form-group col-12 col-md-6">
                     <label for="inputAddress2">Address 2</label>
-                    <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
+                    <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="{{$getProspectData?$getProspectData->AddressLine2:''}}">
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group col-12 col-sm-4">
                     <label for="inputCity">City</label>
-                    <input type="text" name="inputCity" class="form-control" id="inputCity">
+                    <input type="text" name="inputCity" class="form-control" id="inputCity" value="{{$getProspectData?$getProspectData->City:''}}">
                 </div>
                 <div class="form-group col-12 col-sm-4">
                     <label for="inputState">State</label>
                     <select name="inputState" id="inputState" class="form-control">
                         <option selected value="">Choose...</option>
                         @foreach($state as $val)
-                            <option value="{{$val->id}}">{{$val->name}}</option>
+                            <option value="{{$val->id}}" {{$getProspectData && $getProspectData->State ==  $val->id?'selected':''}}>{{$val->name}}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="form-group col-12 col-sm-4">
                     <label for="inputZip">Zip</label>
-                    <input type="text" name="inputZip" class="form-control" id="inputZip">
+                    <input type="text" name="inputZip" class="form-control" id="inputZip" value="{{$getProspectData?$getProspectData->Zip:''}}">
                 </div>
             </div>
             <div class="form-row">
@@ -181,7 +201,7 @@
             <div class="form-row">
                 <div class="form-group col-12">
                     <label for="notes">Notes</label>
-                    <textarea name="notes" class="form-control" id="notes" rows="3"></textarea>
+                    <textarea name="notes" class="form-control" id="notes" rows="3">{{$getProspectData?$getProspectData->Notes:''}}</textarea>
                 </div>
             </div>
             <hr>

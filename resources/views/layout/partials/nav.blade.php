@@ -108,7 +108,16 @@
             </li>
         </ul>
         @endif
-
+	@if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('Admin'))
+        <ul class="nav flex-column mb-2">
+            <li class="nav-item">
+                <a class="nav-link" href="{{url('/viewAllLogs')}}" id="viewLog" >
+                <span data-feather="eye"></span>
+                View Logs
+                </a>
+            </li>
+        </ul>
+	@endif
       </div>
     </nav>
     <!--            -->

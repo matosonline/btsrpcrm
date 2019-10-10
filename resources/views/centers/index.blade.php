@@ -21,6 +21,9 @@
                                 <th>Address</th>
                                 <th>Phone</th>
                                 <th>Action</th>
+                                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                                    <th>View Logs</th>
+                                @endif
                             </tr>
                         </thead>
                         <tbody>
@@ -33,6 +36,9 @@
                                 <td>{{$row['phone1']}}</td>
                                 <td><a class="btn" href="{{url('/editCenter/'.$row['id'])}}" type="button" name="edit" aria-label="Edit"
                                         title="Edit"><i class="fa fas fa-edit"></i></a></td>
+                                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                                    <td><a href="{{url('/viewCenterLog/'.$row['id'])}}"><span data-feather='eye'></span></a></td>
+                               @endif
                             </tr>
                             @endforeach
                         </tbody>

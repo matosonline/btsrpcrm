@@ -218,6 +218,14 @@ $(function () {
         },
 
     });
+    $("#uploadDocs").change(function (){
+        for (var i = 0; i < jQuery(this).get(0).files.length; ++i) {
+            var type=jQuery(this).get(0).files[i].type;
+            if(type != 'application/pdf'){
+                $('#uploadDocs').after('<label id="uploadDocs-error" class="error" for="uploadDocs">Please upload only PDF files</label>');
+            }
+        }
+    });
     $("#phone1,#inputZip").on("keypress keyup blur", function (e) {
         var regex = new RegExp(/^(\?\+?[0-9]\?)?[0-9_\-+ ]*$/);
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);

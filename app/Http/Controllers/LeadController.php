@@ -55,12 +55,12 @@ class LeadController extends Controller
         $prospectData = Prospects::get();
         $NameOfProspect = array();
         foreach($prospectData as $val){
-            $NameOfProspect[$val['id']] = $val['PatientFirstName'].' '.$val['PatientLastName'];
+            $NameOfProspect[$val['id']] = $val['PatientFirstName'].' '.$val['PatientLastName'].' - '.$val['DOB'];
         }
         $getProspectData = '';
         if ($request->has('search_submit') && $request->search_submit != '') {
-            if ($request->has('searchName') && $request->searchName != '') {
-               $getProspectData = Prospects::where('id',  '=', $request->searchName)->first();
+            if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
+               $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
             }
         }
         return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));

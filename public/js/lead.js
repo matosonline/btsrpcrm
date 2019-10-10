@@ -1,4 +1,17 @@
 $(function () {
+    
+    $('#prospectSearchName').select2({
+        matcher: function(params, data) {
+            var original_matcher = $.fn.select2.defaults.defaults.matcher;
+            var result = original_matcher(params, data);
+            if (result && data.children && result.children && data.children.length != result.children.length) {
+                 result.children = data.children;
+            }
+            return result;
+        }
+    });
+    
+    
    if($('#id').val() != '' && typeof($('#id').val()) != 'undefined'){
        $('#pcpName').trigger('change');
        $('#agent').val($('#agent_id').val());
@@ -255,6 +268,7 @@ $(function () {
             }
         });
     });
+   
 })
 $('#pcpName').on("change",function(){
     if($(this).val() == 0 ){

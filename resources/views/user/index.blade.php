@@ -21,6 +21,9 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                @if(Auth::user()->hasRole('Admin')) 
+                <th>Last Login</th>
+                @endif
                 <th>Action</th>
                 @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
                     <th>View Logs</th>
@@ -38,6 +41,9 @@
                 <td>{{ $row->last_name }}</td>
                 <td>{{ $row->email }}</td>
                 <td>{{ $row->phone_number }}</td>
+                @if(Auth::user()->hasRole('Admin')) 
+                <td>{{ $row->last_login }}</td>
+                @endif
                 <td>
                     <a class="btn" href="{{url('user/edit/'.$row->id)}}" type="button" name="edit" aria-label="Edit"
                         title="Edit"><i class="fa fas fa-edit"></i></a>

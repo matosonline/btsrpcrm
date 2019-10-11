@@ -81,9 +81,9 @@ class LeadController extends Controller
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
-        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
+        $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         if(array_key_exists('id',$data)){
-            $data['startDate'] =  date("Y-m-d", strtotime($data['startDate']));
+            $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);

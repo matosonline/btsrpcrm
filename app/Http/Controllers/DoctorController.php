@@ -72,7 +72,7 @@ class DoctorController extends Controller
                 'startDate4'=>'required_with:4_Check',
         ]);
         $data = $request->all();
-        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
+        $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         
         if(array_key_exists('id',$data)){
             $oldData = $obj = Doctors::find($data['id']);
@@ -120,8 +120,8 @@ class DoctorController extends Controller
                     }
                     $insType->doctor_id	= $lastInsertId;
                     $insType->insurance_type_id	= $val['id'];
-                    $insType->start_date	= date("Y-m-d", strtotime($data['startDate'.$val['id']]));
-                    $insType->end_date	= date("Y-m-d", strtotime($data['termDate'.$val['id']]));
+                    $insType->start_date	= ($data['startDate'.$val['id']] != '')?date("Y-m-d", strtotime($data['startDate'.$val['id']])):NULL;
+                    $insType->end_date	= ($data['termDate'.$val['id']] != '')?date("Y-m-d", strtotime($data['termDate'.$val['id']])):NULL;
                     $insType->save();
                 }
             }

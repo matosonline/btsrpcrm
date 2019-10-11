@@ -18,13 +18,6 @@ Route::get('/', function () {
 
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
-Route::get('/newCenter', function () {
-    return view('centers.newCenter');
-})->name('newCenter');
-
-
-
-
 Route::get('/agentLead', function () {
     return view('leads.agentLead');
 })->name('agentLead');

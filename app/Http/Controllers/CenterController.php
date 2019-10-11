@@ -32,7 +32,7 @@ class CenterController extends Controller
     public function create()
     {
         $state = State::get();
-        return view('centers\newCenter', compact('state'));
+        return view('centers.newCenter', compact('state'));
     }
     public function index()
     {

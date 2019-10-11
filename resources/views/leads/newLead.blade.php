@@ -261,38 +261,14 @@
                     <div class="card-header">
                         <h5 class="card-title" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Attachments</h5>
                     </div>
-                   <!--<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#editLeadAccordion">
+                   <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#editLeadAccordion">
                         <div class="card-body">
-                            <div class="form-row">
-                                <div class="form-group col-12 col-sm-6">
+                            <div class="form-group col-12 col-sm-6">
                                     <label for="uploadDocs">Upload Files</label>
                                     <input type="file" name="uploadDocs[]" class="form-control-file" id="uploadDocs" multiple>
                                 </div>
-                            </div>
-                            <div class="form-row mt-2">
-                                {{-- @if(!$getAttachment->isempty()) --}}
-                                <div class="table-responsive">
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <tr>
-                                                <th>FileName</th>
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                                {{-- @foreach($getAttachment as $val) --}}
-                                            <tr class="attach_row" id="attach_{{-- $val->id}} --}}">
-                                                <td><span data-feather="file"></span> {{-- substr($val->filename, strpos($val->filename, "]") + 1)}} --}}</td>
-                                                <td><span data-feather="trash-2" class="danger_color attach_delete" data-attach="{{-- $val->id}} --}}"></span></td>
-                                            </tr>
-                                                {{-- @endforeach --}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                                {{-- @endif --}}
-                            </div>
                         </div>
-                    </div>-->
+                    </div>
                 </div>
             </div>
             <div class="btn-group d-flex" role="group">

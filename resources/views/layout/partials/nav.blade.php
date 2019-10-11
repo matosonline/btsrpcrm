@@ -8,16 +8,18 @@
     <a class="pl-3 navbar-brand" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
   </div>
   <a class="navbar-brand d-none d-md-flex col-sm-3 col-md-3 col-lg-2 mr-0 order-1" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
-  <input class="form-control form-control-dark w-100 order-3 order-md-2" type="text" placeholder="Search" aria-label="Search">
-  <div class="dropdown action-menu order-2 order-md-3">
-    <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name.' '.Auth::user()->last_name}}</a>
+    <form class="w-100 order-3 order-md-2 form-horizontal mb-0" method="get" action="{{ route('search.data') }}" id="search_data_form">
+	  <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" value="" name="search_data" id="search_data">
+    </form>	
+    <div class="dropdown action-menu order-2 order-md-3">
+        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{Auth::user()->first_name.' '.Auth::user()->last_name}}</a>
 
-    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
-      <a class="dropdown-item" href="{{url('/viewprofile')}}">View Profile</a>
-      {{-- <a class="dropdown-item" href="{{url('/changePassword')}}">Change Password</a> --}}
-      <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+          <a class="dropdown-item" href="{{url('/viewprofile')}}">View Profile</a>
+          {{-- <a class="dropdown-item" href="{{url('/changePassword')}}">Change Password</a> --}}
+          <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Sign out</a>
+        </div>
     </div>
-  </div>
 </nav>
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
   @csrf

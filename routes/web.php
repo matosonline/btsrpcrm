@@ -22,6 +22,9 @@ Route::get('/agentLead', function () {
     return view('leads.agentLead');
 })->name('agentLead');
 
+Route::get('/getAutocompleteData','DashboardController@getAutocompleteData');
+Route::get('/searchData','DashboardController@searchData')->name('search.data');
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('users');
 Route::get('/user/add_new_user','UserController@add_new_user')->name('add_new_user');

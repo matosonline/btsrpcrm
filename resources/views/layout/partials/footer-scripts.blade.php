@@ -21,6 +21,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js"></script>
 <script src="{{asset('assets/node_modules/sweetalert2/dist/sweetalert2.all.min.js')}}"></script>
 <script src="{{asset('assets/node_modules/sweetalert2/sweet-alert.init.js')}}"></script>
+<script src="{{asset('/js/jquery-ui.js')}}"></script>
+<script src="{{asset('/js/search.js')}}"></script>
 <script>
 	$(document).ready(function () {
         $('#dismiss, .overlay').on('click', function () {

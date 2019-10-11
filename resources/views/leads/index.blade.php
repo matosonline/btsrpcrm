@@ -70,5 +70,6 @@
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{url('/js/select2.min.js')}}"></script>
 <script src="{{url('/js/lead.js')}}"></script>
 @endsection

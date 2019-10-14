@@ -61,7 +61,8 @@ class LeadController extends Controller
         if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
             $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
         }
-        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));
+        $notes = Lead::whereNotNull('notes')->select('fName','lName','created_at','notes')->orderBy('id','DESC')->limit(2)->get();
+        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData','notes'));
     }
 
     /**
@@ -72,7 +73,6 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-
         // dd($request->all());
         $data = $request->all();
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
@@ -80,12 +80,12 @@ class LeadController extends Controller
             $data['lStatus'] = 2;
         }
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
+        $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
         if(array_key_exists('id',$data)){
-            $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
-            
+            $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
             
@@ -107,34 +107,12 @@ class LeadController extends Controller
                     }
                 }
             }
-//          Continue in file upload
-            if(isset($request['uploadDocs']))
-            {
-                if(count($request['uploadDocs'])>0){
-                    $allowedfileExtension=['pdf'];
-                    $files = $request['uploadDocs'];
-                    foreach($files as $file){
-                        $filename = $file->getClientOriginalName();
-                        $extension = $file->getClientOriginalExtension();
-                        $check=in_array($extension,$allowedfileExtension);
-                        if($check)
-                        {
-                            $destinationPath = public_path().'\storage\app\leadDoc'; 
-                            $newFileName = date('Ydm').time().'['.$data['id'].']'.$filename;
 
-                            $file->move($destinationPath, $newFileName);
-                            LeadDetail::create([
-                                'lead_id' => $data['id'],
-                                'filename' => $newFileName
-                            ]);
-                        }
-                    }
-                }
-            }
             $old_data = json_encode($getOldData);
             $new_data = json_encode($data);
             $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            unset($data['uploadDocs']);
             if($data['pcpName'] == 0){
                 $data['pcpName'] = $data['pcp_other'];
                 unset($data['pcp_other']);
@@ -170,11 +148,35 @@ class LeadController extends Controller
                     }
                 }
             }
+            $leadId = $lead_details->id;
             $new_data = json_encode($data);
             $this->insertLog($lead_details->id,'Add Lead','',$new_data);
         }
 
+        // Continue in file upload
+            if(isset($request['uploadDocs']))
+            {
+                if(count($request['uploadDocs'])>0){
+                    $allowedfileExtension=['pdf'];
+                    $files = $request['uploadDocs'];
+                    foreach($files as $file){
+                        $filename = $file->getClientOriginalName();
+                        $extension = $file->getClientOriginalExtension();
+                        $check=in_array($extension,$allowedfileExtension);
+                        if($check)
+                        {
+                            $destinationPath = public_path().'\storage\app\leadDoc'; 
+                            $newFileName = date('Ydm').time().'['.$leadId.']'.$filename;
 
+                            $file->move($destinationPath, $newFileName);
+                            LeadDetail::create([
+                                'lead_id' => $leadId,
+                                'filename' => $newFileName
+                            ]);
+                        }
+                    }
+                }
+            }
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
     }
@@ -184,9 +186,9 @@ class LeadController extends Controller
                 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
-//        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
-//        });
+        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+        });
 
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
@@ -207,9 +209,9 @@ class LeadController extends Controller
 //               'cc'    => 'rmatos@devhealth.net'
 //                'to'    => 'poojaatridhyatech@gmail.com',
             ];
-//        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-//        });
+        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+        });
     }
 
     /**
@@ -241,7 +243,8 @@ class LeadController extends Controller
 //       }
         $state = State::get();
         $getAttachment = LeadDetail::where('lead_id',$request->lead_id)->get();
-        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment'));
+        $notes = Lead::whereNotNull('notes')->select('fName','lName','created_at','notes')->orderBy('id','DESC')->limit(2)->get();
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment','notes'));
     }
 
     /**

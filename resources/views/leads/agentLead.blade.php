@@ -172,12 +172,13 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    <div class="mb-2">
-                                        <span class="small text-muted">yyyy/mm/dd - userName: </span> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam tincidunt ut nunc eu eleifend. Curabitur sit amet lectus mi. Aenean viverra neque sit amet augue pulvinar rhoncus. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Mauris id ex aliquam, molestie libero vitae, tempor sapien.
-                                    </div>
-                                    <div>
-                                        <span class="small text-muted">yyyy/mm/dd - userName: </span> Mauris ornare sagittis eros id suscipit. Nulla cursus tempor massa vel feugiat. Ut eu ante ut lacus egestas euismod ac quis augue. Nulla nec elit sollicitudin, molestie dui cursus, blandit mi. In at porta nisl. Phasellus a nulla ante. Pellentesque imperdiet dui in elit imperdiet, id vulputate tortor facilisis.
-                                    </div>
+                                    @if($notes)
+                                    @foreach($notes as $val)
+                                            <div class="mb-2">
+                                                <span class="small text-muted">{{date('Y/m/d',strtotime($val['created_at']))}} - {{$val['fName'].' '.$val['lName']}}: </span> {{$val['notes']}}
+                                            </div>
+                                    @endforeach
+                                    @endif
                                 </div>
                             </div>
                             <div class="form-row">

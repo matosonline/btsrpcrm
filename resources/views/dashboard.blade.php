@@ -10,7 +10,7 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div>Total Leads</div>
+                            <div><a href="{{ route('leads.index') }}">Total Leads</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($totalLeads)}}</h1>
@@ -21,13 +21,12 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div>Unassigned</div>
-                            <div>New Leads</div>
+                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE agent is Null OR agent = '' --}}#">Unassigned</a></div>
+                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 4 --}}#">New Leads</a></div>
                         </div>
                         
                         <div class="card-body">
-                            <h1 class="card-title text-center">{{count($totalUassigned)}}/{{ count($newLeads) }}</h1>
-                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
+                            <h1 class="card-title text-center">{{count($totalUassigned)}}/{{count($newLeads) }}</h1>
                         </div>
                     </div>
                 </div>
@@ -35,8 +34,8 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div>Lost Leads</div>
-                            <div>Opted Out</div><!-- this should be link to list of leads: SELECT * FROM leads WHERE agreeOrDisagree = 2 -->
+                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 4 --}}#">Lost Leads</a></div>
+                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE agreeOrDisagree = 2 --}}#">Opted Out</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($lostLeads)}}/{{count($totalOptedOut) }}</h1>
@@ -47,11 +46,10 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div>Closed Leads</div><!-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 3 -->
+                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 3 --}}#">Closed Leads</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($closeLeads)}}</h1>
-                            {{-- <p class="card-text text-muted">Last Updated - mmddyyy</p> --}}
                         </div>
                     </div>
                 </div>

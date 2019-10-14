@@ -33,9 +33,13 @@ class DashboardController extends Controller
         
         $totalLeads = Lead::orderBy('created_at', 'DESC')->get()->toArray();
         $closeLeads = Lead::where('lStatus',3)->get()->toArray();
+        $lostLeads = Lead::where('lStatus', 4)->get()->toArray();
         $newLeads = Lead::where('lStatus',1)->get()->toArray();
         $totalOptedOut = Lead::where('agreeOrDisagree',2)->get()->toArray();
-        return view('/dashboard', compact('leads','totalLeads','closeLeads','newLeads','totalOptedOut'));
+
+        $totalUassigned = Lead::whereNull('agent')->get()->toArray();
+
+        return view('/dashboard', compact('leads','totalLeads','closeLeads','lostLeads','newLeads','totalOptedOut','totalUassigned'));
     }
     public function getAutocompleteData(Request $request) {
         $search = $request->get('term');

@@ -54,17 +54,17 @@ body { font-size: .875rem; }
 .nav-item::marker{display:none;}
 
 /*//For dashboard pagination*/
-.custom_footable .table-responsive .dataTables_paginate{
+/*.custom_footable .table-responsive .dataTables_paginate{
     right: 25px !important;
     position: absolute;
     position: absolute !important;
     top: 28px!important;
     z-index: 999 !important;
-}
+}*/
 
-.custom_footable .table-responsive{
+/*.custom_footable .table-responsive{
     overflow-x: visible;
-}
+}*/
 .custom_footable .dataTables_paginate .paginate_button.current,.custom_footable .dataTables_paginate .paginate_button:hover{background:#007bff !important;color: #fff !important;}
 .custom_footable .paginate_button{
             border: 1px solid transparent !important;

@@ -65,14 +65,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                                 <h5>All</h5>
-<!--                                <div class="btn-toolbar mb-2 mb-md-0">  
-                                    <div class="btn-group mr-2" role="group">
-                                        <button type="button" class="btn btn-outline-primary">1</button>
-                                        <button type="button" class="btn btn-outline-primary">2</button>
-                                        <button type="button" class="btn btn-outline-primary">3</button>
-                                        <button type="button" class="btn btn-outline-primary">Next</button>
-                                    </div>
-                                </div>-->
+                                <div class="table_pagination_daashboard"></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -131,7 +124,10 @@
 <script src="{{url('/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript">
 $(function () {
-    $('.dashboard_leade_table').DataTable({searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, order: false});
+    $('.dashboard_leade_table').DataTable({
+        initComplete: (settings, json)=>{
+        $('.dataTables_paginate').appendTo('.table_pagination_daashboard');
+    },searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, order: false, responsive: true});
 });
 </script>
 @endsection

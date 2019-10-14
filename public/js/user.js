@@ -8,6 +8,8 @@ $(function () {
             null,
             null,
             null,
+            null,
+            null,
             { "orderable": false },
             { "orderable": false }
           ]
@@ -44,6 +46,9 @@ $(function () {
             },
             role:{
                 required: true,
+            },
+            status:{
+                required: true,
             }
         },
         messages: {
@@ -57,7 +62,8 @@ $(function () {
                 equalTo: "Please enter same password as password",
             },
             email: "Please enter a valid email address",
-            role : "Please select role"
+            role : "Please select role",
+            status : "Please select status",
         },
 
     });

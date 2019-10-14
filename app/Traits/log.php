@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Auth;
 use App\Log;
+use App\LoginLog;
+use App\User;
 
 trait LogData
 {
@@ -22,4 +24,23 @@ trait LogData
 
         return true;
     }
+    
+    public function insertLoginLog($userName,$ip){
+        $login_count = 1;
+        $checkExist = LoginLog::where('username',$userName)->where('ip_address',$ip)->first();
+        if($checkExist && $checkExist->login_count < 3){
+            $login_count = $login_count + $checkExist->login_count;
+            LoginLog::where('username',$userName)->where('ip_address',$ip)->update(['login_count'=>$login_count]);
+            if($login_count == 3){
+                User::where('email',$userName)->update(['status'=>1]);
+            }
+        }else{
+            $obj                 = new LoginLog;
+            $obj->username       = $userName;
+            $obj->ip_address     = $ip;
+            $obj->login_count    = $login_count;
+            $obj->save();
+        }
+        return true; 
+     }
 }

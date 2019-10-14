@@ -23,6 +23,7 @@
                 <th>Phone</th>
                 @if(Auth::user()->hasRole('Admin')) 
                 <th>Last Login</th>
+                <th>Status</th>
                 @endif
                 <th>Action</th>
                 @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
@@ -43,6 +44,7 @@
                 <td>{{ $row->phone_number }}</td>
                 @if(Auth::user()->hasRole('Admin')) 
                 <td>{{ $row->last_login }}</td>
+                <td>{{($row->status == 0)?'Unlock':'Lock' }}</td>
                 @endif
                 <td>
                     <a class="btn" href="{{url('user/edit/'.$row->id)}}" type="button" name="edit" aria-label="Edit"

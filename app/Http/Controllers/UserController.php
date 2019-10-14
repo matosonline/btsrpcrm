@@ -10,6 +10,7 @@ use App\Doctors;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\LogData;
 use App\Log;
+use App\LoginLog;
 
 class UserController extends Controller
 {
@@ -58,7 +59,8 @@ class UserController extends Controller
                 'last_name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-                'role'=>'required'
+                'role'=>'required',
+                'status'=>'required'
             ]);
             $oldData = $user = User::find($request->user_id);
             $user->password = bcrypt($request->password);
@@ -70,7 +72,13 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
+        $user->status = ($request->status)?$request->status:0;
         $user->save();
+        
+        //reset login attempt
+        if($request->status == 0){
+            LoginLog::where('username',$request->email)->update(['login_count'=>0]);
+        }
 
         $check_role = RoleUser::where('user_id',$user->id)->first();
         if(empty($check_role)){
@@ -131,6 +139,7 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $user->password = bcrypt($request->password);
         $user->save();
+        $this->insertLoginLog($user->email,\Request::ip());
         return redirect('/users');
     }
     

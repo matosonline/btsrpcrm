@@ -92,7 +92,7 @@ class DashboardController extends Controller
             return redirect(url('/editCenter/'.$id));
         }elseif(strpos($searchVal, 'proRes_') !== false){
             $id = substr($searchVal, strpos($searchVal, "_") + 1);
-            return redirect(url('/editLead/'.$id));
+            return redirect(url('/newLead?prospectSearchName='.$id));
         }
     }
 }

@@ -16,33 +16,6 @@
         {{ session()->get('message') }}
     </div>
 @endif
-<div class="row">
-    <div class="col-md-7">
-        @if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('Admin'))
-        <div class="card lead_searchSec">
-            <div class="card-header collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false">
-               <form class="form-horizontal" method="get" action="{{ route('lead.view') }}" name="search_filter" id="search_filter">
-                    <div class="form-row">
-                        <div class="form-group col-12 col-md-6">
-                            <label for="lang">Prospects Name</label>
-                            <select name="prospectSearchName" id="prospectSearchName" class="form-control">
-                                 <option selected value="">Choose...</option>
-                                    @foreach($NameOfProspect as $key =>  $val)
-                                        <option value="{{$key}}">{{$val}}</option>
-                                    @endforeach
-                            </select>
-                        </div>
-                        <div class="form-group col-12 col-md-6">
-                            <button name="search_submit" type="submit" class="btn btn-primary btn-success" value="1">Add</button>
-                            <button name="search_reset" type="button" class="btn btn-info btn-danger btn-secondary" onclick="location.href='{{route('lead.view')}}'">Dismiss</button>
-                        </div>
-                   </div>
-               </form>
-            </div>
-        </div><br>
-        @endif
-    </div>
-</div>
 <div class="newLeadForm">  
     <form action="{{ route('lead.store') }}" method="POST" id="lead_form" name="lead_form">
         @csrf

@@ -25,6 +25,12 @@ $(function () {
         });
     },
     minLength: 1,
+    focus: function(event, ui){
+        event.preventDefault();
+        $('#search_data').val(ui.item.label);
+        $('#search_data_form').append('<input type="hidden" value='+ui.item.value+' name="search_value">');
+        return false;
+    },
     select: function (event, ui) {
         $('#search_data').val(ui.item.label);
         $('#search_data_form').append('<input type="hidden" value='+ui.item.value+' name="search_value">');

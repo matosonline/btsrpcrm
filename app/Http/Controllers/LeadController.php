@@ -58,10 +58,8 @@ class LeadController extends Controller
             $NameOfProspect[$val['id']] = $val['PatientFirstName'].' '.$val['PatientLastName'].' - '.$val['DOB'];
         }
         $getProspectData = '';
-        if ($request->has('search_submit') && $request->search_submit != '') {
-            if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
-               $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
-            }
+        if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
+            $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
         }
         return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));
     }

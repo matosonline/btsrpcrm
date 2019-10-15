@@ -120,6 +120,12 @@
 @endsection
 
 <b></b>
+@section('pagecss')
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+@endsection
 @section('pagescript')
 <script src="{{url('/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript">
@@ -127,7 +133,7 @@ $(function () {
     $('.dashboard_leade_table').DataTable({
         initComplete: (settings, json)=>{
         $('.dataTables_paginate').appendTo('.table_pagination_daashboard');
-    },searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, order: false, responsive: true});
+    },searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, orderable: true, responsive: true});
 });
 </script>
 @endsection

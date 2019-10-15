@@ -171,7 +171,7 @@
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#editLeadAccordion">
                         <div class="card-body">
                             <div class="form-row">
-                                <div class="form-group col-12">
+                                <div class="form-group col-12 editLeadNoteSec">
                                     @if($notes)
                                     @foreach($notes as $val)
                                             <div class="mb-2">

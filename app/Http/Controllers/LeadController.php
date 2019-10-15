@@ -272,7 +272,7 @@ class LeadController extends Controller
         $notes = Note::leftjoin('users','notes.user_id','users.id')
                     ->where('notes.type',1)
                     ->where('notes.type_id',$request->lead_id)
-                    ->orderBy('notes.note_date','DESC')->limit(2)->get();
+                    ->orderBy('notes.note_date','DESC')->get();
         $notes = $notes->reverse();
 
         return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment','notes'));

@@ -80,3 +80,5 @@ body { font-size: .875rem; }
 .select2-container--default .select2-selection--single .select2-selection__arrow{height: 35px !important;}
 .newLeadForm .card-title,.editLeadForm .card-title,.addProviderForm .card-title,.editProviderForm  .card-title
 ,.editCenterForm .card-title{cursor: default;}
+.editLeadNoteSec{height:100px;  overflow-y: auto;}
+}

@@ -26,9 +26,9 @@ class DashboardController extends Controller
     {
         if(Auth::user()->hasRole('agent-user')){
             $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-            $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->get()->toArray();
+            $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->orderBy('id','DESC')->get()->toArray();
         }else{
-            $leads = Lead::all()->toArray();
+            $leads = Lead::orderBy('id','DESC')->get()->toArray();
         }
         
         $totalLeads = Lead::orderBy('created_at', 'DESC')->get()->toArray();
@@ -48,7 +48,7 @@ class DashboardController extends Controller
             $leadRes = Lead::where('fName', 'LIKE','%'.$search.'%')->orwhere('lName', 'LIKE','%'.$search.'%')->orwhere('dob', 'LIKE','%'.$search.'%')->get();
             if(!$leadRes->isempty()){
                 foreach($leadRes as $val){
-                    $result[] = array("value" => 'leadRes_'.$val['id'],"label"=> $val['fName'].' '.$val['lName'].' '.$val['dob']);
+                    $result[] = array("value" => 'leadRes_'.$val['id'],"label"=> $val['fName'].' '.$val['lName'].' '.$val['dob'].' '.$val['inputAddress'].' '.$val['inputAddress2'].' '.$val['inputCity'].' '.$val['inputZip']);
                 }
             }
             if(!Auth::user()->hasRole('agent-user')){
@@ -56,7 +56,7 @@ class DashboardController extends Controller
                         ->orwhere('DOB', 'LIKE','%'.$search.'%')->get();
                 if(!$proRes->isempty()){
                     foreach($proRes as $val){
-                        $result[] = array("value" =>'proRes_'.$val['id'],"label"=> $val['PatientFirstName'].' '.$val['PatientLastName'].' '.$val['DOB']);
+                        $result[] = array("value" =>'proRes_'.$val['id'],"label"=> $val['PatientFirstName'].' '.$val['PatientLastName'].' '.$val['DOB'].' '.$val['AddressLine1'].' '.$val['AddressLine2'].' '.$val['City'].' '.$val['Zip']);
                     }
                 }
             }

@@ -13,7 +13,7 @@ class CreateLoginLogsTable extends Migration
      */
     public function up()
     {
-        Schema::create('login_log', function (Blueprint $table) {
+        Schema::create('login_logs', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('username',255)->nullable();
             $table->string('ip_address',255)->nullable();

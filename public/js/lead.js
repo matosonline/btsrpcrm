@@ -150,23 +150,33 @@ $(function () {
 //
 //            },
             dob: {
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
 
             },
 //            careID:{
 //                 required: true,
 //            },
             lang: {
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputAddress:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputCity:{
-                required: true,
+               required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputState:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             healthPlan:{
                 required:function(element) {
@@ -179,10 +189,14 @@ $(function () {
                 }
             },
             inputZip:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             phone1:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             pcpName:{
                 required:function(element) {

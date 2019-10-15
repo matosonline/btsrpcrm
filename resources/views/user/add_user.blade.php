@@ -57,6 +57,17 @@
             <span class="error">{{ $errors->first('password') }}</span>
             @endif
         </div>
+        <div class="form-group">
+            <label for="status">Status <span class="error">*</span></label>
+            <select id="status" name="status" class="form-control">
+                <option value="">Select Status</option>
+                <option value="0" {{$user_details->status == 0 ?'selected':''}}>Unlock</option>
+                <option value="1" {{$user_details->status == 1 ?'selected':''}}>Lock</option>
+            </select>
+            @if ($errors->has('status'))
+            <span class="error">{{ $errors->first('status') }}</span>
+            @endif
+        </div>
         @else
         <div class="form-group">
             <label for="role">Role <span class="error">*</span></label>

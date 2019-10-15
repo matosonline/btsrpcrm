@@ -14,6 +14,8 @@ use phpseclib\System\SSH\Agent;
 use Illuminate\Support\Facades\Mail;
 use App\State;
 use App\Traits\LogData;
+use App\Log;
+
 class CenterController extends Controller
 {
     /**
@@ -30,7 +32,7 @@ class CenterController extends Controller
     public function create()
     {
         $state = State::get();
-        return view('centers\newCenter', compact('state'));
+        return view('centers.newCenter', compact('state'));
     }
     public function index()
     {
@@ -76,5 +78,5 @@ class CenterController extends Controller
         $state = State::get();
         return view('centers.editCenter', compact('center_details','state'));
     }
-
+    
 }

@@ -9,6 +9,8 @@ use App\RoleUser;
 use App\Doctors;
 use Illuminate\Support\Facades\Auth;
 use App\Traits\LogData;
+use App\Log;
+use App\LoginLog;
 
 class UserController extends Controller
 {
@@ -57,7 +59,8 @@ class UserController extends Controller
                 'last_name' => 'required',
                 'email' => 'required|email',
                 'password' => 'required',
-                'role'=>'required'
+                'role'=>'required',
+                'status'=>'required'
             ]);
             $oldData = $user = User::find($request->user_id);
             $user->password = bcrypt($request->password);
@@ -69,7 +72,13 @@ class UserController extends Controller
         $user->last_name = $request->last_name;
         $user->email = $request->email;
         $user->phone_number = $request->phone_number;
+        $user->status = ($request->status)?$request->status:0;
         $user->save();
+        
+        //reset login attempt
+        if($request->status == 0){
+            LoginLog::where('username',$request->email)->update(['login_count'=>0]);
+        }
 
         $check_role = RoleUser::where('user_id',$user->id)->first();
         if(empty($check_role)){
@@ -130,6 +139,26 @@ class UserController extends Controller
         $user = User::find(Auth::user()->id);
         $user->password = bcrypt($request->password);
         $user->save();
+        $this->insertLoginLog($user->email,\Request::ip());
         return redirect('/users');
+    }
+    
+     public function viewUserLog(Request $request){
+        $leadLog = Log::where('activity_name','Edit User')->where('activity_id',$request->user_id)->get();
+        
+        $logArray = $oldDataArray = $newDataArray = array();
+        if(!$leadLog->isempty()){
+            foreach($leadLog as $key => $val){
+                $oldData = json_decode($val->old_data,true);
+                $newData = json_decode($val->new_data,true);
+                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
+                unset($newData['id'],$newData['updated_at']);
+                $logArray[$key]['username'] = $val->username;
+                $logArray[$key]['created_at'] = $val->created_at;
+                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
+                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
+            }
+        }
+        echo view('user.logs.viewLog',compact('logArray'))->render();
     }
 }

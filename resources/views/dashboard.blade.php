@@ -9,55 +9,51 @@
             <div class="row mb-5">
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
-                        <div class="card-header">
-                            Total Leads
+                        <div class="card-header d-flex justify-content-between">
+                            <div><a href="{{ route('leads.index') }}">Total Leads</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($totalLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
-                    <div class="card">
-                        <div class="card-header">
-                            Closed Leads
-                        </div>
-                        <div class="card-body">
-                            <h1 class="card-title text-center">{{count($closeLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
                         </div>
                     </div>
                 </div>
 
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-0 mx-auto">
                     <div class="card">
-                        <div class="card-header">
-                            New Leads
+                        <div class="card-header d-flex justify-content-between">
+                            <div><a href="{{ url('/leads?status='.encrypt('unassigned')) }}">Unassigned</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('1')) }}">New Leads</a></div>
                         </div>
+                        
                         <div class="card-body">
-                            <h1 class="card-title text-center">{{count($newLeads)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            <h1 class="card-title text-center">{{count($totalUassigned)}}/{{count($newLeads) }}</h1>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mx-auto">
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
-                        <div class="card-header">
-                            Total Opted Out
+                        <div class="card-header d-flex justify-content-between">
+                            <div><a href="{{ url('/leads?status='.encrypt('4')) }}">Lost Leads</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('optedOut')) }}">Opted Out</a></div>
                         </div>
                         <div class="card-body">
-                            <h1 class="card-title text-center">{{count($totalOptedOut)}}</h1>
-                            <p class="card-text text-muted">Last Updated - mmddyyy</p>
-                            {{-- <a href="#" class="btn btn-sm btn-primary">Go somewhere</a> --}}
+                            <h1 class="card-title text-center">{{count($lostLeads)}}/{{count($totalOptedOut) }}</h1>
                         </div>
                     </div>
                 </div>
+                
+                <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
+                    <div class="card">
+                        <div class="card-header d-flex justify-content-between">
+                            <div><a href="{{ url('/leads?status='.encrypt('3')) }}">Closed Leads</a></div>
+                        </div>
+                        <div class="card-body">
+                            <h1 class="card-title text-center">{{count($closeLeads)}}</h1>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- END Leaderboard -->
             <hr>
@@ -69,14 +65,7 @@
                         <div class="card-header">
                             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
                                 <h5>All</h5>
-<!--                                <div class="btn-toolbar mb-2 mb-md-0">  
-                                    <div class="btn-group mr-2" role="group">
-                                        <button type="button" class="btn btn-outline-primary">1</button>
-                                        <button type="button" class="btn btn-outline-primary">2</button>
-                                        <button type="button" class="btn btn-outline-primary">3</button>
-                                        <button type="button" class="btn btn-outline-primary">Next</button>
-                                    </div>
-                                </div>-->
+                                <div class="table_pagination_daashboard"></div>
                             </div>
                         </div>
                         <div class="table-responsive">
@@ -131,11 +120,20 @@
 @endsection
 
 <b></b>
+@section('pagecss')
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+@endsection
 @section('pagescript')
 <script src="{{url('/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript">
 $(function () {
-    $('.dashboard_leade_table').DataTable({searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, order: false});
+    $('.dashboard_leade_table').DataTable({
+        initComplete: (settings, json)=>{
+        $('.dataTables_paginate').appendTo('.table_pagination_daashboard');
+    },searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, orderable: true, responsive: true});
 });
 </script>
 @endsection

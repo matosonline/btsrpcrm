@@ -1,4 +1,17 @@
 $(function () {
+    
+    $('#prospectSearchName').select2({
+        matcher: function(params, data) {
+            var original_matcher = $.fn.select2.defaults.defaults.matcher;
+            var result = original_matcher(params, data);
+            if (result && data.children && result.children && data.children.length != result.children.length) {
+                 result.children = data.children;
+            }
+            return result;
+        }
+    });
+    
+    
    if($('#id').val() != '' && typeof($('#id').val()) != 'undefined'){
        $('#pcpName').trigger('change');
        $('#agent').val($('#agent_id').val());
@@ -137,23 +150,33 @@ $(function () {
 //
 //            },
             dob: {
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
 
             },
 //            careID:{
 //                 required: true,
 //            },
             lang: {
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputAddress:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputCity:{
-                required: true,
+               required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             inputState:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             healthPlan:{
                 required:function(element) {
@@ -166,10 +189,14 @@ $(function () {
                 }
             },
             inputZip:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             phone1:{
-                required: true,
+                required:function(element) {
+                        return $('#lStatus').val() == '3';
+                }
             },
             pcpName:{
                 required:function(element) {
@@ -218,6 +245,14 @@ $(function () {
         },
 
     });
+    $("#uploadDocs").change(function (){
+        for (var i = 0; i < jQuery(this).get(0).files.length; ++i) {
+            var type=jQuery(this).get(0).files[i].type;
+            if(type != 'application/pdf'){
+                $('#uploadDocs').after('<label id="uploadDocs-error" class="error" for="uploadDocs">Please upload only PDF files</label>');
+            }
+        }
+    });
     $("#phone1,#inputZip").on("keypress keyup blur", function (e) {
         var regex = new RegExp(/^(\?\+?[0-9]\?)?[0-9_\-+ ]*$/);
         var str = String.fromCharCode(!e.charCode ? e.which : e.charCode);
@@ -247,6 +282,7 @@ $(function () {
             }
         });
     });
+   
 })
 $('#pcpName').on("change",function(){
     if($(this).val() == 0 ){

@@ -54,17 +54,17 @@ body { font-size: .875rem; }
 .nav-item::marker{display:none;}
 
 /*//For dashboard pagination*/
-.custom_footable .table-responsive .dataTables_paginate{
+/*.custom_footable .table-responsive .dataTables_paginate{
     right: 25px !important;
     position: absolute;
     position: absolute !important;
     top: 28px!important;
     z-index: 999 !important;
-}
+}*/
 
-.custom_footable .table-responsive{
+/*.custom_footable .table-responsive{
     overflow-x: visible;
-}
+}*/
 .custom_footable .dataTables_paginate .paginate_button.current,.custom_footable .dataTables_paginate .paginate_button:hover{background:#007bff !important;color: #fff !important;}
 .custom_footable .paginate_button{
             border: 1px solid transparent !important;
@@ -73,3 +73,12 @@ body { font-size: .875rem; }
 .view_icon{color: #007bff;}
 .danger_color{color:red;cursor: pointer;}
 .attach_row{cursor:pointer;}
+.lead_searchSec button{margin-top: 1.72rem;}
+
+.select2-container .select2-selection--single{height: 37px !important;}
+.select2-container--default .select2-selection--single .select2-selection__rendered{line-height: 35px !important;}
+.select2-container--default .select2-selection--single .select2-selection__arrow{height: 35px !important;}
+.newLeadForm .card-title,.editLeadForm .card-title,.addProviderForm .card-title,.editProviderForm  .card-title
+,.editCenterForm .card-title{cursor: default;}
+.editLeadNoteSec{height:100px;  overflow-y: auto;}
+}

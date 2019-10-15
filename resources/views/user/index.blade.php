@@ -21,7 +21,14 @@
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                @if(Auth::user()->hasRole('Admin')) 
+                <th>Last Login</th>
+                <th>Status</th>
+                @endif
                 <th>Action</th>
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                    <th>View Logs</th>
+                @endif
             </tr>
         </thead>
         <tbody>
@@ -35,12 +42,19 @@
                 <td>{{ $row->last_name }}</td>
                 <td>{{ $row->email }}</td>
                 <td>{{ $row->phone_number }}</td>
+                @if(Auth::user()->hasRole('Admin')) 
+                <td>{{ $row->last_login }}</td>
+                <td>{{($row->status == 0)?'Unlock':'Lock' }}</td>
+                @endif
                 <td>
                     <a class="btn" href="{{url('user/edit/'.$row->id)}}" type="button" name="edit" aria-label="Edit"
                         title="Edit"><i class="fa fas fa-edit"></i></a>
                     <a class="btn sa-confirm" type="button" name="delete" aria-label="Delete" title="Delete" id="delete"
                         user_id="{{$row->id}}"><i class="fa fas fa-trash"></i></a>
                 </td>
+                @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
+                    <td><a href="{{url('/viewUserLog/'.$row->id)}}"><span data-feather='eye'></span></a></td>
+                @endif
 
             </tr>
             @php

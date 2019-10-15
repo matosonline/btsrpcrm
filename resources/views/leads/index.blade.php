@@ -60,6 +60,12 @@
     </div>
 
 @endsection
+@section('pagecss')
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
+<link rel="stylesheet" type="text/css"
+    href="{{url('/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+@endsection
 @section('pagescript')
 <script>
     $('#main_header').html("Leads");
@@ -70,5 +76,6 @@
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{url('/js/select2.min.js')}}"></script>
 <script src="{{url('/js/lead.js')}}"></script>
 @endsection

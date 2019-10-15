@@ -72,7 +72,7 @@ class DoctorController extends Controller
                 'startDate4'=>'required_with:4_Check',
         ]);
         $data = $request->all();
-        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
+        $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         
         if(array_key_exists('id',$data)){
             $oldData = $obj = Doctors::find($data['id']);
@@ -120,8 +120,8 @@ class DoctorController extends Controller
                     }
                     $insType->doctor_id	= $lastInsertId;
                     $insType->insurance_type_id	= $val['id'];
-                    $insType->start_date	= date("Y-m-d", strtotime($data['startDate'.$val['id']]));
-                    $insType->end_date	= date("Y-m-d", strtotime($data['termDate'.$val['id']]));
+                    $insType->start_date	= ($data['startDate'.$val['id']] != '')?date("Y-m-d", strtotime($data['startDate'.$val['id']])):NULL;
+                    $insType->end_date	= ($data['termDate'.$val['id']] != '')?date("Y-m-d", strtotime($data['termDate'.$val['id']])):NULL;
                     $insType->save();
                 }
             }
@@ -179,23 +179,5 @@ class DoctorController extends Controller
         //
     }
     
-    public function viewProviderLog(Request $request){
-        $leadLog = Log::where('activity_name','Edit Provider')->where('activity_id',$request->provider_id)->get();
-        
-        $logArray = $oldDataArray = $newDataArray = array();
-        if(!$leadLog->isempty()){
-            foreach($leadLog as $key => $val){
-                $oldData = json_decode($val->old_data,true);
-                $newData = json_decode($val->new_data,true);
-                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at'],$oldData['create_by'],$oldData['update_by']);
-                unset($newData['id'],$newData['_token']);
-                $logArray[$key]['username'] = $val->username;
-                $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = http_build_query($oldData,'',', ');
-                $logArray[$key]['new_data'] = http_build_query($newData,'',', ');
-            }
-        }
-        echo view('providers.logs.viewLog',compact('logArray'))->render();
-    }
     
 }

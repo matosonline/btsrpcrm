@@ -17,6 +17,8 @@ use App\State;
 use App\LeadDetail;
 use App\Log;
 use App\Traits\LogData;
+use App\Prospects;
+use App\Note;
 
 class LeadController extends Controller
 {
@@ -30,13 +32,29 @@ class LeadController extends Controller
     {
         $this->middleware('auth');
     }
-    public function index()
+    public function index(Request $request)
     {
-        if(Auth::user()->hasRole('agent-user')){
-            $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-            $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->get()->toArray();
+//        echo "<pre>";print_R(decrypt($request['status']));exit;
+        if(isset($request['status']) && $request['status'] != ''){
+            $descStatus = decrypt($request['status']);
+            if($descStatus == 'unassigned'){
+                $leads = Lead::whereNull('agent')->get()->toArray();
+            }elseif($descStatus == 1){
+                $leads = Lead::where('lStatus',1)->get()->toArray();
+            }elseif($descStatus == 4){
+                $leads = Lead::where('lStatus', 4)->get()->toArray();
+            }elseif($descStatus == 'optedOut'){
+                $leads = Lead::where('agreeOrDisagree',2)->get()->toArray();
+            }elseif($descStatus == 3){
+                $leads = Lead::where('lStatus',3)->get()->toArray();
+            }
         }else{
-            $leads = Lead::all()->toArray();
+            if(Auth::user()->hasRole('agent-user')){
+                $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
+                $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->get()->toArray();
+            }else{
+                $leads = Lead::all()->toArray();
+            }
         }
         return view('leads.index', compact('leads'));
     }
@@ -46,11 +64,21 @@ class LeadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $doctors = Doctors::get();
         $state = State::get();
-        return view('leads.newLead', compact('doctors','state'));
+        
+        $prospectData = Prospects::get();
+        $NameOfProspect = array();
+        foreach($prospectData as $val){
+            $NameOfProspect[$val['id']] = $val['PatientFirstName'].' '.$val['PatientLastName'].' - '.$val['DOB'];
+        }
+        $getProspectData = '';
+        if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
+            $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
+        }
+        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));
     }
 
     /**
@@ -61,21 +89,19 @@ class LeadController extends Controller
      */
     public function store(Request $request)
     {
-
         // dd($request->all());
         $data = $request->all();
-        
         if(!array_key_exists('agent',$data) || $request->agent == '' ){
             $data['agent'] = NULL;
             $data['lStatus'] = 2;
         }
-        $data['dob'] =  date("Y-m-d", strtotime($data['dob']));
+        $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
+        $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
         if(array_key_exists('id',$data)){
-            $data['startDate'] =  date("Y-m-d", strtotime($data['startDate']));
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
-            
+            $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
             
@@ -97,34 +123,12 @@ class LeadController extends Controller
                     }
                 }
             }
-//          Continue in file upload
-            if(isset($request['uploadDocs']))
-            {
-                if(count($request['uploadDocs'])>0){
-                    $allowedfileExtension=['pdf'];
-                    $files = $request['uploadDocs'];
-                    foreach($files as $file){
-                        $filename = $file->getClientOriginalName();
-                        $extension = $file->getClientOriginalExtension();
-                        $check=in_array($extension,$allowedfileExtension);
-                        if($check)
-                        {
-                            $destinationPath = public_path().'\storage\app\leadDoc'; 
-                            $newFileName = date('Ydm').time().'['.$data['id'].']'.$filename;
 
-                            $file->move($destinationPath, $newFileName);
-                            LeadDetail::create([
-                                'lead_id' => $data['id'],
-                                'filename' => $newFileName
-                            ]);
-                        }
-                    }
-                }
-            }
             $old_data = json_encode($getOldData);
             $new_data = json_encode($data);
             $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            unset($data['uploadDocs']);
             if($data['pcpName'] == 0){
                 $data['pcpName'] = $data['pcp_other'];
                 unset($data['pcp_other']);
@@ -139,6 +143,8 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
+            
+                        
             //For customer Mail
             if(!empty($lead_details->email)){
                 $this->custLeadEmail($lead_details->email);
@@ -160,11 +166,43 @@ class LeadController extends Controller
                     }
                 }
             }
+            $leadId = $lead_details->id;
             $new_data = json_encode($data);
             $this->insertLog($lead_details->id,'Add Lead','',$new_data);
         }
+        //store note for Add/Edit lead
+        if($data['notes'] != ''){
+            $note = ($data['notes'] != '')?$data['notes']: '';
+            $userId = Auth::user()->id;
+            $type = '1';
+            $typeId = $leadId;
+            $this->saveNote($note, $userId, $type, $typeId);
+        }
+        
+        // Continue in file upload
+            if(isset($request['uploadDocs']))
+            {
+                if(count($request['uploadDocs'])>0){
+                    $allowedfileExtension=['pdf'];
+                    $files = $request['uploadDocs'];
+                    foreach($files as $file){
+                        $filename = $file->getClientOriginalName();
+                        $extension = $file->getClientOriginalExtension();
+                        $check=in_array($extension,$allowedfileExtension);
+                        if($check)
+                        {
+                            $destinationPath = public_path().'\storage\app\leadDoc'; 
+                            $newFileName = date('Ydm').time().'['.$leadId.']'.$filename;
 
-
+                            $file->move($destinationPath, $newFileName);
+                            LeadDetail::create([
+                                'lead_id' => $leadId,
+                                'filename' => $newFileName
+                            ]);
+                        }
+                    }
+                }
+            }
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
     }
@@ -231,7 +269,13 @@ class LeadController extends Controller
 //       }
         $state = State::get();
         $getAttachment = LeadDetail::where('lead_id',$request->lead_id)->get();
-        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment'));
+        $notes = Note::leftjoin('users','notes.user_id','users.id')
+                    ->where('notes.type',1)
+                    ->where('notes.type_id',$request->lead_id)
+                    ->orderBy('notes.note_date','DESC')->get();
+        $notes = $notes->reverse();
+
+        return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment','notes'));
     }
 
     /**
@@ -271,22 +315,13 @@ class LeadController extends Controller
         LeadDetail::where('id',$attachId)->delete();
     }
     
-    public function viewLeadLog(Request $request){
-        $leadLog = Log::where('activity_name','Edit Lead')->where('activity_id',$request->lead_id)->get();
-        
-        $logArray = $oldDataArray = $newDataArray = array();
-        if(!$leadLog->isempty()){
-            foreach($leadLog as $key => $val){
-                $oldData = json_decode($val->old_data,true);
-                $newData = json_decode($val->new_data,true);
-                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
-                unset($newData['id']);
-                $logArray[$key]['username'] = $val->username;
-                $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = http_build_query($oldData,'',', ');
-                $logArray[$key]['new_data'] = http_build_query($newData,'',', ');
-            }
-        }
-        echo view('leads.logs.viewLog',compact('logArray'))->render();
+    public function saveNote($note_text,$userId,$type,$typeId){
+        $note = new Note();
+        $note->notes = $note_text;
+        $note->user_id = $userId;
+        $note->type = $type;
+        $note->type_id = $typeId;
+        $note->note_date = date("Y-m-d H:i:s");
+        $note->save();
     }
 }

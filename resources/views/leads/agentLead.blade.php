@@ -170,17 +170,17 @@
                     </div>
                     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#editLeadAccordion">
                         <div class="card-body">
+                            @if(!$notes->isempty())
                             <div class="form-row">
                                 <div class="form-group col-12 editLeadNoteSec">
-                                    @if($notes)
                                     @foreach($notes as $val)
                                             <div class="mb-2">
                                                 <span class="small text-muted">{{$val['note_date']}} - {{$val['first_name'].' '.$val['last_name']}}: </span> {{$val['notes']}}
                                             </div>
                                     @endforeach
-                                    @endif
                                 </div>
                             </div>
+                            @endif
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="notes">Notes</label>

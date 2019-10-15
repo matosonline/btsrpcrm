@@ -257,7 +257,8 @@ class LeadController extends Controller
                     ->where('notes.type',1)
                     ->where('notes.type_id',$request->lead_id)
                     ->orderBy('notes.note_date','DESC')->limit(2)->get();
-//        echo "<pre>";print_R($notes);exit;
+        $notes = $notes->reverse();
+
         return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment','notes'));
     }
 

@@ -175,7 +175,7 @@
                                     @if($notes)
                                     @foreach($notes as $val)
                                             <div class="mb-2">
-                                                <span class="small text-muted">{{date('Y/m/d',strtotime($val['note_date']))}} - {{$val['first_name'].' '.$val['last_name']}}: </span> {{$val['notes']}}
+                                                <span class="small text-muted">{{$val['note_date']}} - {{$val['first_name'].' '.$val['last_name']}}: </span> {{$val['notes']}}
                                             </div>
                                     @endforeach
                                     @endif

@@ -184,7 +184,7 @@
                             <div class="form-row">
                                 <div class="form-group col-12">
                                     <label for="notes">Notes</label>
-                                    <textarea name="notes" class="form-control" id="notes" rows="3">{{isset($lead_details)?$lead_details['notes']:''}}</textarea>
+                                    <textarea name="notes" class="form-control" id="notes" rows="3"></textarea>
                                 </div>
                             </div>
                         </div>

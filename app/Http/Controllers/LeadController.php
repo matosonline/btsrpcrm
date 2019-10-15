@@ -196,9 +196,9 @@ class LeadController extends Controller
                 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
-//        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
-//        });
+        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+        });
 
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
@@ -219,9 +219,9 @@ class LeadController extends Controller
 //               'cc'    => 'rmatos@devhealth.net'
 //                'to'    => 'poojaatridhyatech@gmail.com',
             ];
-//        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-//        });
+        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+        });
     }
 
     /**

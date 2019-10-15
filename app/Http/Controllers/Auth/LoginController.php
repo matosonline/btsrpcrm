@@ -11,6 +11,7 @@ use Illuminate\Validation\ValidationException;
 use App\Traits\LogData;
 use App\User;
 use App\LoginLog;
+use App\Log;
 
 class LoginController extends Controller
 {
@@ -26,7 +27,7 @@ class LoginController extends Controller
     */
 
     use AuthenticatesUsers;
-
+    use LogData;
     /**
      * Where to redirect users after login.
      *

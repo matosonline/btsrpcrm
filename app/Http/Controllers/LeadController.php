@@ -18,6 +18,7 @@ use App\LeadDetail;
 use App\Log;
 use App\Traits\LogData;
 use App\Prospects;
+use App\Note;
 
 class LeadController extends Controller
 {
@@ -61,8 +62,7 @@ class LeadController extends Controller
         if ($request->has('prospectSearchName') && $request->prospectSearchName != '') {
             $getProspectData = Prospects::where('id',  '=', $request->prospectSearchName)->first();
         }
-        $notes = Lead::whereNotNull('notes')->select('fName','lName','created_at','notes')->orderBy('id','DESC')->limit(2)->get();
-        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData','notes'));
+        return view('leads.newLead', compact('doctors','state','NameOfProspect','getProspectData'));
     }
 
     /**
@@ -127,6 +127,8 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
+            
+                        
             //For customer Mail
             if(!empty($lead_details->email)){
                 $this->custLeadEmail($lead_details->email);
@@ -152,7 +154,15 @@ class LeadController extends Controller
             $new_data = json_encode($data);
             $this->insertLog($lead_details->id,'Add Lead','',$new_data);
         }
-
+        //store note for Add/Edit lead
+        if($data['notes'] != ''){
+            $note = ($data['notes'] != '')?$data['notes']: '';
+            $userId = Auth::user()->id;
+            $type = '1';
+            $typeId = $leadId;
+            $this->saveNote($note, $userId, $type, $typeId);
+        }
+        
         // Continue in file upload
             if(isset($request['uploadDocs']))
             {
@@ -186,9 +196,9 @@ class LeadController extends Controller
                 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
-        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
-            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
-        });
+//        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+//            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+//        });
 
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
@@ -209,9 +219,9 @@ class LeadController extends Controller
 //               'cc'    => 'rmatos@devhealth.net'
 //                'to'    => 'poojaatridhyatech@gmail.com',
             ];
-        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-        });
+//        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+//            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+//        });
     }
 
     /**
@@ -243,7 +253,11 @@ class LeadController extends Controller
 //       }
         $state = State::get();
         $getAttachment = LeadDetail::where('lead_id',$request->lead_id)->get();
-        $notes = Lead::whereNotNull('notes')->select('fName','lName','created_at','notes')->orderBy('id','DESC')->limit(2)->get();
+        $notes = Note::leftjoin('users','notes.user_id','users.id')
+                    ->where('notes.type',1)
+                    ->where('notes.type_id',$request->lead_id)
+                    ->orderBy('notes.note_date','DESC')->limit(2)->get();
+//        echo "<pre>";print_R($notes);exit;
         return view('leads.agentLead', compact('lead_details', 'doctors','agent_details','state','getAttachment','notes'));
     }
 
@@ -282,5 +296,15 @@ class LeadController extends Controller
     public function delete_attach(Request $request) {
         $attachId = $request->attachId;
         LeadDetail::where('id',$attachId)->delete();
+    }
+    
+    public function saveNote($note_text,$userId,$type,$typeId){
+        $note = new Note();
+        $note->notes = $note_text;
+        $note->user_id = $userId;
+        $note->type = $type;
+        $note->type_id = $typeId;
+        $note->note_date = date("Y-m-d H:i:s");
+        $note->save();
     }
 }

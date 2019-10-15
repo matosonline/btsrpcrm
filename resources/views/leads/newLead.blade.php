@@ -213,13 +213,6 @@
                         <div class="card-body">
                             <div class="form-row">
                                 <div class="form-group col-12">
-                                    @if($notes)
-                                    @foreach($notes as $val)
-                                            <div class="mb-2">
-                                                <span class="small text-muted">{{date('Y/m/d',strtotime($val['created_at']))}} - {{$val['fName'].' '.$val['lName']}}: </span> {{$val['notes']}}
-                                            </div>
-                                    @endforeach
-                                    @endif
                                 </div>
                             </div>
                             <div class="form-row">

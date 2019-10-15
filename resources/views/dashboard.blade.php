@@ -21,8 +21,8 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE agent is Null OR agent = '' --}}#">Unassigned</a></div>
-                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 4 --}}#">New Leads</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('unassigned')) }}">Unassigned</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('1')) }}">New Leads</a></div>
                         </div>
                         
                         <div class="card-body">
@@ -34,8 +34,8 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 4 --}}#">Lost Leads</a></div>
-                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE agreeOrDisagree = 2 --}}#">Opted Out</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('4')) }}">Lost Leads</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('optedOut')) }}">Opted Out</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($lostLeads)}}/{{count($totalOptedOut) }}</h1>
@@ -46,7 +46,7 @@
                 <div class="col-12 col-sm-6 col-md-6 col-lg-3 mb-3 mb-sm-3 mb-lg-0 mx-auto">
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
-                            <div><a href="{{-- this should be link to list of leads: SELECT * FROM leads WHERE lstatus = 3 --}}#">Closed Leads</a></div>
+                            <div><a href="{{ url('/leads?status='.encrypt('3')) }}">Closed Leads</a></div>
                         </div>
                         <div class="card-body">
                             <h1 class="card-title text-center">{{count($closeLeads)}}</h1>

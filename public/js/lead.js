@@ -17,6 +17,7 @@ $(function () {
        $('#agent').val($('#agent_id').val());
    }
     "use strict";
+    $('.lead_listing').DataTable({ responsive: true,order:'DESC'});
     /*$('#lead').DataTable({
         responsive: true,
         "columns": [

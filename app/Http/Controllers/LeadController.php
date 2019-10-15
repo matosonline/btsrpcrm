@@ -38,24 +38,25 @@ class LeadController extends Controller
         if(isset($request['status']) && $request['status'] != ''){
             $descStatus = decrypt($request['status']);
             if($descStatus == 'unassigned'){
-                $leads = Lead::whereNull('agent')->get()->toArray();
+                $leads = Lead::whereNull('agent');
             }elseif($descStatus == 1){
-                $leads = Lead::where('lStatus',1)->get()->toArray();
+                $leads = Lead::where('lStatus',1);
             }elseif($descStatus == 4){
-                $leads = Lead::where('lStatus', 4)->get()->toArray();
+                $leads = Lead::where('lStatus', 4);
             }elseif($descStatus == 'optedOut'){
-                $leads = Lead::where('agreeOrDisagree',2)->get()->toArray();
+                $leads = Lead::where('agreeOrDisagree',2);
             }elseif($descStatus == 3){
-                $leads = Lead::where('lStatus',3)->get()->toArray();
+                $leads = Lead::where('lStatus',3);
             }
         }else{
             if(Auth::user()->hasRole('agent-user')){
                 $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-                $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->get()->toArray();
+                $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id);
             }else{
-                $leads = Lead::all()->toArray();
+                $leads = new Lead();
             }
         }
+        $leads = $leads->get()->toArray();
         return view('leads.index', compact('leads'));
     }
 

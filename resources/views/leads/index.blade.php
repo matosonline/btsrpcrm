@@ -14,7 +14,7 @@
         @endif
     </div>
     <div class="table-responsive">
-        <table class="table table-striped" id="lead">
+        <table class="table table-striped lead_listing" id="lead">
             <thead>
                 <tr>
                     <th>Lead</th>

@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="form-group col-12 col-sm-6">
                                     <label for="startDate">Start Date</label>
-                                    <input class="form-control" type="test" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}"  placeholder="MM/DD/YYYY">
+                                    <input class="form-control" type="text" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}"  placeholder="MM/DD/YYYY">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -162,7 +162,8 @@
                                 </div>
                                 <div class="form-group col-12 col-sm-6 appointmentDateSec" style="display: none;">
                                     <label for="appointmentDate">Appointment Date</label>
-                                    <input class="form-control" type="test" name="appointmentDate" id="appointmentDate"  value="{{isset($lead_details)?$lead_details['appointmentDate']:''}}"  placeholder="MM/DD/YYYY">
+                                    <input class="form-control" type="text" name="appointmentDate" id="appointmentDate"  value=""  placeholder="MM/DD/YYYY">
+                                    <input type="hidden" value="{{isset($lead_details)?date('m/d/Y',strtotime($lead_details['appointmentDate'])):''}}" id="appointmentDateHidden" name="appointmentDateHidden">
                                 </div>
                             </div>
                         </div>

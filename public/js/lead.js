@@ -1,5 +1,5 @@
 $(function () {
-    
+    $('#lStatus').trigger('change');
     $('#prospectSearchName').select2({
         matcher: function(params, data) {
             var original_matcher = $.fn.select2.defaults.defaults.matcher;
@@ -289,11 +289,6 @@ $(function () {
             $( ".type_option" ).css('display','flex');
         }   
     });
-    $('#lStatus').on('change',function(){
-        if($(this).val() == 5){
-            $( ".appointmentDateSec" ).css('display','block');
-        } 
-    });
     $('.attach_delete').on('click',function(){
         var CSRF_TOKEN = $('input[name="_token"]').val();
         var attachId = $(this).attr('data-attach');
@@ -327,4 +322,13 @@ $('#pcpName').on("change",function(){
         }
     });
 })
-
+$('#lStatus').on('change',function(){
+    if($(this).val() == 5){
+        $(".appointmentDateSec" ).css('display','block');
+        $('#appointmentDate').val($('#appointmentDateHidden').val());
+    }else{
+        $(".appointmentDateSec" ).css('display','none');
+        $('#appointmentDateHidden').val('');
+        $('#appointmentDate').val($('#appointmentDateHidden').val());
+    } 
+});

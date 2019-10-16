@@ -92,10 +92,7 @@ class LeadController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        if(!array_key_exists('agent',$data) || $request->agent == '' ){
-            $data['agent'] = NULL;
-            $data['lStatus'] = 2;
-        }
+        
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
         if(array_key_exists('id',$data)){
@@ -104,6 +101,7 @@ class LeadController extends Controller
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
+            unset($data['appointmentDateHidden']);
             $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
@@ -131,6 +129,10 @@ class LeadController extends Controller
             $new_data = json_encode($data);
             $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            if(!array_key_exists('agent',$data) || $request->agent == '' ){
+                $data['agent'] = NULL;
+                $data['lStatus'] = 2;
+            }
             $data['created_by'] = Auth::user()->id;
             unset($data['uploadDocs']);
             if($data['pcpName'] == 0){

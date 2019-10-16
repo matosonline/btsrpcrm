@@ -69,11 +69,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="phone1">Phone Number</label>
-                                <input type="text" class="form-control" id="phone1" placeholder="Phone Number" name="phone1">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" name="phone1">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="fax1">Fax Number</label>
-                                <input type="fax1" class="form-control" id="fax1" placeholder="Fax Number" name="fax1">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="fax1" placeholder="Fax Number" name="fax1">
                             </div>
                         </div>
                         <div class="form-row">

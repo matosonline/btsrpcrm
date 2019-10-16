@@ -36,7 +36,7 @@ class CenterController extends Controller
     }
     public function index()
     {
-        $center = Center::all()->toArray();
+        $center = Center::orderBy('id','DESC')->get()->toArray();
         return view('centers.index', compact('center'));
     }
 

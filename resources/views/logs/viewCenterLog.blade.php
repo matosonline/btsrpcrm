@@ -1,8 +1,8 @@
 @extends('layout.mainlayout')
 
 @section('content')
-<div class="table-responsive view_centerLog_wrap">
-        <table class="table table-striped view_centerLog_table" id="view_centerLog_table">
+<div class="view_centerLog_wrap mb-4">
+        <table class="table table-striped view_centerLog_table" id="view_centerLog_table" width="100%">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -28,10 +28,7 @@
     </div>
 @endsection
 @section('pagecss')
-<link rel="stylesheet" type="text/css"
-    href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
-<link rel="stylesheet" type="text/css"
-    href="{{url('/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
+<link rel="stylesheet" type="text/css" href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
 @endsection
 @section('pagescript')
 <script>
@@ -39,11 +36,21 @@
 </script>
 <script type="text/javascript">
 $(function () {
-    $('.view_centerLog_table').DataTable({searching: false, paging: true, info: false, lengthChange: false, pageLength: 5, order: false});
+    $('.view_centerLog_table').DataTable({
+        order: [0,'desc'],
+        dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
+            "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+            "<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>",
+        drawCallback: function () {
+            $('.dataTables_paginate > .pagination').addClass('justify-content-center justify-content-md-end');
+            $('.dataTables_wrapper').removeClass('container-fluid');
+            $('.dataTables_length').addClass('text-left');
+            $('.dataTables_filter').addClass('text-left text-md-right');
+        }
+    });
 });
 </script>
 <script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
 <script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 @endsection

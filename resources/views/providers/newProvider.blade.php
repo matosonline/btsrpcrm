@@ -123,7 +123,7 @@
                         </div>
                         <div class="form-group col-md-6">
                             <label for="phone1">Phone Number</label>
-                            <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number">
+                            <input type="text" name="phone1" class="form-control bfh-phone" id="phone1" placeholder="Phone Number" data-format="(ddd) ddd-dddd" >
                         </div>
                     </div>
                 </div>

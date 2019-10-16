@@ -94,6 +94,8 @@
                                                 <td>Closed Success</td>
                                             @elseif($row['lStatus'] == 4)
                                                 <td>Lost Failure</td>
+                                            @elseif($row['lStatus'] == 5)
+                                                <td>Appointment scheduled</td>
                                             @endif
                                         </tr>
                                     @endforeach
@@ -123,17 +125,20 @@
 @section('pagecss')
 <link rel="stylesheet" type="text/css"
     href="{{url('/assets/node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css')}}">
-<link rel="stylesheet" type="text/css"
-    href="{{url('/assets/node_modules/datatables.net-bs4/css/responsive.dataTables.min.css')}}">
 @endsection
 @section('pagescript')
 <script src="{{url('/js/jquery.dataTables.min.js')}}"></script>
 <script type="text/javascript">
 $(function () {
     $('.dashboard_leade_table').DataTable({
+        dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
+            "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+            "<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>",
+        order:[0,'desc'],
         initComplete: (settings, json)=>{
-        $('.dataTables_paginate').appendTo('.table_pagination_daashboard');
-    },searching: false, paging: true, info: false, lengthChange: false, pageLength: 10, orderable: true, responsive: true});
+            $('.dataTables_paginate').appendTo('.table_pagination_daashboard');
+        },searching: true, paging: true, info: false, lengthChange: false, pageLength: 10, orderable: true,
+    });
 });
 </script>
 @endsection

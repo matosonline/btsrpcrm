@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="phone1">Phone Number</label>
-                            <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number"   value="{{isset($lead_details)?$lead_details['phone1']:''}}">
+                            <input type="text" name="phone1" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" value="{{isset($lead_details)?$lead_details['phone1']:''}}">
                         </div>
                     </div>
                 </div>
@@ -132,7 +132,7 @@
                                 </div>
                                 <div class="form-group col-12 col-sm-6">
                                     <label for="startDate">Start Date</label>
-                                    <input class="form-control" type="test" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}"  placeholder="MM/DD/YYYY">
+                                    <input class="form-control" type="text" name="startDate" id="startDate"  value="{{isset($lead_details)?$lead_details['startDate']:''}}"  placeholder="MM/DD/YYYY">
                                 </div>
                             </div>
                             <div class="form-row">
@@ -159,6 +159,11 @@
                                         <option value="3" {{isset($lead_details)&& $lead_details['lStatus'] == 3?'selected':''}}>Closed <span class="test-success text-italic">Success</span></option>
                                         <option value="4" {{isset($lead_details)&& $lead_details['lStatus'] == 4?'selected':''}}>Lost <span class="test-danger text-italic">Failure</span></option>
                                     </select>
+                                </div>
+                                <div class="form-group col-12 col-sm-6 appointmentDateSec" style="display: none;">
+                                    <label for="appointmentDate">Appointment Date</label>
+                                    <input class="form-control" type="text" name="appointmentDate" id="appointmentDate"  value=""  placeholder="MM/DD/YYYY">
+                                    <input type="hidden" value="{{isset($lead_details)?date('m/d/Y',strtotime($lead_details['appointmentDate'])):''}}" id="appointmentDateHidden" name="appointmentDateHidden">
                                 </div>
                             </div>
                         </div>

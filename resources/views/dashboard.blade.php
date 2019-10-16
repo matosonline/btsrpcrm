@@ -94,6 +94,8 @@
                                                 <td>Closed Success</td>
                                             @elseif($row['lStatus'] == 4)
                                                 <td>Lost Failure</td>
+                                            @elseif($row['lStatus'] == 5)
+                                                <td>Appointment scheduled</td>
                                             @endif
                                         </tr>
                                     @endforeach

@@ -56,7 +56,7 @@ class LeadController extends Controller
                 $leads = new Lead();
             }
         }
-        $leads = $leads->get()->toArray();
+        $leads = $leads->orderBy('id','DESC')->get()->toArray();
         return view('leads.index', compact('leads'));
     }
 
@@ -99,6 +99,8 @@ class LeadController extends Controller
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
         if(array_key_exists('id',$data)){
+            $data['updated_by'] = Auth::user()->id;
+            $data['appointmentDate'] =  ($data['appointmentDate'])?date("Y-m-d", strtotime($data['appointmentDate'])):NULL;
             unset($data['_token']);
             unset($data['agent_id']);
             unset($data['uploadDocs']);
@@ -129,6 +131,7 @@ class LeadController extends Controller
             $new_data = json_encode($data);
             $this->insertLog($data['id'],'Edit Lead',$old_data,$new_data);
         }else{
+            $data['created_by'] = Auth::user()->id;
             unset($data['uploadDocs']);
             if($data['pcpName'] == 0){
                 $data['pcpName'] = $data['pcp_other'];
@@ -213,9 +216,9 @@ class LeadController extends Controller
                 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
-        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
-            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
-        });
+//        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+//            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+//        });
 
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
@@ -236,9 +239,9 @@ class LeadController extends Controller
 //               'cc'    => 'rmatos@devhealth.net'
 //                'to'    => 'poojaatridhyatech@gmail.com',
             ];
-        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-        });
+//        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+//            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+//        });
     }
 
     /**

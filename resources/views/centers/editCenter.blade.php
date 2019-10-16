@@ -73,11 +73,11 @@
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="phone1">Phone Number</label>
-                                <input type="text" class="form-control" id="phone1" placeholder="Phone Number" name="phone1" value="{{$center_details->phone1}}">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" name="phone1" value="{{$center_details->phone1}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="fax1">Fax Number</label>
-                                <input type="fax1" class="form-control" id="fax1" placeholder="Fax Number" name="fax1" value="{{$center_details->fax1}}">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="fax1" placeholder="Fax Number" name="fax1" value="{{$center_details->fax1}}">
                             </div>
 
                         </div>
@@ -242,7 +242,6 @@
 <script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
 <script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{url('/js/center.js')}}"></script>
 @endsection

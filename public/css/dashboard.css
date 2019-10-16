@@ -80,5 +80,8 @@ body { font-size: .875rem; }
 .select2-container--default .select2-selection--single .select2-selection__arrow{height: 35px !important;}
 .newLeadForm .card-title,.editLeadForm .card-title,.addProviderForm .card-title,.editProviderForm  .card-title
 ,.editCenterForm .card-title{cursor: default;}
-.editLeadNoteSec{height:100px;  overflow-y: auto;}
-}
+.editLeadNoteSec{max-height:100px;  overflow-y: auto;}
+.custom_footable .dataTables_filter input{padding: .25rem .5rem;font-size: .875rem;line-height: 1.5;border-radius: .2rem;margin-top: 5px;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;}
+.custom_footable h5{margin-bottom: 1.5rem!important;}
+.custom_footable #DataTables_Table_0_filter{margin-right: 18px;}
+.custom_footable div.dataTables_wrapper div.dataTables_filter label{margin-bottom: 0px!important;}

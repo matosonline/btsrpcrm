@@ -1,7 +1,7 @@
 @extends('layout.mainlayout')
 
 @section('content')
-<div class="card col-8 mx-auto p-3">
+<div class="card col-12 col-md-10 col-lg-8 mx-auto p-3">
     <form method="post" id="store_user_data" name="store_user_data" action="{{url('/user/store_user_details')}}">
         @csrf
         @if(isset($action) && $action == 'edit')
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group">
             <label for="phone_number">Phone</label>
-            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone Number"
+            <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd"  id="phone_number" name="phone_number" placeholder="Phone Number"
                 value="{{$user_details->phone_number}}">
         </div>
         <div class="form-group">
@@ -107,7 +107,7 @@
         </div>
         <div class="form-group">
             <label for="phone">Phone</label>
-            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Phone"
+            <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd"  id="phone_number" name="phone_number" placeholder="Phone"
                 value="{{old('phone_number')}}">
         </div>
         <div class="form-group">

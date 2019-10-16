@@ -33,7 +33,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
+        $users = User::orderBy('id','DESC')->get();
         return view('user.index',compact('users'));
     }
     public function add_new_user(){

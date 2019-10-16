@@ -129,7 +129,7 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="phone1">Phone Number</label>
-                                <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number"   value="{{$doctors_details->phone1}}">
+                                <input type="text" name="phone1" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number"   value="{{$doctors_details->phone1}}">
                             </div>
                         </div>
                     </div>

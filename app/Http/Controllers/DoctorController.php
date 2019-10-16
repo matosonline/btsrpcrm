@@ -33,7 +33,7 @@ class DoctorController extends Controller
     }
     public function index()
     {
-        $doctors = Doctors::all()->toArray();
+        $doctors = Doctors::orderBy('id','DESC')->get()->toArray();
         return view('providers.index', compact('doctors'));
     }
 

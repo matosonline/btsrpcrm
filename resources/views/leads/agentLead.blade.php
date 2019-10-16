@@ -104,7 +104,7 @@
                         </div>
                         <div class="form-group col-12 col-sm-6">
                             <label for="phone1">Phone Number</label>
-                            <input type="text" name="phone1" class="form-control" id="phone1" placeholder="Phone Number"   value="{{isset($lead_details)?$lead_details['phone1']:''}}">
+                            <input type="text" name="phone1" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" value="{{isset($lead_details)?$lead_details['phone1']:''}}">
                         </div>
                     </div>
                 </div>
@@ -159,6 +159,10 @@
                                         <option value="3" {{isset($lead_details)&& $lead_details['lStatus'] == 3?'selected':''}}>Closed <span class="test-success text-italic">Success</span></option>
                                         <option value="4" {{isset($lead_details)&& $lead_details['lStatus'] == 4?'selected':''}}>Lost <span class="test-danger text-italic">Failure</span></option>
                                     </select>
+                                </div>
+                                <div class="form-group col-12 col-sm-6 appointmentDateSec" style="display: none;">
+                                    <label for="appointmentDate">Appointment Date</label>
+                                    <input class="form-control" type="test" name="appointmentDate" id="appointmentDate"  value="{{isset($lead_details)?$lead_details['appointmentDate']:''}}"  placeholder="MM/DD/YYYY">
                                 </div>
                             </div>
                         </div>

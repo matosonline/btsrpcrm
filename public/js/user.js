@@ -1,18 +1,16 @@
 $(function () {
     "use strict";
     $('#user_list').DataTable({
-        responsive: true,
-        "columns": [
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            null,
-            { "orderable": false },
-            { "orderable": false }
-          ]
+        dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
+            "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+            "<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>",
+        order:[0,'desc'],
+        drawCallback: function () {
+            $('.dataTables_paginate > .pagination').addClass('justify-content-center justify-content-md-end');
+            $('.dataTables_wrapper').removeClass('container-fluid');
+            $('.dataTables_length').addClass('text-left');
+            $('.dataTables_filter').addClass('text-left text-md-right');
+        }
     });
    /* $('#add_user_button').click(function () {
         location.href = base_url + '/user/add_user';

@@ -17,7 +17,18 @@ $(function () {
        $('#agent').val($('#agent_id').val());
    }
     "use strict";
-    $('.lead_listing').DataTable({ responsive: true,order:'DESC'});
+    $('.lead_listing').DataTable({ 
+        dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
+            "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
+            "<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>",
+        order:[0,'desc'],
+        drawCallback: function () {
+            $('.dataTables_paginate > .pagination').addClass('justify-content-center justify-content-md-end');
+            $('.dataTables_wrapper').removeClass('container-fluid');
+            $('.dataTables_length').addClass('text-left');
+            $('.dataTables_filter').addClass('text-left text-md-right');
+        }
+    });
     /*$('#lead').DataTable({
         responsive: true,
         "columns": [
@@ -31,7 +42,7 @@ $(function () {
    /* $('#add_user_button').click(function () {
         location.href = base_url + '/user/add_user';
     })*/
-    $('#dob,#startDate').datepicker({
+    $('#dob,#startDate,#appointmentDate').datepicker({
         format: 'mm/dd/yyyy', //'yyyy-mm-dd',
         todayHighlight:true,
         autoclose:true
@@ -204,6 +215,11 @@ $(function () {
                         return $('#lStatus').val() == '3';
                 }
             },
+            appointmentDate:{
+               required:function(element) {
+                        return $('#lStatus').val() == '5';
+                } 
+            }
         },
         messages: {
             fName: "Please enter your firstname",
@@ -243,6 +259,9 @@ $(function () {
             pcpName:{
                 required: "Please select pcpName",
             },
+            appointmentDate:{
+                required: "Please select appointment date",
+            }
         },
 
     });
@@ -269,6 +288,11 @@ $(function () {
         if($(this).val() == 5){
             $( ".type_option" ).css('display','flex');
         }   
+    });
+    $('#lStatus').on('change',function(){
+        if($(this).val() == 5){
+            $( ".appointmentDateSec" ).css('display','block');
+        } 
     });
     $('.attach_delete').on('click',function(){
         var CSRF_TOKEN = $('input[name="_token"]').val();

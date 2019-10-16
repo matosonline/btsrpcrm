@@ -4,7 +4,7 @@
 
     <!-- Table -->
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2">
-        <h5>Leads</h5>
+        <h5></h5>
         @if(!Auth::user()->hasRole('agent_Manager'))
         <div class="btn-toolbar mb-2 mb-md-0">
             <div class="btn-group mr-2">
@@ -13,8 +13,8 @@
         </div>
         @endif
     </div>
-    <div class="table-responsive">
-        <table class="table table-striped lead_listing" id="lead">
+    <div class="mb-4">
+        <table class="table table-striped lead_listing" id="lead" width="100%">
             <thead>
                 <tr>
                     <th>Lead</th>
@@ -51,7 +51,7 @@
                        <td>Lost Failure</td>
                     @endif
                     @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
-                        <td><a href="{{url('/viewLeadLog/'.$row['id'])}}"><span data-feather='eye'></span></a></td>
+                        <td><a href="{{url('/viewLeadLog/'.$row['id'])}}" class="btn btn-sm btn-primary"><span data-feather='eye'></span></a></td>
                     @endif
                </tr>
                 @endforeach
@@ -74,7 +74,6 @@
 <script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
 <script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
-<script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
 <script src="{{url('/js/select2.min.js')}}"></script>
 <script src="{{url('/js/lead.js')}}"></script>

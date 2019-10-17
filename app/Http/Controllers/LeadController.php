@@ -94,9 +94,9 @@ class LeadController extends Controller
         $data = $request->all();
         
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
-        $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
         $data['phone1'] =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
         if(array_key_exists('id',$data)){
+            $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
             $data['updated_by'] = Auth::user()->id;
             $data['appointmentDate'] =  ($data['appointmentDate'])?date("Y-m-d", strtotime($data['appointmentDate'])):NULL;
             unset($data['_token']);
@@ -219,9 +219,9 @@ class LeadController extends Controller
                 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
-//        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
-//        });
+        \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
+        });
 
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
@@ -242,9 +242,9 @@ class LeadController extends Controller
 //               'cc'    => 'rmatos@devhealth.net'
 //                'to'    => 'poojaatridhyatech@gmail.com',
             ];
-//        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
-//            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
-//        });
+        \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
+            $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
+        });
     }
 
     /**

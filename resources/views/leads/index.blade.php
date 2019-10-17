@@ -34,7 +34,7 @@
                     <td><a href="{{url('/editLead/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit">{{ $row['id'] }}</a></td>
                     <td>{{ $row['fName'] . ' ' . $row['lName'] }}</td>
                     <td>{{ $row['dob'] }}</td>
-                    <td><a href="tel:{{$row['phone1']}}">{{ $row['phone1'] }}</a></td>
+                    <td><a href="tel:{{$row['phone1']}}"><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></a></td>
                     <td>
                         <?php
                             $stateName = (new \App\Helpers\CommonHelper)->getStateName($row['inputState']) ;
@@ -49,6 +49,8 @@
                         <td>Closed Success</td>
                     @elseif($row['lStatus'] == 4)
                        <td>Lost Failure</td>
+                    @elseif($row['lStatus'] == 5)
+                        <td>Pending Appointment Scheduled</td>
                     @endif
                     @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
                         <td><a href="{{url('/viewLeadLog/'.$row['id'])}}" class="btn btn-sm btn-primary"><span data-feather='eye'></span></a></td>

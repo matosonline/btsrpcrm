@@ -37,13 +37,18 @@
             //$('a[aria-expanded=true]').attr('aria-expanded', 'false');
         });
         feather.replace()
+
+        $(".sidebar_toggle").on('click',function() {
+            $(".sidebar-sticky").toggle(500);            
+        });
+
     });
     var base_url = "{{url('')}}";
     $.ajaxSetup({
-                  headers: {
-                      'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                  }
-              });
+          headers: {
+              'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+          }
+      });
 </script>
 
 <!-- Bootstrap Form Helpers -->

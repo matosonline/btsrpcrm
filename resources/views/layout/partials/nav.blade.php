@@ -7,6 +7,7 @@
     <button type="button" id="sidebarCollapse" class="btn btn-info ml-3"><i class="fa fas fa-bars"></i></button>
     <a class="pl-3 navbar-brand" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
   </div>
+  <button type="button" id="sidebarCollapse" class="sidebar_toggle btn btn-info ml-3 d-none d-md-flex"><i class="fa fas fa-bars"></i></button>
   <a class="navbar-brand d-none d-md-flex col-sm-3 col-md-3 col-lg-2 mr-0 order-1" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
     <form class="w-100 order-3 order-md-2 form-horizontal mb-0" method="get" action="{{ route('search.data') }}" id="search_data_form">
 	  <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" value="" name="search_data" id="search_data">
@@ -24,10 +25,10 @@
 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
   @csrf
 </form>
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid p-0">
+  <div class="custom_row">
     <!-- Sidebar Navbar -->
-    <nav class="col-6 col-md-3 col-lg-2 d-md-block bg-light sidebar">
+    <nav class="bg-light sidebar">
       <div class="sidebar-sticky">
         <ul class="nav flex-column">
           <li class="nav-item">
@@ -122,6 +123,7 @@
 	@endif
       </div>
     </nav>
+
     <!--            -->
     <!-- END NAV    -->
     <!--            -->

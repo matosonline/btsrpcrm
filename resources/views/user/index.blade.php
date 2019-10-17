@@ -41,7 +41,7 @@
                 <td>{{ $row->first_name }}</td>
                 <td>{{ $row->last_name }}</td>
                 <td>{{ $row->email }}</td>
-                <td>{{ $row->phone_number }}</td>
+                <td><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row->phone_number }}"></span></td>
                 @if(Auth::user()->hasRole('Admin')) 
                 <td>{{ $row->last_login }}</td>
                 <td>{{($row->status == 0)?'Unlock':'Lock' }}</td>

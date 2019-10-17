@@ -73,7 +73,7 @@ class DoctorController extends Controller
         ]);
         $data = $request->all();
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
-        
+        $phoneNum =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
         if(array_key_exists('id',$data)){
             $oldData = $obj = Doctors::find($data['id']);
         }else{
@@ -93,7 +93,7 @@ class DoctorController extends Controller
         $obj->inputState    = ($data['inputState'] != '')?$data['inputState']:NULL;
         $obj->inputZip    = ($data['inputZip'] != '')?$data['inputZip']:NULL;
         $obj->email    = ($data['email'] != '')?$data['email']:NULL;
-        $obj->phone1    = ($data['phone1'] != '')?$data['phone1']:NULL;
+        $obj->phone1    = ($data['phone1'] != '')?$phoneNum:NULL;
         $obj->notes    = ($data['notes'] != '')?$data['notes']:NULL;
         $obj->save();
         $lastInsertId = $obj->id;

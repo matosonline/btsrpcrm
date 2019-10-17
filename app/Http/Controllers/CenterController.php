@@ -53,6 +53,8 @@ class CenterController extends Controller
                 'phone1' => 'required',
                 'fax1'=>'required'
         ]);
+        $data['phone1'] =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
+        $data['fax1'] =  ($data['fax1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['fax1'])):NULL;
         if(array_key_exists('id',$data)){
             unset($data['_token']);
             

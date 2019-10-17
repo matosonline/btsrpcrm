@@ -33,7 +33,7 @@
                                 <td>{{$row['id']}}</td>
                                 <td>{{$row['centerName']}}</td>
                                 <td>{{$row['inputAddress'].' '.$row['inputAddress2'].' '.$row['inputCity'].' '.$stateArray[$row['inputState']-1].' '.$row['inputZip']}}</td>
-                                <td>{{$row['phone1']}}</td>
+                                <td><a href="tel:{{$row['phone1']}}"><span class="bfh-phone" data-format="(ddd) ddd-dddd" data-number="{{ $row['phone1'] }}"></span></a></td>
                                 <td><a class="btn btn-sm btn-default" href="{{url('/editCenter/'.$row['id'])}}" name="edit" aria-label="Edit" title="Edit"><i class="fa fas fa-edit"></i></a></td>
                                 @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
                                     <td><a href="{{url('/viewCenterLog/'.$row['id'])}}" class="btn btn-sm btn-primary"><span data-feather='eye'></span></a></td>

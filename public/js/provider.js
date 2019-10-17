@@ -99,7 +99,7 @@ $(function () {
         dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
             "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
             "<'row'<'col-12 col-sm-6'i><'col-12 col-sm-6'p>>",
-        order:[1,'desc'],
+        order:[0,'desc'],
         drawCallback: function () {
             $('.dataTables_paginate > .pagination').addClass('justify-content-center justify-content-md-end');
             $('.dataTables_wrapper').removeClass('container-fluid');

@@ -67,7 +67,7 @@ class UserController extends Controller
             
         }
        
-//       echo "<pre>";print_R($request->password);exit;
+        $user->phone_number =  ($user->phone_number)?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$user->phone_number)):NULL;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;

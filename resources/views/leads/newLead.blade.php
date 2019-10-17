@@ -138,9 +138,9 @@
                                         <option value="5">Humana</option>
                                     </select>
                                 </div>
-                                <div class="form-group col-12 col-sm-6">
-                                    <label for="startDate">Start Date</label>
-                                    <input class="form-control" type="test" name="startDate" id="startDate"  value="{{-- isset($lead_details)?$lead_details['startDate']:''}} --}}"  placeholder="MM/DD/YYYY">
+                                <div class="form-group col-12 col-md-6">
+                                    <label for="planTypeDetail">Detail</label>
+                                    <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
                                 </div>
                            </div>
                             <div class="form-row type_option" style="display: none">
@@ -179,10 +179,7 @@
                                 </div>
                             </div>
                             <div class="form-row">
-                                <div class="form-group col-12 col-md-6">
-                                    <label for="planTypeDetail">Detail</label>
-                                    <input type="text" name="planTypeDetail" class="form-control" id="planTypeDetail">
-                                </div>
+                                
                                 <div class="form-group col-12 col-md-6">
                                     <label for="pcpName">Agent</label>
                                     <select name="agent" id="agent" class="form-control">

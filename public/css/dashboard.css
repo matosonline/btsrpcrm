@@ -28,31 +28,69 @@ body { font-size: .875rem; }
 .form-control-dark { color: #fff; background-color: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .1); }
 .form-control-dark:focus { border-color: transparent; box-shadow: 0 0 0 3px rgba(255, 255, 255, .25); }
 .error { color: red; }
-
-
 /* menu */
-.dropdown.action-menu.order-2.order-md-3 {
-    padding: 0 1em;
+.dropdown.action-menu.order-2.order-md-3 { padding: 0 1em; }
+.action-menu .dropdown-toggle { color: #fff; font-size: 16px; text-decoration: none; }
+/*#sidebarCollapse {
+    display: none;
+}*/
+.custom_row { display: flex; }
+.custom_row .sidebar { position: relative; }
+.custom_row .sidebar-sticky { width: 235px; }
+.custom_row .main_section { width: 100%; padding: 48px 25px 0 45px; }
+.sidebar_toggle {/*position: absolute;
+    right: -40px;
+    top: 48px;
+    z-index: 999;
+    height: 30px;
+    width: 40px;
+    padding: 0 9px;*/ }
+/*.sidebar_toggle:focus {
+    outline: none;
 }
 
-.action-menu .dropdown-toggle {
-    color: #fff;
-    font-size: 16px;
-    text-decoration: none;
+.sidebar_toggle span {
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    display: inline-block;
+    position: relative;
 }
-#sidebarCollapse{display: none;}
-@media screen and (max-width: 767px){
-#sidebarCollapse{display: block;}
-.sidebar { left: -50%; z-index: 1032; padding: 0; transition: all 300ms ease-in-out; }
-.sidebar.shown { left: 0; z-index: 1032; padding: 0; box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2); }
-.overlay { display: none; position: fixed; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); z-index: 1031; opacity: 0; transition: all 0.5s ease-in-out; top:0;left:0;}
-.overlay.active { display: block; opacity: 1; }
-.navbar-brand{background-color: transparent;box-shadow: none;
-}
-.mobile-nav{display: flex;align-items: center;}
-}
-.nav-item::marker{display:none;}
 
+.sidebar_toggle span:after {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    top: 6px;
+    left: 0;
+}
+
+.sidebar_toggle span:before {
+    position: absolute;
+    content: "";
+    height: 3px;
+    width: 100%;
+    background-color: #fff;
+    bottom: 6px;
+    left: 0;
+}*/
+@media screen and (max-width: 767px) {
+ #sidebarCollapse { display: block; }
+ .sidebar { left: -50%; z-index: 1032; padding: 0; transition: all 300ms ease-in-out; }
+ .sidebar.shown { left: 0; z-index: 1032; padding: 0; box-shadow: 5px 0 15px rgba(0, 0, 0, 0.2); }
+ .overlay { display: none; position: fixed; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); z-index: 1031; opacity: 0; transition: all 0.5s ease-in-out; top: 0; left: 0; }
+ .overlay.active { display: block; opacity: 1; }
+ .navbar-brand { background-color: transparent; box-shadow: none; }
+ .mobile-nav { display: flex; align-items: center; }/*.sidebar_toggle {
+        display: none;
+    }*/
+ .custom_row .sidebar { position: fixed; }
+ .custom_row .sidebar-sticky { width: auto; padding: 20px; }
+ .custom_row .main_section { padding: 110px 15px 0 15px; }
+}
+.nav-item::marker { display: none; }
 /*//For dashboard pagination*/
 /*.custom_footable .table-responsive .dataTables_paginate{
     right: 25px !important;
@@ -61,27 +99,24 @@ body { font-size: .875rem; }
     top: 28px!important;
     z-index: 999 !important;
 }*/
-
 /*.custom_footable .table-responsive{
     overflow-x: visible;
 }*/
-.custom_footable .dataTables_paginate .paginate_button.current,.custom_footable .dataTables_paginate .paginate_button:hover{background:#007bff !important;color: #fff !important;}
-.custom_footable .paginate_button{
-            border: 1px solid transparent !important;
-            color: #007bff !important;border-color: #007bff !important;
-            padding:10px !important;margin-left: 0px !important;}
-.view_icon{color: #007bff;}
-.danger_color{color:red;cursor: pointer;}
-.attach_row{cursor:pointer;}
-.lead_searchSec button{margin-top: 1.72rem;}
-
-.select2-container .select2-selection--single{height: 37px !important;}
-.select2-container--default .select2-selection--single .select2-selection__rendered{line-height: 35px !important;}
-.select2-container--default .select2-selection--single .select2-selection__arrow{height: 35px !important;}
-.newLeadForm .card-title,.editLeadForm .card-title,.addProviderForm .card-title,.editProviderForm  .card-title
-,.editCenterForm .card-title{cursor: default;}
-.editLeadNoteSec{max-height:100px;  overflow-y: auto;}
-.custom_footable .dataTables_filter input{padding: .25rem .5rem;font-size: .875rem;line-height: 1.5;border-radius: .2rem;margin-top: 5px;color: #495057;background-color: #fff;background-clip: padding-box;border: 1px solid #ced4da;}
-.custom_footable h5{margin-bottom: 1.5rem!important;}
-.custom_footable #DataTables_Table_0_filter{margin-right: 18px;}
-.custom_footable div.dataTables_wrapper div.dataTables_filter label{margin-bottom: 0px!important;}
+.custom_footable .dataTables_paginate .paginate_button.current,
+.custom_footable .dataTables_paginate .paginate_button:hover { background: #007bff !important; color: #fff !important; }
+.custom_footable .paginate_button { border: 1px solid transparent !important; color: #007bff !important; border-color: #007bff !important; padding: 10px !important; margin-left: 0px !important; }
+.view_icon { color: #007bff; }
+.danger_color { color: red; cursor: pointer; }
+.attach_row { cursor: pointer; }
+.lead_searchSec button { margin-top: 1.72rem; }
+.select2-container .select2-selection--single { height: 37px !important; }
+.select2-container--default .select2-selection--single .select2-selection__rendered { line-height: 35px !important; }
+.select2-container--default .select2-selection--single .select2-selection__arrow { height: 35px !important; }
+.newLeadForm .card-title, .editLeadForm .card-title,
+.addProviderForm .card-title, .editProviderForm .card-title,
+.editCenterForm .card-title { cursor: default; }
+.editLeadNoteSec { max-height: 100px; overflow-y: auto; }
+.custom_footable .dataTables_filter input { padding: .25rem .5rem; font-size: .875rem; line-height: 1.5; border-radius: .2rem; margin-top: 5px; color: #495057; background-color: #fff; background-clip: padding-box; border: 1px solid #ced4da; }
+.custom_footable h5 { margin-bottom: 1.5rem !important; }
+.custom_footable #DataTables_Table_0_filter { margin-right: 18px; }
+.custom_footable div.dataTables_wrapper div.dataTables_filter label { margin-bottom: 0px !important; }

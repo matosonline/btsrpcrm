@@ -50,7 +50,7 @@
                     @elseif($row['lStatus'] == 4)
                        <td>Lost Failure</td>
                     @elseif($row['lStatus'] == 5)
-                        <td>Pending Appointment Scheduled</td>
+                       <td>Appointment scheduled</td>
                     @endif
                     @if(Auth::user()->hasRole('Admin') || Auth::user()->hasRole('msmc-manager'))
                         <td><a href="{{url('/viewLeadLog/'.$row['id'])}}" class="btn btn-sm btn-primary"><span data-feather='eye'></span></a></td>

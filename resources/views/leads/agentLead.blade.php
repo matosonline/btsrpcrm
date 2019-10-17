@@ -88,7 +88,7 @@
                             <select name="inputState" id="inputState" class="form-control">
                                 <option selected value="">Choose...</option>
                                 @foreach($state as $val)
-                                    <option value="{{$val->id}}" {{$val->id == $lead_details->inputState ?'selected':''}}>{{$val->name}}</option>
+                                    <option value="{{$val->id}}" {{isset($lead_details) && $val->id == $lead_details['inputState'] ?'selected':''}}>{{$val->name}}</option>
                                 @endforeach
                             </select>
                         </div>

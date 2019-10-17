@@ -18,7 +18,7 @@
 <div class="editCenterForm">
     <form action="{{ route('center.store') }}" method="POST" id="center_form" name="center_form">
         @csrf
-        <input type="hidden" name="id" id="id" value="{{$center_details->id}}">
+        <input type="hidden" name="id" id="id" value="{{$center_details['id']}}">
         <div class="row">
             <div class="col-md-7">
                 <div class="card">
@@ -28,7 +28,7 @@
                             <div class="form-group col">
                                 <label for="centerName">Center Name</label>
                                 <input type="text" class="form-control" id="centerName" placeholder="Center Name" name="centerName"
-                                       value="{{$center_details->centerName}}">
+                                       value="{{$center_details['centerName']}}">
                             </div>
                         </div>
                          <div class="form-row">
@@ -44,40 +44,40 @@
                         <div class="form-group">
                             <label for="inputAddress">Address</label>
                             <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="inputAddress"
-                                   value="{{$center_details->inputAddress}}">
+                                   value="{{$center_details['inputAddress']}}">
                         </div>
                         <div class="form-group">
                             <label for="inputAddress2">Address 2</label>
                             <input type="text" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" name="inputAddress2"
-                                   value="{{$center_details->inputAddress2}}">
+                                   value="{{$center_details['inputAddress2']}}">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCity">City</label>
-                                <input type="text" class="form-control" id="inputCity" name="inputCity" value="{{$center_details->inputCity}}"> 
+                                <input type="text" class="form-control" id="inputCity" name="inputCity" value="{{$center_details['inputCity']}}"> 
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputState">State</label>
                                 <select name="inputState" id="inputState" class="form-control">
                                     <option selected value="">Choose...</option>
                                     @foreach($state as $val)
-                                        <option value="{{$val->id}}" {{$val->id == $center_details->inputState ?'selected':''}}>{{$val->name}}</option>
+                                        <option value="{{$val->id}}" {{$val->id == $center_details['inputState'] ?'selected':''}}>{{$val->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="inputZip">Zip</label>
-                                <input type="text" class="form-control" id="inputZip" name="inputZip" value="{{$center_details->inputZip}}">
+                                <input type="text" class="form-control" id="inputZip" name="inputZip" value="{{$center_details['inputZip']}}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="phone1">Phone Number</label>
-                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" name="phone1" value="{{$center_details->phone1}}">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number" name="phone1" value="{{$center_details['phone1']}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="fax1">Fax Number</label>
-                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="fax1" placeholder="Fax Number" name="fax1" value="{{$center_details->fax1}}">
+                                <input type="text" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="fax1" placeholder="Fax Number" name="fax1" value="{{$center_details['fax1']}}">
                             </div>
 
                         </div>

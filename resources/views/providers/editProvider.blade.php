@@ -19,7 +19,7 @@
 <div class="editProviderForm">
     <form action="{{ route('provider.store') }}" method="POST" id="edit_provider_form" name="edit_provider_form">
         @csrf
-        <input type="hidden" name="id" id="id" value="{{$doctors_details->id}}">
+        <input type="hidden" name="id" id="id" value="{{$doctors_details['id']}}">
         <div class="row">
             <div class="col-md-7">
                 <div class="card">
@@ -28,44 +28,44 @@
                          <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="fName">First Name</label>
-                                <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name" value="{{$doctors_details->first_name}}">
+                                <input type="text" name="fName" class="form-control" id="fName" placeholder="First Name" value="{{$doctors_details['first_name']}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="lName">Last Name</label>
-                                <input type="text" name="lName" class="form-control" id="lName" placeholder="Last Name" value="{{$doctors_details->last_name}}">
+                                <input type="text" name="lName" class="form-control" id="lName" placeholder="Last Name" value="{{$doctors_details['last_name']}}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-3 mx-auto">
                                 <label for="dob">Date of Birth</label>
-                                <input class="form-control" type="text" name="dob" id="dob" value="{{$doctors_details->dob}}"  placeholder="MM/DD/YYYY">
+                                <input class="form-control" type="text" name="dob" id="dob" value="{{$doctors_details['dob']}}"  placeholder="MM/DD/YYYY">
                             </div>
                             <div class="form-group col-md-3 mx-auto">
                                 <label for="npi">NPI</label>
-                                <input class="form-control" type="text" name="npi" id="npi" value="{{$doctors_details->npi}}">
+                                <input class="form-control" type="text" name="npi" id="npi" value="{{$doctors_details['npi']}}">
                             </div>
                             <div class="form-group col-md-3 mx-auto">
                                 <label for="ssn">Social Security Number</label>
-                                <input class="form-control" type="text" name="ssn" id="ssn" value="{{$doctors_details->ssn}}"> 
+                                <input class="form-control" type="text" name="ssn" id="ssn" value="{{$doctors_details['ssn']}}"> 
                             </div>
                             <div class="form-group col-md-3">
                                 <label for="cred">Credentials</label>
                                 <select name="cred" id="cred" class="form-control">
                                     <option value="">SELECT...</option>
-                                    <option value="MD" {{$doctors_details->type == "MD"?'selected':''}}>M.D.</option>
-                                    <option value="DO" {{$doctors_details->type == "DO"?'selected':''}}>D.O.</option>
-                                    <option value="MBBS" {{$doctors_details->type == "MBBS"?'selected':''}}>M.B.B.S.</option>
-                                    <option value="RN" {{$doctors_details->type == "RN"?'selected':''}}>R.N.</option>
-                                    <option value="NP" {{$doctors_details->type == "NP"?'selected':''}}>N.P.</option>
-                                    <option value="ARNP" {{$doctors_details->type == "ARNP"?'selected':''}}>A.R.N.P.</option>
-                                    <option value="APRN" {{$doctors_details->type == "APRN"?'selected':''}}>A.P.R.N.</option>
-                                    <option value="CNM" {{$doctors_details->type == "CNM"?'selected':''}}>C.N.M.</option>
-                                    <option value="CNP" {{$doctors_details->type == "CNP"?'selected':''}}>C.N.P.</option>
-                                    <option value="CRNA" {{$doctors_details->type == "CRNA"?'selected':''}}>C.R.N.A.</option>
-                                    <option value="DNP" {{$doctors_details->type == "DNP"?'selected':''}}>D.N.P.</option>
-                                    <option value="LPN" {{$doctors_details->type == "LPN"?'selected':''}}>L.P.N.</option>
-                                    <option value="PA" {{$doctors_details->type == "PA"?'selected':''}}>P.A.</option>
-                                    <option value="PAC" {{$doctors_details->type == "PAC"?'selected':''}}>P.A.-C.</option>
+                                    <option value="MD" {{$doctors_details['type'] == "MD"?'selected':''}}>M.D.</option>
+                                    <option value="DO" {{$doctors_details['type'] == "DO"?'selected':''}}>D.O.</option>
+                                    <option value="MBBS" {{$doctors_details['type'] == "MBBS"?'selected':''}}>M.B.B.S.</option>
+                                    <option value="RN" {{$doctors_details['type'] == "RN"?'selected':''}}>R.N.</option>
+                                    <option value="NP" {{$doctors_details['type'] == "NP"?'selected':''}}>N.P.</option>
+                                    <option value="ARNP" {{$doctors_details['type'] == "ARNP"?'selected':''}}>A.R.N.P.</option>
+                                    <option value="APRN" {{$doctors_details['type'] == "APRN"?'selected':''}}>A.P.R.N.</option>
+                                    <option value="CNM" {{$doctors_details['type'] == "CNM"?'selected':''}}>C.N.M.</option>
+                                    <option value="CNP" {{$doctors_details['type'] == "CNP"?'selected':''}}>C.N.P.</option>
+                                    <option value="CRNA" {{$doctors_details['type'] == "CRNA"?'selected':''}}>C.R.N.A.</option>
+                                    <option value="DNP" {{$doctors_details['type'] == "DNP"?'selected':''}}>D.N.P.</option>
+                                    <option value="LPN" {{$doctors_details['type'] == "LPN"?'selected':''}}>L.P.N.</option>
+                                    <option value="PA" {{$doctors_details['type'] == "PA"?'selected':''}}>P.A.</option>
+                                    <option value="PAC" {{$doctors_details['type'] == "PAC"?'selected':''}}>P.A.-C.</option>
                                 </select>
                             </div>
                         </div>
@@ -75,14 +75,14 @@
                                 <select name="spec" id="spec" class="form-control">
                                     <option selected value="">Choose...</option>
                                     @foreach($specialties as $val)
-                                        <option value="{{$val->description}}" {{ucwords($doctors_details->primary_speciality) == ucwords($val->description)?'selected':''}}>{{$val->description}}</option>
+                                        <option value="{{$val->description}}" {{ucwords($doctors_details['primary_speciality']) == ucwords($val->description)?'selected':''}}>{{$val->description}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             @php 
                                 $lang = array();
-                                if($doctors_details->lang != ''){
-                                    $lang = unserialize($doctors_details->lang);
+                                if($doctors_details['lang'] != ''){
+                                    $lang = unserialize($doctors_details['lang']);
                                 }
                             @endphp
                             <div class="form-group col-md-6">
@@ -97,39 +97,39 @@
                         </div>
                         <div class="form-group">
                             <label for="inputAddress">Address</label>
-                            <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St" value="{{$doctors_details->address1}}">
+                            <input type="text" name="inputAddress" class="form-control" id="inputAddress" placeholder="1234 Main St" value="{{$doctors_details['address1']}}">
                         </div>
                         <div class="form-group">
                             <label for="inputAddress2">Address 2</label>
-                            <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="{{$doctors_details->inputAddress2}}">
+                            <input type="text" name="inputAddress2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" value="{{$doctors_details['inputAddress2']}}">
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="inputCity">City</label>
-                                <input type="text" name="inputCity" class="form-control" id="inputCity" value="{{$doctors_details->inputCity}}">
+                                <input type="text" name="inputCity" class="form-control" id="inputCity" value="{{$doctors_details['inputCity']}}">
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputState">State</label>
                                 <select name="inputState" id="inputState" class="form-control">
                                     <option selected value="">Choose...</option>
                                     @foreach($state as $val)
-                                        <option value="{{$val->id}}" {{$doctors_details->inputState == $val->id ? 'selected':''}}>{{$val->name}}</option>
+                                        <option value="{{$val->id}}" {{$doctors_details['inputState'] == $val->id ? 'selected':''}}>{{$val->name}}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div class="form-group col-md-2">
                                 <label for="inputZip">Zip</label>
-                                <input type="text" name="inputZip" class="form-control" id="inputZip"  value="{{$doctors_details->inputZip}}">
+                                <input type="text" name="inputZip" class="form-control" id="inputZip"  value="{{$doctors_details['inputZip']}}">
                             </div>
                         </div>
                         <div class="form-row">
                             <div class="form-group col-md-6">
                                 <label for="email">Email</label>
-                                <input type="email" name="email" class="form-control" id="email" placeholder="Email"   value="{{$doctors_details->email}}">
+                                <input type="email" name="email" class="form-control" id="email" placeholder="Email"   value="{{$doctors_details['email']}}">
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="phone1">Phone Number</label>
-                                <input type="text" name="phone1" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number"   value="{{$doctors_details->phone1}}">
+                                <input type="text" name="phone1" class="form-control bfh-phone" data-format="(ddd) ddd-dddd" id="phone1" placeholder="Phone Number"   value="{{$doctors_details['phone1']}}">
                             </div>
                         </div>
                     </div>

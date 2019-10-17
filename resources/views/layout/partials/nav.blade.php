@@ -64,7 +64,7 @@
           </li>
           @endif
         </ul>
-        @if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('agent-user'))
+        @if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('Admin'))
         <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
           <span>Activity</span>
           <a class="d-flex align-items-center text-muted" href="#">
@@ -76,10 +76,10 @@
           <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
-              New Leads
+              All Leads
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
               Closed Leads
@@ -90,7 +90,7 @@
               <span data-feather="file-text"></span>
               Unassigned Leads
             </a>
-          </li>
+          </li> --}}
         </ul>
         @endif
         @if(Auth::user()->hasRole('Admin'))

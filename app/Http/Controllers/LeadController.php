@@ -216,7 +216,7 @@ class LeadController extends Controller
     
     public function custLeadEmail($customerMail) {
         $data = [
-                'from' => 'test.devhealth@gmail.com',
+                'from' => 'info@devhealth.net',
                 'to'    => $customerMail
             ];
         \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
@@ -236,7 +236,7 @@ class LeadController extends Controller
                 'formData' => $lead_details,
                 'getAgentData'=>$getAgentEmail,
                 'doctor' => $getDoc,
-                'from' => 'test.devhealth@gmail.com',
+                'from' => 'info@devhealth.net',
                 'to'    => $getAgentEmail->email,
                 'cc'    => $ccArray
 //               'cc'    => 'rmatos@devhealth.net'

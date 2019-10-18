@@ -157,8 +157,6 @@ function ($) {
     $.SweetAlert.init()
 }(window.jQuery);
  $('.roleForUser').change(function (){
-//     console.log( $('.agentDocHidden').val() +'-'+JSON.parse($('.agentDocHidden').val()) );
-//     var docArray = JSON.parse($('.agentDocHidden').val());
         if($(this).val() == 2){
             $('.agentDoctorList').css('display','block');
             $('#doctore_list').select2({});

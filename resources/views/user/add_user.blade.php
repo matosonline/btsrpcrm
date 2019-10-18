@@ -29,10 +29,6 @@
                     <option value="{{$val->id}}" {{(in_array($val->id, $agentDoctorArray))?'selected':''}}>{{$val->first_name.' '.$val->last_name.' - '.$val->location_nm}}</option>
                     @endforeach
                 </select>
-                @if ($errors->has('role'))
-                <span class="error">{{ $errors->first('role') }}</span>
-                @endif
-                <input type="hidden" value="{{json_encode($agentDoctorArray)}}" class="agentDocHidden" name='agentDocHidden'>
             </div>
             @endif
         @endif
@@ -103,15 +99,12 @@
             @if(!$doctorList->isEmpty())
             <div class="form-group agentDoctorList" style="display:none;">
                 <label for="doctore_list">Doctors</label>
-                <select id="doctore_list" name="doctore_list" class="form-control" multiple="">
+                <select id="doctore_list" name="doctore_list[]" class="form-control" multiple="">
                     <option value="">Select Doctore</option>
                     @foreach($doctorList as $val)
-                    <option value="" >{{$val->first_name.' '.$val->last_name}}</option>
+                    <option value="{{$val->id}}" >{{$val->first_name.' '.$val->last_name.' - '.$val->location_nm}}</option>
                     @endforeach
                 </select>
-                @if ($errors->has('role'))
-                <span class="error">{{ $errors->first('role') }}</span>
-                @endif
             </div>
             @endif
         @endif

@@ -69,7 +69,7 @@ class LeadController extends Controller
     {
         $doctors = Doctors::get();
         $state = State::get();
-        
+
         $prospectData = Prospects::get();
         $NameOfProspect = array();
         foreach($prospectData as $val){
@@ -92,7 +92,7 @@ class LeadController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-        
+
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         $data['phone1'] =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
         if(array_key_exists('id',$data)){
@@ -106,7 +106,7 @@ class LeadController extends Controller
             $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
-            
+
             if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
                 if (!empty($data['agent'])) {
                     $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
@@ -150,8 +150,8 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
-            
-                        
+
+
             //For customer Mail
             if(!empty($lead_details->email)){
                 $this->custLeadEmail($lead_details->email);
@@ -185,7 +185,7 @@ class LeadController extends Controller
             $typeId = $leadId;
             $this->saveNote($note, $userId, $type, $typeId);
         }
-        
+
         // Continue in file upload
             if(isset($request['uploadDocs']))
             {
@@ -198,7 +198,7 @@ class LeadController extends Controller
                         $check=in_array($extension,$allowedfileExtension);
                         if($check)
                         {
-                            $destinationPath = public_path().'\storage\app\leadDoc'; 
+                            $destinationPath = public_path().'\storage\app\leadDoc';
                             $newFileName = date('Ydm').time().'['.$leadId.']'.$filename;
 
                             $file->move($destinationPath, $newFileName);
@@ -213,10 +213,11 @@ class LeadController extends Controller
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
     }
-    
+
     public function custLeadEmail($customerMail) {
         $data = [
                 'from' => 'info@devhealth.net',
+                // 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
         \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
@@ -237,6 +238,7 @@ class LeadController extends Controller
                 'getAgentData'=>$getAgentEmail,
                 'doctor' => $getDoc,
                 'from' => 'info@devhealth.net',
+                // 'from' => 'test.devhealth@gmail.com',
                 'to'    => $getAgentEmail->email,
                 'cc'    => $ccArray
 //               'cc'    => 'rmatos@devhealth.net'
@@ -321,7 +323,7 @@ class LeadController extends Controller
         $attachId = $request->attachId;
         LeadDetail::where('id',$attachId)->delete();
     }
-    
+
     public function saveNote($note_text,$userId,$type,$typeId){
         $note = new Note();
         $note->notes = $note_text;

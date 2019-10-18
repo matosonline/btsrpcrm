@@ -1,5 +1,11 @@
 $(function () {
     "use strict";
+    
+    if($('.edit_user_role').val()){
+        $('.roleForUser').trigger('change');
+    }
+   
+//    /agentDoctorList
     $('#user_list').DataTable({
         dom:"<'row'<'col-12 col-sm-6'l><'col-12 col-sm-6'f>>" +
             "<'row'<'col-sm-12'<'table-responsive'tr>>>" +
@@ -150,3 +156,11 @@ function ($) {
     "use strict";
     $.SweetAlert.init()
 }(window.jQuery);
+ $('.roleForUser').change(function (){
+        if($(this).val() == 2){
+            $('.agentDoctorList').css('display','block');
+            $('#doctore_list').select2({});
+        }else{
+            $('.agentDoctorList').css('display','none');
+        }
+    });

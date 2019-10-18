@@ -8,7 +8,7 @@
         <input type="hidden" name="user_id" value="{{$user_details->id}}">
         <div class="form-group">
             <label for="role">Role <span class="error">*</span></label>
-            <select id="role" name="role" class="form-control">
+            <select id="role" name="role" class="form-control edit_user_role roleForUser">
                 <option value="">Select Role</option>
                 @foreach($roles as $role)
                 <option value="{{$role->id}}" {{(!empty($role) && in_array($role->id,$user_role))?'selected':''}}>
@@ -19,6 +19,22 @@
             <span class="error">{{ $errors->first('role') }}</span>
             @endif
         </div>
+       @if(Auth::user()->hasRole('Admin'))
+            @if(!$doctorList->isEmpty())
+            <div class="form-group agentDoctorList" style="display:none">
+                <label for="doctore_list">Doctors</label>
+                <select id="doctore_list" name="doctore_list[]" class="form-control" multiple="">
+                    <option value="">Select Doctore</option>
+                    @foreach($doctorList as $val)
+                    <option value="{{$val->id}}" {{(in_array($val->id, $agentDoctorArray))?'selected':''}}>{{$val->first_name.' '.$val->last_name.' - '.$val->location_nm}}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('role'))
+                <span class="error">{{ $errors->first('role') }}</span>
+                @endif
+            </div>
+            @endif
+        @endif
         <div class="form-group">
             <label for="first_name">First Name <span class="error">*</span></label>
             <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
@@ -71,7 +87,7 @@
         @else
         <div class="form-group">
             <label for="role">Role <span class="error">*</span></label>
-            <select id="role" name="role" class="form-control">
+            <select id="role" name="role" class="form-control roleForUser">
                 <option value="">Select Role</option>
                 @foreach($roles as $role)
                 <option value="{{$role->id}}">{{$role->name}}</option>
@@ -81,6 +97,24 @@
             <span class="error">{{ $errors->first('role') }}</span>
             @endif
         </div>
+         
+        @if(Auth::user()->hasRole('Admin'))
+            @if(!$doctorList->isEmpty())
+            <div class="form-group agentDoctorList" style="display:none;">
+                <label for="doctore_list">Doctors</label>
+                <select id="doctore_list" name="doctore_list" class="form-control" multiple="">
+                    <option value="">Select Doctore</option>
+                    @foreach($doctorList as $val)
+                    <option value="" >{{$val->first_name.' '.$val->last_name}}</option>
+                    @endforeach
+                </select>
+                @if ($errors->has('role'))
+                <span class="error">{{ $errors->first('role') }}</span>
+                @endif
+            </div>
+            @endif
+        @endif
+        
         <div class="form-group">
             <label for="first_name">First Name <span class="error">*</span></label>
             <input type="text" class="form-control" id="first_name" name="first_name" placeholder="First Name"
@@ -137,6 +171,11 @@
     </form>
 </div>
 @endsection
+
+@section('pagecss')
+<link rel="stylesheet" href="{{url('/css/select2.min.css')}}">
+@endsection
+
 @section('pagescript')
 @if(isset($action) && $action == 'edit')
 <script>
@@ -151,5 +190,6 @@
 <script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net-bs4/js/dataTables.responsive.min.js')}}"></script>
+<script src="{{url('/js/select2.min.js')}}"></script>
 <script src="{{url('/js/user.js')}}"></script>
 @endsection

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Traits\LogData;
 use App\Log;
 use App\LoginLog;
+use App\DoctorsAgent;
 
 class UserController extends Controller
 {
@@ -33,12 +34,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('id','DESC')->get();
+        $users = User::get();
         return view('user.index',compact('users'));
     }
     public function add_new_user(){
         $roles=Role::get();
-        return view('user.add_user',compact('roles'));
+        $doctorList  = Doctors::get();
+        return view('user.add_user',compact('roles','doctorList'));
     }
     public function store_user_details(Request $request){
         //$data=$request->all();
@@ -75,6 +77,16 @@ class UserController extends Controller
         $user->status = ($request->status)?$request->status:0;
         $user->save();
         
+        if(!empty($request->doctore_list)){
+            $doctor_list = $request->doctore_list;
+            DoctorsAgent::where('agent_id',$user->id)->delete();
+            foreach($doctor_list as $docId){
+                $doctorsAgent = new DoctorsAgent();
+                $doctorsAgent->doctor_id = $docId;
+                $doctorsAgent->agent_id = $user->id;
+                $doctorsAgent->save();
+            }
+        }
         //reset login attempt
         if($request->status == 0){
             LoginLog::where('username',$request->email)->update(['login_count'=>0]);
@@ -117,11 +129,19 @@ class UserController extends Controller
         User::where('id',$request->user_id)->delete();
     }
     public function edit_user(Request $request){
+        $agentDoctorArray = array();
         $user_details = User::find($request->id);
+        $doctorList  = Doctors::get();
+        $agent_doctor = DoctorsAgent::where('agent_id',$request->id)->select('doctor_id')->get();
+        if(!$agent_doctor->isempty()){
+            foreach($agent_doctor as $doc){
+                $agentDoctorArray[] = $doc->doctor_id;
+            }
+        }
         $user_role=RoleUser::where('user_id',$user_details->id)->pluck('role_id')->toArray();
         $action="edit";
         $roles=Role::get();
-        return view('user.add_user',compact('user_details','action','roles','user_role'));
+        return view('user.add_user',compact('user_details','action','roles','user_role','doctorList','agentDoctorArray'));
     }
     public function profile(Request $request) {
         $user_details = User::find(Auth::user()->id);

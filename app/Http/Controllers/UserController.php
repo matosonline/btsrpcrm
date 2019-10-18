@@ -76,8 +76,7 @@ class UserController extends Controller
         $user->phone_number = $request->phone_number;
         $user->status = ($request->status)?$request->status:0;
         $user->save();
-        
-        if(!empty($request->doctore_list)){
+        if(!empty($request->doctore_list) && $request->role == 2){
             $doctor_list = $request->doctore_list;
             DoctorsAgent::where('agent_id',$user->id)->delete();
             foreach($doctor_list as $docId){
@@ -86,6 +85,8 @@ class UserController extends Controller
                 $doctorsAgent->agent_id = $user->id;
                 $doctorsAgent->save();
             }
+        }else{
+            DoctorsAgent::where('agent_id',$user->id)->delete();
         }
         //reset login attempt
         if($request->status == 0){

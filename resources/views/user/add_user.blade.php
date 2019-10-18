@@ -32,6 +32,7 @@
                 @if ($errors->has('role'))
                 <span class="error">{{ $errors->first('role') }}</span>
                 @endif
+                <input type="hidden" value="{{json_encode($agentDoctorArray)}}" class="agentDocHidden" name='agentDocHidden'>
             </div>
             @endif
         @endif

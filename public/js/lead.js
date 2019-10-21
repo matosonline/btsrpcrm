@@ -12,7 +12,7 @@ $(function () {
     });
     
     
-   if($('#id').val() != '' && typeof($('#id').val()) != 'undefined'){
+   if(($('#id').val() != '' && typeof($('#id').val()) != 'undefined')){
        $('#pcpName').trigger('change');
        $('#agent').val($('#agent_id').val());
    }
@@ -305,9 +305,14 @@ $(function () {
    
 })
 $('#pcpName').on("change",function(){
-    if($(this).val() == 0 ){
+    if($(this).val() == 0 && $(this).val() != '' ){
         $( ".pcp_other_textbox input" ).css('display','block');
-    }  
+        if($('.pcpOtherHidden').val() != ''){
+            $('#pcp_other').val($('.pcpOtherHidden').val());
+        }
+    }else{
+        $( ".pcp_other_textbox input" ).css('display','none');
+    }
     $.ajax({
         url: base_url + "/get_agent",
         method: 'get',

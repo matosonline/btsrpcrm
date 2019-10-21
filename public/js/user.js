@@ -107,55 +107,40 @@ $(function () {
 
     });
 })
-!function ($) {
-    "use strict";
 
-    var SweetAlert = function () { };
+$(".sa-confirm").click(function () {
+    swal({
+        title: 'Are you sure?',
+        text: "You want to delete!",
+        type: 'warning',
+        buttons: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result) {
+            var CSRF_TOKEN = $('input[name="_token"]').val();
+            $.ajax({
+                url: base_url + "/user/delete",
+                method: 'delete',
+                data: {_token: CSRF_TOKEN,user_id: $(this).attr('user_id')},
+                type : "DELETE",
+                success: function (result) {
+                    swal(
+                        'Deleted!',
+                        'User has been deleted.',
+                        'success'
+                    ).then((result)=>{
+                        location.reload();
+                    }
+                    )
+                }
+            });
+        }
+    });
+});
 
-    //examples 
-    SweetAlert.prototype.init = function () {
-        $(".sa-confirm").click(function () {
-            Swal.fire({
-                title: 'Are you sure?',
-                text: "You want to delete!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.value) {
-                    var CSRF_TOKEN = $('input[name="_token"]').val();
-                    $.ajax({
-                        url: base_url + "/user/delete",
-                        method: 'delete',
-                        data: {_token: CSRF_TOKEN,user_id: $(this).attr('user_id')},
-                        type : "DELETE",
-                        success: function (result) {
-                            Swal.fire(
-                                'Deleted!',
-                                'User has been deleted.',
-                                'success'
-                            ).then((result)=>{
-                                location.reload();
-                            }
-                            )
-                        }
-                    });
-            }
-            })
-        });
 
-    },
-    //init
-    $.SweetAlert = new SweetAlert, $.SweetAlert.Constructor = SweetAlert
-}(window.jQuery),
-
-//initializing 
-function ($) {
-    "use strict";
-    $.SweetAlert.init()
-}(window.jQuery);
  $('.roleForUser').change(function (){
         if($(this).val() == 2){
             $('.agentDoctorList').css('display','block');

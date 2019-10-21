@@ -61,4 +61,12 @@ class User extends Authenticatable
 
         return false;
     }
+    
+    public function hasPermssion($role,$permission)
+    {
+        $user_role = RoleUser::where('user_id',Auth::user()->id)->pluck('role_id');
+        return Role::whereIn('id',$user_role)->get();
+
+        return false;
+    }
 }

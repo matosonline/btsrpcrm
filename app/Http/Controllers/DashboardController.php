@@ -10,6 +10,8 @@ use App\Prospects;
 use App\Doctors;
 use Illuminate\Support\Facades\Event;
 use App\Center;
+use App\Exports\LeadExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class DashboardController extends Controller
 {
@@ -26,18 +28,73 @@ class DashboardController extends Controller
     {
         if(Auth::user()->hasRole('agent-user')){
             $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-            $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id)->orderBy('id','DESC')->get()->toArray();
+            $leads = Lead::Where(function($t)use($doctors){
+                        $t->where('created_by', Auth::user()->id);
+                        $t->orwhere(function($q)use($doctors) {
+                            $q->whereIn('pcpName',$doctors)
+                            ->orWhere('agent',Auth::user()->id);
+                            });
+                    })->get()->toArray();
         }else{
             $leads = Lead::orderBy('id','DESC')->get()->toArray();
         }
         
-        $totalLeads = Lead::orderBy('created_at', 'DESC')->get()->toArray();
-        $closeLeads = Lead::where('lStatus',3)->get()->toArray();
-        $lostLeads = Lead::where('lStatus', 4)->get()->toArray();
-        $newLeads = Lead::where('lStatus',1)->get()->toArray();
-        $totalOptedOut = Lead::where('agreeOrDisagree',2)->get()->toArray();
-
-        $totalUassigned = Lead::whereNull('agent')->get()->toArray();
+        $totalLeads = Lead::orderBy('created_at', 'DESC');
+        $closeLeads = Lead::where('lStatus',3);
+        $lostLeads = Lead::where('lStatus', 4);
+        $newLeads = Lead::where('lStatus',1);
+        $totalOptedOut = Lead::where('agreeOrDisagree',2);
+        $totalUassigned = Lead::whereNull('agent');
+        if(Auth::user()->hasRole('agent-user')){
+            $totalLeads = $totalLeads->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            $closeLeads = $closeLeads->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            $lostLeads = $lostLeads->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            $newLeads = $newLeads->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            $totalOptedOut = $totalOptedOut->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            $totalUassigned = $totalUassigned->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+        }
+        $totalLeads = $totalLeads->get()->toArray();
+        $closeLeads = $closeLeads->get()->toArray();
+        $lostLeads = $lostLeads->get()->toArray();
+        $newLeads = $newLeads->get()->toArray();
+        $totalOptedOut = $totalOptedOut->get()->toArray();
+        $totalUassigned = $totalUassigned->get()->toArray();
 
         return view('/dashboard', compact('leads','totalLeads','closeLeads','lostLeads','newLeads','totalOptedOut','totalUassigned'));
     }
@@ -98,5 +155,8 @@ class DashboardController extends Controller
             $id = substr($searchVal, strpos($searchVal, "_") + 1);
             return redirect(url('/newLead?prospectSearchName='.$id));
         }
+    }
+    public function excelExport() {
+        return Excel::download(new LeadExport, 'lead.xlsx');
     }
 }

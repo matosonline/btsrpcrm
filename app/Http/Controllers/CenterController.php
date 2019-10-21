@@ -15,6 +15,8 @@ use Illuminate\Support\Facades\Mail;
 use App\State;
 use App\Traits\LogData;
 use App\Log;
+use Illuminate\Support\Facades\Redirect;
+use Alert;
 
 class CenterController extends Controller
 {
@@ -31,13 +33,24 @@ class CenterController extends Controller
     
     public function create()
     {
-        $state = State::get();
-        return view('centers.newCenter', compact('state'));
+        if (Auth::user()->hasRole('Admin')) {
+            $state = State::get();
+            return view('centers.newCenter', compact('state'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
+        
     }
     public function index()
     {
-        $center = Center::orderBy('id','DESC')->get()->toArray();
-        return view('centers.index', compact('center'));
+        if (Auth::user()->hasRole('Admin')) {
+            $center = Center::orderBy('id','DESC')->get()->toArray();
+            return view('centers.index', compact('center'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
 
     public function store(Request $request)
@@ -76,9 +89,14 @@ class CenterController extends Controller
     
     public function edit(Request $request)
     {
-        $center_details = Center::find($request->center_id);
-        $state = State::get();
-        return view('centers.editCenter', compact('center_details','state'));
+        if (Auth::user()->hasRole('Admin')) {
+            $center_details = Center::find($request->center_id);
+            $state = State::get();
+            return view('centers.editCenter', compact('center_details','state'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
     
 }

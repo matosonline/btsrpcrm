@@ -19,6 +19,8 @@ use App\Log;
 use App\Traits\LogData;
 use App\Prospects;
 use App\Note;
+use Illuminate\Support\Facades\Redirect;
+use Alert;
 
 class LeadController extends Controller
 {
@@ -34,24 +36,41 @@ class LeadController extends Controller
     }
     public function index(Request $request)
     {
-//        echo "<pre>";print_R(decrypt($request['status']));exit;
         if(isset($request['status']) && $request['status'] != ''){
             $descStatus = decrypt($request['status']);
+            $leads = new Lead();
             if($descStatus == 'unassigned'){
-                $leads = Lead::whereNull('agent');
+                $leads = $leads->whereNull('agent');
             }elseif($descStatus == 1){
-                $leads = Lead::where('lStatus',1);
+                $leads = $leads->where('lStatus',1);
             }elseif($descStatus == 4){
-                $leads = Lead::where('lStatus', 4);
+                $leads = $leads->where('lStatus', 4);
             }elseif($descStatus == 'optedOut'){
-                $leads = Lead::where('agreeOrDisagree',2);
+                $leads = $leads->where('agreeOrDisagree',2);
             }elseif($descStatus == 3){
-                $leads = Lead::where('lStatus',3);
+                $leads = $leads->where('lStatus',3);
             }
+            if(Auth::user()->hasRole('agent-user')){
+                $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
+                $leads = $leads->Where(function($t)use($doctors){
+                                    $t->where('created_by', Auth::user()->id);
+                                    $t->orwhere(function($q)use($doctors) {
+                                        $q->whereIn('pcpName',$doctors)
+                                        ->orWhere('agent',Auth::user()->id);
+                                    });
+                            });
+            }
+            
         }else{
             if(Auth::user()->hasRole('agent-user')){
                 $doctors = DoctorsAgent::where('agent_id', Auth::user()->id)->pluck('doctor_id');
-                $leads = Lead::whereIn('pcpName',$doctors)->orWhere('agent',Auth::user()->id);
+                $leads =  Lead::Where(function($t)use($doctors){
+                            $t->where('created_by', Auth::user()->id);
+                            $t->orwhere(function($q)use($doctors) {
+                                $q->whereIn('pcpName',$doctors)
+                                ->orWhere('agent',Auth::user()->id);
+                            });
+                        });
             }else{
                 $leads = new Lead();
             }
@@ -103,6 +122,11 @@ class LeadController extends Controller
             unset($data['agent_id']);
             unset($data['uploadDocs']);
             unset($data['appointmentDateHidden']);
+            unset($data['pcpOtherHidden']);
+            if($data['pcpName'] == 0){
+                $data['pcpName'] = $data['pcp_other'];
+            }
+            unset($data['pcp_other']);
             $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
@@ -132,14 +156,14 @@ class LeadController extends Controller
         }else{
             if(!array_key_exists('agent',$data) || $request->agent == '' ){
                 $data['agent'] = NULL;
-                $data['lStatus'] = 2;
+                $data['lStatus'] = 1;
             }
             $data['created_by'] = Auth::user()->id;
             unset($data['uploadDocs']);
             if($data['pcpName'] == 0){
                 $data['pcpName'] = $data['pcp_other'];
-                unset($data['pcp_other']);
             }
+            unset($data['pcp_other']);
             $last_id  = Lead::create($data);
             $lead_details = Lead::find($last_id->id);
 

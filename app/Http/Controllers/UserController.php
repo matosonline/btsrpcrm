@@ -12,6 +12,8 @@ use App\Traits\LogData;
 use App\Log;
 use App\LoginLog;
 use App\DoctorsAgent;
+use Illuminate\Support\Facades\Redirect;
+use Alert;
 
 class UserController extends Controller
 {
@@ -34,13 +36,23 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::get();
-        return view('user.index',compact('users'));
+        if (Auth::user()->hasRole('Admin')) {
+            $users = User::get();
+            return view('user.index',compact('users'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
     public function add_new_user(){
-        $roles=Role::get();
-        $doctorList  = Doctors::get();
-        return view('user.add_user',compact('roles','doctorList'));
+        if (Auth::user()->hasRole('Admin')) {
+            $roles=Role::get();
+            $doctorList  = Doctors::get();
+            return view('user.add_user',compact('roles','doctorList'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
     public function store_user_details(Request $request){
         //$data=$request->all();
@@ -130,19 +142,24 @@ class UserController extends Controller
         User::where('id',$request->user_id)->delete();
     }
     public function edit_user(Request $request){
-        $agentDoctorArray = array();
-        $user_details = User::find($request->id);
-        $doctorList  = Doctors::get();
-        $agent_doctor = DoctorsAgent::where('agent_id',$request->id)->select('doctor_id')->get();
-        if(!$agent_doctor->isempty()){
-            foreach($agent_doctor as $doc){
-                $agentDoctorArray[] = $doc->doctor_id;
+        if (Auth::user()->hasRole('Admin')) {
+            $agentDoctorArray = array();
+            $user_details = User::find($request->id);
+            $doctorList  = Doctors::get();
+            $agent_doctor = DoctorsAgent::where('agent_id',$request->id)->select('doctor_id')->get();
+            if(!$agent_doctor->isempty()){
+                foreach($agent_doctor as $doc){
+                    $agentDoctorArray[] = $doc->doctor_id;
+                }
             }
+            $user_role=RoleUser::where('user_id',$user_details->id)->pluck('role_id')->toArray();
+            $action="edit";
+            $roles=Role::get();
+            return view('user.add_user',compact('user_details','action','roles','user_role','doctorList','agentDoctorArray'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
         }
-        $user_role=RoleUser::where('user_id',$user_details->id)->pluck('role_id')->toArray();
-        $action="edit";
-        $roles=Role::get();
-        return view('user.add_user',compact('user_details','action','roles','user_role','doctorList','agentDoctorArray'));
     }
     public function profile(Request $request) {
         $user_details = User::find(Auth::user()->id);
@@ -164,22 +181,4 @@ class UserController extends Controller
         return redirect('/users');
     }
     
-     public function viewUserLog(Request $request){
-        $leadLog = Log::where('activity_name','Edit User')->where('activity_id',$request->user_id)->get();
-        
-        $logArray = $oldDataArray = $newDataArray = array();
-        if(!$leadLog->isempty()){
-            foreach($leadLog as $key => $val){
-                $oldData = json_decode($val->old_data,true);
-                $newData = json_decode($val->new_data,true);
-                unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
-                unset($newData['id'],$newData['updated_at']);
-                $logArray[$key]['username'] = $val->username;
-                $logArray[$key]['created_at'] = $val->created_at;
-                $logArray[$key]['old_data'] = urldecode(http_build_query($oldData,'',', '));
-                $logArray[$key]['new_data'] = urldecode(http_build_query($newData,'',', '));
-            }
-        }
-        echo view('user.logs.viewLog',compact('logArray'))->render();
-    }
 }

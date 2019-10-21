@@ -15,7 +15,7 @@ Auth::routes();
 Route::get('/', function () {
     return view('auth.login');
 });
-
+Auth::routes(['register' => false]);
 Route::get('/dashboard','DashboardController@index')->name('dashboard');
 
 Route::get('/agentLead', function () {
@@ -59,3 +59,5 @@ Route::get('/viewProviderLog/{provider_id}','LogController@viewProviderLog')->na
 Route::get('/viewCenterLog/{center_id}','LogController@viewCenterLog')->name('viewCenterLog');
 Route::get('/viewLeadLog/{lead_id}','LogController@viewLeadLog')->name('viewLeadLog');
 Route::get('/viewUserLog/{user_id}','LogController@viewUserLog')->name('viewUserLog');
+
+Route::get('/excelExport','DashboardController@excelExport')->name('excelExport');

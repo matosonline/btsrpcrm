@@ -144,11 +144,18 @@
                                         <option selected value="">Choose...</option>
                                         @if($doctors)
                                             @foreach($doctors as $key => $val)
-                                                <option value="{{$val['id']}}" {{isset($lead_details)&& $lead_details['pcpName'] == $val['id'] ?'selected':''}}>{{$val['first_name'].' '.$val['last_name']}}, {{$val['type']}}</option>
+                                                <option value="{{$val['id']}}" {{isset($lead_details)&& $lead_details['pcpName'] == $val['id'] ?'selected':''}}>{{$val['first_name'].' '.$val['last_name']}}, {{$val['type']}} - {{$val['location_nm']}}</option>
+                                                @php $keyArray[] = $val['id'];@endphp
                                             @endforeach
                                         @endif
-                                        <option value="0">Other..See Notes...</option>
+                                        <option value="0" {{$lead_details['pcpName']!= '' && !in_array($lead_details['pcpName'], $keyArray)?'selected':''}}>Other..See Notes...</option>
                                     </select>
+                                    <input type="hidden" value="{{$lead_details['pcpName']!= '' && !in_array($lead_details['pcpName'], $keyArray)?$lead_details['pcpName']:''}}" name="pcpOtherHidden"  class="pcpOtherHidden">
+                                </div>
+                            </div>
+                            <div class="form-row pcp_other_textbox">
+                                <div class="form-group col-12 col-md-6">
+                                    <input type="text" class="form-control" name="pcp_other" id="pcp_other" placeholder="Other" style="display:none" value="">
                                 </div>
                             </div>
                             <div class="form-row">

@@ -18,6 +18,8 @@ use App\DoctorInsurance;
 use App\Specialties;
 use App\Traits\LogData;
 use App\Log;
+use Illuminate\Support\Facades\Redirect;
+use Alert;
 
 class DoctorController extends Controller
 {
@@ -33,8 +35,13 @@ class DoctorController extends Controller
     }
     public function index()
     {
-        $doctors = Doctors::orderBy('id','DESC')->get()->toArray();
-        return view('providers.index', compact('doctors'));
+        if (Auth::user()->hasRole('Admin')) {
+            $doctors = Doctors::orderBy('id','DESC')->get()->toArray();
+            return view('providers.index', compact('doctors'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
 
     /**
@@ -44,10 +51,15 @@ class DoctorController extends Controller
      */
     public function create()
     {
-        $state = State::get();
-        $insuranceType = InsuranceType::get();
-        $specialties = Specialties::get();
-        return view('providers.newProvider',compact('state','insuranceType','specialties'));
+        if (Auth::user()->hasRole('Admin')) {
+            $state = State::get();
+            $insuranceType = InsuranceType::get();
+            $specialties = Specialties::get();
+            return view('providers.newProvider',compact('state','insuranceType','specialties'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
 
     /**
@@ -148,12 +160,17 @@ class DoctorController extends Controller
      */
     public function edit(Request $request)
     {
-        $doctors_details = Doctors::with('doctorInsuranceType')->find($request->provider_id);
-        $doctors_insur = DoctorInsurance::where('doctor_id',$request->provider_id)->get();
-        $state = State::get();
-        $insuranceType = InsuranceType::get();
-        $specialties = Specialties::get();
-        return view('providers.editProvider', compact('doctors_details','state','insuranceType','specialties','doctors_insur'));
+        if (Auth::user()->hasRole('Admin')) {
+            $doctors_details = Doctors::with('doctorInsuranceType')->find($request->provider_id);
+            $doctors_insur = DoctorInsurance::where('doctor_id',$request->provider_id)->get();
+            $state = State::get();
+            $insuranceType = InsuranceType::get();
+            $specialties = Specialties::get();
+            return view('providers.editProvider', compact('doctors_details','state','insuranceType','specialties','doctors_insur'));
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
 
     /**

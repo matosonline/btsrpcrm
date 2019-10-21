@@ -79,6 +79,15 @@
               All Leads
             </a>
           </li>
+        @endif
+        @if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('Admin') || Auth::user()->hasRole('agent_Manager'))
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('excelExport')}}">
+              <span data-feather="file-text"></span>
+              Export Data
+            </a>
+          </li>
+          @endif
           {{-- <li class="nav-item">
             <a class="nav-link" href="#">
               <span data-feather="file-text"></span>
@@ -92,7 +101,6 @@
             </a>
           </li> --}}
         </ul>
-        @endif
         @if(Auth::user()->hasRole('Admin'))
         <hr>
 

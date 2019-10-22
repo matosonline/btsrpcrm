@@ -60,18 +60,18 @@
                                 </tr>
                                 <tr>
                                     <td>Agree/Disagree</td>
-                                    <td>{{($oldData != '')?$agreeStatus[$oldData['agreeOrDisagree']]:''}}</td>
-                                    <td>{{($newData != '')?$agreeStatus[$newData['agreeOrDisagree']]:''}}</td>
+                                    <td>{{($oldData != '' && isset($oldData['agreeOrDisagree']))?$agreeStatus[$oldData['agreeOrDisagree']]:''}}</td>
+                                    <td>{{($newData != '' && isset($newData['agreeOrDisagree']))?$agreeStatus[$newData['agreeOrDisagree']]:''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Play Type</td>
-                                    <td>{{($oldData != '')?$planType[$oldData['planType']]:''}}</td>
-                                    <td>{{($newData != '')?$planType[$newData['planType']]:''}}</td>
+                                    <td>{{($oldData != '' && isset($oldData['planType']))?$planType[$oldData['planType']]:''}}</td>
+                                    <td>{{($newData != '' && isset($newData['planType']))?$planType[$newData['planType']]:''}}</td>
                                 </tr>
                                 <tr>
                                     <td>Inquire Type</td>
-                                    <td>{{($oldData != '')?$inquireType[$oldData['inquire_type']]:''}}</td>
-                                    <td>{{($newData != '')?$inquireType[$newData['inquire_type']]:''}}</td>
+                                    <td>{{($oldData != '' && isset($oldData['inquire_type']))?$inquireType[$oldData['inquire_type']]:''}}</td>
+                                    <td>{{($newData != '' && isset($newData['inquire_type']))?$inquireType[$newData['inquire_type']]:''}}</td>
                                 </tr>
                                 <tr>
                                     <td>PCP Name</td>

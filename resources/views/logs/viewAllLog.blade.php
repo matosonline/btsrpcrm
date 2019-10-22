@@ -9,20 +9,37 @@
                     <th>Activity Name</th>
                     <th>UserName</th>
                     <th>Log Date</th>
-                    <th>Old Data</th>
-                    <th>New Data</th>
+                    <th>Details</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($logArray as $key => $row)
-               
+                @php 
+                    $logType = '';
+                    if(strpos($logArray[$key]['activity_name'] , 'Lead') !== false){
+                        $logType = 'lead';
+                    }elseif(strpos($logArray[$key]['activity_name'] , 'Provider') !== false){
+                        $logType = 'provider';
+                    }elseif(strpos($logArray[$key]['activity_name'] , 'Center') !== false){
+                        $logType = 'center';
+                    }elseif(strpos($logArray[$key]['activity_name'] , 'User') !== false){
+                        $logType = 'user';
+                    }
+                @endphp
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>{{$logArray[$key]['activity_name']}}</td>
                     <td>{{$logArray[$key]['username']}}</td>
                     <td>{{$logArray[$key]['created_at']}}</td>
-                    <td style="width:50%">{{($logArray[$key]['old_data'])}}</td>
-                    <td style="width:50%">{{$logArray[$key]['new_data']}}</td>
+                    @if(strpos($logArray[$key]['activity_name'] , 'Login') === false)
+                    <td>
+                        <a href="javascript:void(0);" class="viewLogData" data-log-id="{{$logArray[$key]['id']}}" title="View Log Details" data-log-type='{{$logType}}'>
+                            <i class="fa fa-eye" aria-hidden="true"></i>
+                        </a>
+                    </td>
+                    @else
+                    <td>-</td>
+                    @endif
                 </tr>
                 @endforeach
             </tbody>
@@ -55,4 +72,5 @@ $(function () {
 <script src="{{url('/js/jquery_validation/jquery.validate.js')}}"></script>
 <script src="{{url('/js/jquery_validation/additional-methods.js')}}"></script>
 <script src="{{url('/assets/node_modules/datatables.net/js/jquery.dataTables.min.js')}}"></script>
+<script src="{{url('/js/log.js')}}"></script>
 @endsection

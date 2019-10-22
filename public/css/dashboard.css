@@ -120,3 +120,4 @@ body { font-size: .875rem; }
 .custom_footable h5 { margin-bottom: 1.5rem !important; }
 .custom_footable #DataTables_Table_0_filter { margin-right: 18px; }
 .custom_footable div.dataTables_wrapper div.dataTables_filter label { margin-bottom: 0px !important; }
+#viewLogDetails td{ padding: 0.45rem;}

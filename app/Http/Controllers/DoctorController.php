@@ -88,6 +88,7 @@ class DoctorController extends Controller
         $phoneNum =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
         if(array_key_exists('id',$data)){
             $oldData = $obj = Doctors::find($data['id']);
+            $oldData = clone $obj;
         }else{
             $obj = new Doctors();
         }
@@ -111,11 +112,13 @@ class DoctorController extends Controller
         $lastInsertId = $obj->id;
         $insuranceType = InsuranceType::get();
         
-        $new_data = json_encode($data);
         if(array_key_exists('id',$data)){
+            $data['lang'] = serialize($data['lang']);
+            $new_data = json_encode($data);
             $old_data = json_encode($oldData);
             $this->insertLog($data['id'],'Edit Provider',$old_data,$new_data);
         }else{
+            $new_data = json_encode($data);
             $this->insertLog($lastInsertId,'Add Provider','',$new_data);
         }
         

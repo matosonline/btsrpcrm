@@ -38,6 +38,7 @@ Route::get('/editLead/{lead_id}','LeadController@edit')->name('editLead');
 Route::delete('/attach/delete','LeadController@delete_attach')->name('delete_attach');
 Route::match(['get','post'],'/newLead', 'LeadController@create')->name('lead.view');
 Route::post('/newLead', 'LeadController@store')->name('lead.store');
+Route::get('/view/logDetail','LogController@viewLogDetail');
 
 
 Route::get('/viewprofile', 'UserController@profile')->name('user.profile');

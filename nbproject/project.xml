@@ -11,6 +11,8 @@
             <word>endsection</word>
             <word>isemp</word>
             <word>php</word>
+            <word>strpos</word>
+            <word>updateBy</word>
         </spellchecker-wordlist>
     </configuration>
 </project>

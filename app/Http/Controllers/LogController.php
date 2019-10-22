@@ -109,18 +109,11 @@ class LogController extends Controller
             $logArray = $oldDataArray = $newDataArray = array();
             if(!$leadLog->isempty()){
                 foreach($leadLog as $key => $val){
-                    $oldData = json_decode($val->old_data,true);
-                    $newData = json_decode($val->new_data,true);
-
-                    unset($oldData['id'],$oldData['updated_at'],$oldData['created_at'],$oldData['deleted_at']);
-                    unset($newData['id'],$newData['_token'],$newData['updated_at']);
 
                     $logArray[$key]['id'] = $val->id;
                     $logArray[$key]['activity_name'] = $val->activity_name;
                     $logArray[$key]['username'] = $val->username;
                     $logArray[$key]['created_at'] = $val->created_at;
-                    $logArray[$key]['old_data'] = (!empty($oldData))?urldecode(http_build_query($oldData,'',', ')):'';
-                    $logArray[$key]['new_data'] = (!empty($newData))?urldecode(http_build_query($newData,'',', ')):'';
                 }
             }
             echo view('logs.viewAllLog',compact('logArray'))->render();

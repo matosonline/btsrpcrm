@@ -1,3 +1,6 @@
+<div id="viewLogDetails" class="modal fade" role="dialog">
+    
+</div>
 <div class="overlay"></div>
 <!--              -->
 <!-- BEGIN SCRIPT -->

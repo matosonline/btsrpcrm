@@ -5,10 +5,10 @@
 <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
   <div class="mobile-nav d-flex d-md-none">
     <button type="button" id="sidebarCollapse" class="btn btn-info ml-3"><i class="fa fas fa-bars"></i></button>
-    <a class="pl-3 navbar-brand" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
+    <a class="pl-3 navbar-brand" href="{{ route('dashboard') }}">D∑VHE∆LTH | CRM</a>
   </div>
   <button type="button" id="sidebarCollapse" class="sidebar_toggle btn btn-info ml-3 d-none d-md-flex"><i class="fa fas fa-bars"></i></button>
-  <a class="navbar-brand d-none d-md-flex col-sm-3 col-md-3 col-lg-2 mr-0 order-1" href="{{ route('dashboard') }}">D∑VHE∆LTH -BETA-</a>
+  <a class="navbar-brand d-none d-md-flex col-sm-3 col-md-3 col-lg-2 mr-0 order-1" href="{{ route('dashboard') }}">D∑VHE∆LTH | CRM</a>
     <form class="w-100 order-3 order-md-2 form-horizontal mb-0" method="get" action="{{ route('search.data') }}" id="search_data_form">
 	  <input class="form-control form-control-dark" type="text" placeholder="Search" aria-label="Search" value="" name="search_data" id="search_data">
     </form>	

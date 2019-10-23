@@ -13,8 +13,9 @@ use App\Log;
 use App\LoginLog;
 use App\DoctorsAgent;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Input;
 use Alert;
-
 class UserController extends Controller
 {
     /**
@@ -178,7 +179,7 @@ class UserController extends Controller
         $user->password = bcrypt($request->password);
         $user->save();
         $this->insertLoginLog($user->email,\Request::ip());
-        return redirect('/users');
+        return redirect('viewprofile')->with('message', 'Passowed Updated!');;
     }
     
 }

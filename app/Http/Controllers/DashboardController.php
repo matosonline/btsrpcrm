@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Event;
 use App\Center;
 use App\Exports\LeadExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Redirect;
+use Alert;
 
 class DashboardController extends Controller
 {
@@ -157,6 +159,11 @@ class DashboardController extends Controller
         }
     }
     public function excelExport() {
-        return Excel::download(new LeadExport, 'lead.xlsx');
+        if(Auth::user()->hasRole('msmc-manager') || Auth::user()->hasRole('Admin') || Auth::user()->hasRole('agent_Manager')){
+            return Excel::download(new LeadExport, 'lead.xlsx');
+        }else{
+            Alert::error('You do not have permission to perform this action!')->persistent('Close');
+            return Redirect::to('dashboard');
+        }
     }
 }

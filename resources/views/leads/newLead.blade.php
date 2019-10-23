@@ -3,10 +3,18 @@
 @section('content')
 
 @if(count($errors) > 0)
+@php $c = 0; @endphp
 <div class="alert alert-danger">
     <ul>
         @foreach($errors->all() as $error)
-            <li>{{ $error }}</li>
+            @if(strpos($error, 'uploadDocs') !== false)
+                @if($c == 0)
+                    <li>The file must be a file of type: pdf, jpg, jpeg.</li>
+                @php $c++; @endphp
+                @endif
+            @else
+                <li>{{ $error }}</li>
+            @endif
         @endforeach
     </ul>
 </div>

@@ -265,12 +265,16 @@ $(function () {
         },
 
     });
-    $("#uploadDocs").change(function (){
+    $("#uploadDocs").change(function (e){
+        var count = 0;
         for (var i = 0; i < jQuery(this).get(0).files.length; ++i) {
             var type=jQuery(this).get(0).files[i].type;
-            if(type != 'application/pdf'){
-                $('#uploadDocs').after('<label id="uploadDocs-error" class="error" for="uploadDocs">Please upload only PDF files</label>');
+            if(type != 'application/pdf' && (type != 'image/jpg' && type != 'image/jpeg')){
+               count = 1 ;
             }
+        }
+        if(count != 0){
+            $('#uploadDocs').after('<label id="uploadDocs-error" class="error" for="uploadDocs">Please upload only PDF/JPG/JPEG files</label>');
         }
     });
     $("#phone1,#inputZip").on("keypress keyup blur", function (e) {

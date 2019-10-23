@@ -25,11 +25,12 @@ Route::get('/agentLead', function () {
 Route::get('/getAutocompleteData','DashboardController@getAutocompleteData');
 Route::get('/searchData','DashboardController@searchData')->name('search.data');
 
-Route::get('/home', 'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/users', 'UserController@index')->name('users');
 Route::get('/user/add_new_user','UserController@add_new_user')->name('add_new_user');
 Route::get('/user/edit/{id}','UserController@edit_user')->name('edit_user');
 Route::post('/user/store_user_details','UserController@store_user_details')->name('store_user_details');
+Route::get('/user/checkEmailExist','UserController@checkEmailExist')->name('checkEmailExist');
 Route::delete('/user/delete','UserController@delete_user')->name('delete_user');
 
 Route::get('/leads', 'LeadController@index')->name('leads.index');

@@ -114,6 +114,9 @@ class LeadController extends Controller
 
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         $data['phone1'] =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
+         $validatedData = $request->validate([
+                'uploadDocs.*' => 'mimes:pdf,jpg,jpeg'
+                ]);
         if(array_key_exists('id',$data)){
             $data['startDate'] =  ($data['startDate'])?date("Y-m-d", strtotime($data['startDate'])):NULL;
             $data['updated_by'] = Auth::user()->id;
@@ -214,7 +217,7 @@ class LeadController extends Controller
             if(isset($request['uploadDocs']))
             {
                 if(count($request['uploadDocs'])>0){
-                    $allowedfileExtension=['pdf'];
+                    $allowedfileExtension=['pdf','jpg','jpeg'];
                     $files = $request['uploadDocs'];
                     foreach($files as $file){
                         $filename = $file->getClientOriginalName();

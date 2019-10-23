@@ -24,6 +24,13 @@ $(function () {
     jQuery.validator.addMethod("valid_email", function (value, element) {
         return this.optional(element) || /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     }, 'Please enter a valid email address.');
+    
+    
+    if($('#editUserId').length > 0){
+        var user_type = $('#editUserId').val();
+    }else{
+        var user_type = "new";
+    }
     $('#store_user_data').validate({ // initialize the plugin
         rules: {
             first_name: {
@@ -36,8 +43,19 @@ $(function () {
             },
             email: {
                 required: true,
-                valid_email: true
-
+                valid_email: true,
+                remote: {
+                    url: base_url + '/user/checkEmailExist',
+                    type: "get",
+                    data: {
+                        email: function ()
+                        {
+                            return $('#email').val();
+                        },
+                        CSRF_TOKEN : $('input[name="_token"]').val(),
+                        user_type:user_type,
+                    }
+                }
             },
             password: {
                 required: true,
@@ -65,7 +83,10 @@ $(function () {
                 required: "Please provide a confirm password",
                 equalTo: "Please enter same password as password",
             },
-            email: "Please enter a valid email address",
+            email: {
+                required: "Please enter a valid email address",
+                remote : "Email already exits",
+            },
             role : "Please select role",
             status : "Please select status",
         },

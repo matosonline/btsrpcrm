@@ -5,7 +5,7 @@
     <form method="post" id="store_user_data" name="store_user_data" action="{{url('/user/store_user_details')}}">
         @csrf
         @if(isset($action) && $action == 'edit')
-        <input type="hidden" name="user_id" value="{{$user_details->id}}">
+        <input type="hidden" name="user_id" value="{{$user_details->id}}" class="editUserId" id="editUserId">
         <div class="form-group">
             <label for="role">Role <span class="error">*</span></label>
             <select id="role" name="role" class="form-control edit_user_role roleForUser">

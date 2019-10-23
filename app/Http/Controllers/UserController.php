@@ -181,5 +181,18 @@ class UserController extends Controller
         $this->insertLoginLog($user->email,\Request::ip());
         return redirect('viewprofile')->with('message', 'Passowed Updated!');;
     }
+    public function checkEmailExist(Request $request) {
+        $user_type = $request->user_type;
+        if($user_type == 'new'){
+            $user = User::where('email', $request->email)->first();
+        }else{
+            $user = User::where('email', $request->email)->where('id', '!=', $user_type)->first();
+        }
+        if (!empty($user)) {
+            echo "false";
+        } else {
+            echo "true";
+        }
+    }
     
 }

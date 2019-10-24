@@ -243,13 +243,13 @@ class LeadController extends Controller
     
     public function custLeadEmail($customerMail) {
         $data = [
-                'from' => 'test.devhealth@gmail.com',
+                'from' => 'info@devhealth.net',
+                // 'from' => 'test.devhealth@gmail.com',
                 'to'    => $customerMail
             ];
         \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
             $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
         });
-
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
         $getManagerData = RoleUser::leftjoin('users','role_user.user_id','users.id')->where('role_user.role_id',5)->select('users.email')->get();
@@ -263,11 +263,11 @@ class LeadController extends Controller
                 'formData' => $lead_details,
                 'getAgentData'=>$getAgentEmail,
                 'doctor' => $getDoc,
-                'from' => 'test.devhealth@gmail.com',
+                'from' => 'info@devhealth.net',
+                // 'from' => 'test.devhealth@gmail.com',
                 'to'    => $getAgentEmail->email,
                 'cc'    => $ccArray
 //               'cc'    => 'rmatos@devhealth.net'
-//                'to'    => 'poojaatridhyatech@gmail.com',
             ];
         \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');

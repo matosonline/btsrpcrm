@@ -101,6 +101,8 @@
                                                 <td>Lost Failure</td>
                                             @elseif($row['lStatus'] == 5)
                                                 <td>Appointment scheduled</td>
+                                            @elseif($row['lStatus'] == 6)
+                                                <td>No Answer</td>
                                             @endif
                                         </tr>
                                     @endforeach

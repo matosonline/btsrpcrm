@@ -134,14 +134,14 @@ class LeadController extends Controller
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
             
-            if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
-                if (!empty($data['agent'])) {
-                    $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
-                    $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
-                        if(!empty($getAgentEmail)){
-                             $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
-                        }
-                }else{
+            if (!empty($data['agent']) && ($getOldData['agent'] != $data['agent'])) {
+                $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
+                $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
+                    if(!empty($getAgentEmail)){
+                         $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
+                    }
+            }else{
+                if(!empty($data['pcpName']) && ($getOldData['pcpName'] != $data['pcpName'])){
                     $doctorsAgent = DoctorsAgent::where('doctor_id',$data['pcpName'])->select('agent_id')->get();
                     foreach($doctorsAgent as $val){
                         $getAgentEmail = User::where('id',$val->agent_id)->select('email','last_name','first_name')->first();

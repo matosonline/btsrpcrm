@@ -102,7 +102,7 @@
                                             @elseif($row['lStatus'] == 5)
                                                 <td>Appointment scheduled</td>
                                             @elseif($row['lStatus'] == 6)
-                                                <td>No Answer</td>
+                                                <td>Pending - No Answer</td>
                                             @endif
                                         </tr>
                                     @endforeach

@@ -88,7 +88,7 @@ class LeadController extends Controller
     {
         $doctors = Doctors::get();
         $state = State::get();
-
+        
         $prospectData = Prospects::get();
         $NameOfProspect = array();
         foreach($prospectData as $val){
@@ -111,7 +111,7 @@ class LeadController extends Controller
     {
         // dd($request->all());
         $data = $request->all();
-
+        
         $data['dob'] =  ($data['dob'] != '')?date("Y-m-d", strtotime($data['dob'])):NULL;
         $data['phone1'] =  ($data['phone1'])?str_replace(' ', '', str_replace(str_split('\\/:*?"<>()-|'),'',$data['phone1'])):NULL;
          $validatedData = $request->validate([
@@ -133,15 +133,15 @@ class LeadController extends Controller
             $leadId = $data['id'];
             $getOldData = Lead::where('id',$data['id'])->first();
             $updateLead = Lead::where('id',$data['id'])->update($data);
-
-            if($getOldData['agent'] != $data['agent'] && $data['agent'] != ''){
-                if (!empty($data['agent'])) {
-                    $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
-                    $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
-                        if(!empty($getAgentEmail)){
-                             $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
-                        }
-                }else{
+            
+            if (!empty($data['agent']) && ($getOldData['agent'] != $data['agent'])) {
+                $getAgentEmail = User::where('id',$data['agent'])->select('email','last_name','first_name')->first();
+                $getDoc = Doctors::where('id',$data['pcpName'])->select('last_name','first_name','type')->first();
+                    if(!empty($getAgentEmail)){
+                         $this->leadEmail($getOldData,$getAgentEmail,$getDoc);
+                    }
+            }else{
+                if(!empty($data['pcpName']) && ($getOldData['pcpName'] != $data['pcpName'])){
                     $doctorsAgent = DoctorsAgent::where('doctor_id',$data['pcpName'])->select('agent_id')->get();
                     foreach($doctorsAgent as $val){
                         $getAgentEmail = User::where('id',$val->agent_id)->select('email','last_name','first_name')->first();
@@ -177,8 +177,8 @@ class LeadController extends Controller
                 $lead_details->lStatus = 4;
                 $lead_details->save();
             }
-
-
+            
+                        
             //For customer Mail
             if(!empty($lead_details->email)){
                 $this->custLeadEmail($lead_details->email);
@@ -212,7 +212,7 @@ class LeadController extends Controller
             $typeId = $leadId;
             $this->saveNote($note, $userId, $type, $typeId);
         }
-
+        
         // Continue in file upload
             if(isset($request['uploadDocs']))
             {
@@ -225,7 +225,7 @@ class LeadController extends Controller
                         $check=in_array($extension,$allowedfileExtension);
                         if($check)
                         {
-                            $destinationPath = public_path().'\storage\app\leadDoc';
+                            $destinationPath = public_path().'\storage\app\leadDoc'; 
                             $newFileName = date('Ydm').time().'['.$leadId.']'.$filename;
 
                             $file->move($destinationPath, $newFileName);
@@ -240,7 +240,7 @@ class LeadController extends Controller
         // return redirect()->route('lead.view');
         return redirect()->back()->with('message', 'Record Updated!');
     }
-
+    
     public function custLeadEmail($customerMail) {
         $data = [
                 'from' => 'info@devhealth.net',
@@ -250,7 +250,6 @@ class LeadController extends Controller
         \Mail::send('emails.addLeadUser', ['data' => $data], function ($message) use ($data) {
             $message->from($data['from'])->to($data['to'])->subject('Thanks for joining us');
         });
-
     }
     public function leadEmail($lead_details,$getAgentEmail,$getDoc) {
         $getManagerData = RoleUser::leftjoin('users','role_user.user_id','users.id')->where('role_user.role_id',5)->select('users.email')->get();
@@ -269,7 +268,6 @@ class LeadController extends Controller
                 'to'    => $getAgentEmail->email,
                 'cc'    => $ccArray
 //               'cc'    => 'rmatos@devhealth.net'
-//                'to'    => 'poojaatridhyatech@gmail.com',
             ];
         \Mail::send('emails.addLead', ['data' => $data], function ($message) use ($data) {
             $message->from($data['from'])->to($data['to'])->cc($data['cc'])->subject('New Lead Added');
@@ -350,7 +348,7 @@ class LeadController extends Controller
         $attachId = $request->attachId;
         LeadDetail::where('id',$attachId)->delete();
     }
-
+    
     public function saveNote($note_text,$userId,$type,$typeId){
         $note = new Note();
         $note->notes = $note_text;

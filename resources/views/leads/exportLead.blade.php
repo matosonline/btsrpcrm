@@ -35,8 +35,10 @@
                                             $status = 'Closed | Success';
                                         }elseif($dataVal->lStatus != '' && $dataVal->lStatus == 4){
                                             $status = 'LOST | Failure';
+                                        }elseif($dataVal->lStatus != '' && $dataVal->lStatus == 5){
+                                            $status = 'Pending | Appointment Scheduled';
                                         }else{
-                                             $status = 'Pending | Appointment Scheduled';
+                                             $status = 'Pending - No Answer';
                                         }
                                     @endphp 
                                     <tr>

@@ -26,7 +26,13 @@ class LeadExport implements FromView
                                     WHEN leads.dob <  "1900-01-01" THEN ""
                                     ELSE leads.dob 
                                     END) AS dob'),'leads.phone1','leads.email','leads.agreeOrDisagree',
-                        DB::raw('CONCAT(users.first_name, users.last_name) AS agentName'),'leads.lStatus','leads.created_at')
+                        DB::raw('CONCAT(users.first_name, users.last_name) AS agentName'),'leads.lStatus',
+                         \DB::raw('(CASE
+                                    WHEN leads.healthPlan = 1 THEN "PCP"
+                                    WHEN leads.healthPlan = 2 THEN "Medica"
+                                    WHEN leads.healthPlan = 3 THEN "Care-Plus"
+                                    WHEN leads.healthPlan = 4 THEN "Simply"
+                                    END) AS healthPlan'),'leads.created_at')
                   ->orderBy('leads.created_at','DESC')->get();
 //        echo "<pre>";print_R($query);exit;
         return view('leads.exportLead', compact('query'));

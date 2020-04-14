@@ -10,7 +10,8 @@
                                         <th>Email</th>
                                         <th>Attestation</th>
                                         <th>Assigned Agent</th>
-                                        <th>Status</th>       
+                                        <th>Status</th>     
+                                        <th>Health Plan</th>  
                                         <th>Created</th>
                                     </tr>
                                 </thead>
@@ -50,6 +51,7 @@
                                         <td>{{$attestation}}</td>
                                         <td>{{$dataVal->agentName}}</td>
                                         <td>{{$status}}</td>
+                                        <td>{{$dataVal->healthPlan}}</td>
                                         <td>{{$dataVal->created_at}}</td>
                                     </tr>
                                     @endforeach 
